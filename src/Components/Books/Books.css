@@ -1,0 +1,42 @@
+.displayDishes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dish-image {
+    border: 3px solid black;
+    margin: 0;
+    padding: 0;
+    height: 200px;
+    max-width: 100%;
+    width: 200px;
+}
+
+.dish-text {
+    border-bottom: 3px solid black;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    color: black;
+}
+
+.dish {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 50px;
+}
+
+#dishes-items {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 30%;
+    text-align: center;
+    flex-wrap: wrap;
+}
