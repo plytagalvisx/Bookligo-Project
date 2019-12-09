@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import modelInstance from "../../data/BookligoModel";
 import {Link} from "react-router-dom";
-import "./Fiction.css";
+import "./BookCategories.css";
 import "../../App.css";
 
-class Fiction extends Component {
+class BookCategories extends Component {
     constructor(props) {
         super(props);
         // We create the state to store the various statuses
@@ -142,10 +142,10 @@ class Fiction extends Component {
         return (
             bookCategories = (
                 <div>
-                    <button type="submit" value='subject:Fiction' onClick={this.handleCategory}>Fiction</button>
+                    <button type="submit" value='subject:BookCategories' onClick={this.handleCategory}>BookCategories</button>
                     <button type="submit" value='subject:Romance' onClick={this.handleCategory}>Romance</button>
                     <button type="submit" value='subject:History' onClick={this.handleCategory}>History</button>
-                    <button type="submit" value='subject:Nonfiction' onClick={this.handleCategory}>Non-Fiction</button>
+                    <button type="submit" value='subject:Nonfiction' onClick={this.handleCategory}>Non-BookCategories</button>
                     <button type="submit" value='subject:Science' onClick={this.handleCategory}>Science</button>
                     <button type="submit" value='subject:Classic' onClick={this.handleCategory}>Classic</button>
                     <button type="submit" value='subject:Poems' onClick={this.handleCategory}>Poems</button>
@@ -171,4 +171,4 @@ class Fiction extends Component {
     }
 }
 
-export default Fiction;
+export default BookCategories;

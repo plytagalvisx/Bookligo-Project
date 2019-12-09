@@ -100,8 +100,8 @@ class Book extends Component {
                                     <div className="ingredient">Category:</div>
                                     <div className="ingredient">{book.volumeInfo.categories[0]}</div>
                                     {/*
-                                        Sedan skulle jag kunna skriva typ något som "book.volumeInfo.categories.includes("Fiction")" eller Romance och om
-                                        det blir true då display'ar jag dessa böcker som har Fiction eller Romance genre.
+                                        Sedan skulle jag kunna skriva typ något som "book.volumeInfo.categories.includes("BookCategories")" eller Romance och om
+                                        det blir true då display'ar jag dessa böcker som har BookCategories eller Romance genre.
                                     */}
                                 </div>
                             </div>
