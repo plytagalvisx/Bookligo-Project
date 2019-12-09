@@ -1,7 +1,7 @@
 import ObservableModel from "./ObservableModel";
 import * as Constants from "./apiConfig";
 
-class DinnerModel extends ObservableModel {
+class BookligoModel extends ObservableModel {
   constructor() {
     super();
     this.state = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : {
@@ -32,25 +32,25 @@ class DinnerModel extends ObservableModel {
       num = 0;
     this.state.numberOfGuests = num;
     this.updateLocalStorage();
-    this.notifyObservers("a number of guests has changed");
+    this.notifyObservers("A number of guests has changed");
   }
 
-  //Returns the dish that is on the menu for selected type
-  getSelectedDishes(type) {
+  //Returns the book that is on the list for selected type
+  /*getSelectedBooks(type) {
     return this.state.bookList.filter(book => book.dishTypes.includes(type));
-  }
+  }*/
 
-  //Returns all the dishes on the menu.
-  getFullMenu() {
+  //Returns all the books on the list.
+  getFullList() {
     return this.state.bookList;
   }
 
   //Returns all ingredients for all the dishes on the menu.
-  getAllIngredients() {
+  /*getAllIngredients() {
     return this.state.bookList.map(book => book.extendedIngredients.map(name => name.name)).flat();
-  }
+  }*/
 
-  //Returns the total price of the menu (price per serving of each dish multiplied by number of guests).
+  //Returns the total price of the list (price per book multiplied by number of guests).
   getTotalMenuPrice() {
     let prices = this.state.bookList.map(book => {
       if(book.saleInfo.saleability === "FOR_SALE")
@@ -66,8 +66,8 @@ class DinnerModel extends ObservableModel {
     return sum*guests;
   }
 
-  //Adds the passed dish to the menu.
-  addDishToMenu(book) {
+  //Adds the passed book to the list.
+  addBookToList(book) {
     let bool;
     this.state.bookList.forEach(bookInList => {
       if(bookInList.id === book.id)
@@ -77,24 +77,23 @@ class DinnerModel extends ObservableModel {
     if (!bool) {
       this.state.bookList.push(book);
       this.updateLocalStorage();
-      this.notifyObservers("book added");
+      this.notifyObservers("Book added");
     }
     else
       alert("Book already in the list.");
   }
 
-  //Removes dish with specified id from menu
-  removeDishFromMenu(id) {
-    let book = this.getBook(id);
-    this.state.bookList.pop(book);
+  //Removes book with specified id from list
+  removeBookFromList(id) {
+    this.state.bookList = this.state.bookList.filter(book => book.id !== id);
     this.updateLocalStorage();
     this.notifyObservers("Book removed");
-    console.log(this.getFullMenu());
+    console.log(this.getFullList());
   }
 
   // API methods
 
-  // Returns a dish of specific ID
+  // Returns a book of specific ID
   getBook(id) {
     if(!id)
       id = '';
@@ -120,6 +119,6 @@ class DinnerModel extends ObservableModel {
   }
 }
 
-// Export an instance of DinnerModel
-const modelInstance = new DinnerModel();
+// Export an instance of BookligoModel
+const modelInstance = new BookligoModel();
 export default modelInstance;

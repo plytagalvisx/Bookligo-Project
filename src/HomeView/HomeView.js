@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./HomeView.css";
+import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 
 class HomeView extends Component {
   render() {
     return (
       <div className="Welcome">
-        <p>HomeView to the bookligo store React Startup code!</p>
-
-        <Link to="/search">
-          <button>Start planning</button>
-        </Link>
+          <HeaderNavbar/>
+          <h2>Welcome to Bookligo!</h2>
+          <h3>Find Yourself Something New To Read</h3>
       </div>
     );
   }

@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import BookList from "../Components/BookList/BookList";
-import "./BookListView.css";
+import Fiction from "../Components/Fiction/Fiction";
+import "./BookCategoryView.css";
 import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 
-class BookListView extends Component {
+class BookCategoryView extends Component {
     render() {
         return (
             <div className="SelectDish">
                 <HeaderNavbar/>
-                <h2>This is the Book List View</h2>
+                <h2>This is the Book Category View</h2>
 
                 {/* We pass the model as property to the BookList component */}
-                <BookList model={this.props.model} />
+                <Fiction model={this.props.model}/>
             </div>
         );
     }
 }
 
-export default BookListView;
+export default BookCategoryView;

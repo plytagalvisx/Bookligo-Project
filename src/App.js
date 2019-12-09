@@ -1,11 +1,13 @@
 import React, {Component} from "react";
 import {Route} from "react-router-dom";
 import HomeView from "./HomeView/HomeView";
-import modelInstance from "./data/DinnerModel";
+import modelInstance from "./data/BookligoModel";
 import SearchView from "./SearchView/SearchView";
 import DetailsView from "./DetailsView/DetailsView";
 import "./App.css";
 import BookListView from "./BookListView/BookListView";
+import HeaderNavbar from "./Components/HeaderNavbar/HeaderNavbar";
+import BookCategoryView from "./BookCategoryView/BookCategoryView";
 
 class App extends Component {
     constructor(props) {
@@ -38,6 +40,11 @@ class App extends Component {
                 <Route
                     path="/bookList"
                     render={() => <BookListView model={modelInstance}/>}
+                />
+
+                <Route
+                    path="/bookCategory"
+                    render={() => <BookCategoryView model={modelInstance}/>}
                 />
 
             </div>

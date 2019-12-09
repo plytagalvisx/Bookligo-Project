@@ -15,6 +15,15 @@
     grid-template-columns: 20% 80%;
 }
 
+.dish-image-bookList {
+    border: 3px solid black;
+    margin: 0;
+    padding: 0;
+    height: 140px;
+    max-width: 100%;
+    width: 100px;
+}
+
 @media (max-width: 450px) {
     .grid-sidebar {
         height: auto;

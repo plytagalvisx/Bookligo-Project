@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import modelInstance from "../../data/DinnerModel";
+import modelInstance from "../../data/BookligoModel";
 import "./Book.css";
 
 class Book extends Component {
@@ -61,9 +61,8 @@ class Book extends Component {
         let book = this.state.bookDetails;
         if (book.saleInfo.saleability === "NOT_FOR_SALE") {
             alert("This book is not for sale.");
-        }
-        else {
-            this.props.model.addDishToMenu(this.state.bookDetails);
+        } else {
+            this.props.model.addBookToList(this.state.bookDetails);
         }
 
         return 0;
@@ -87,40 +86,49 @@ class Book extends Component {
                 break;
             case "LOADED":
                 bookDisplay = (
-                        <div key={book.id} id="details-container">
-                            <div id="details-ingredients">
-                                <div id="details-ingredient-header" className="ingredient">Purchase
-                                    for: {guests} people
+                    <div key={book.id} id="details-container">
+                        <div id="details-ingredients">
+                            <div id="details-ingredient-header" className="ingredient">Purchase
+                                for: {guests} people
+                            </div>
+                            <div className="details-line"></div>
+                            <div id="details-ingredient-list">
+                                <div key={book.id} className="details-ingredient-dish">
+                                    <div
+                                        className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? book.saleInfo.retailPrice.amount + ' SEK' : 'NOT FOR SALE'}</div>
+                                    <div className="ingredient">Title: {book.volumeInfo.title}</div>
+                                    <div className="ingredient">Category:</div>
+                                    <div className="ingredient">{book.volumeInfo.categories[0]}</div>
+                                    {/*
+                                        Sedan skulle jag kunna skriva typ något som "book.volumeInfo.categories.includes("Fiction")" eller Romance och om
+                                        det blir true då display'ar jag dessa böcker som har Fiction eller Romance genre.
+                                    */}
                                 </div>
-                                <div className="details-line"></div>
-                                <div id="details-ingredient-list">
-                                    <div key={book.id} className="details-ingredient-dish">
-                                        <div className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? book.saleInfo.retailPrice.amount + ' SEK' : 'NOT FOR SALE' }</div>
-                                        <div className="ingredient">{book.volumeInfo.title}</div>
-                                    </div>
-                                </div>
-                                <div className="details-line"></div>
-                                <div id="details-ingredient-footer">{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * guests) + ' SEK' : '' }</div>
-                                <Link to="/bookList">
-                                    <button id="addToMenuBtn" className="startBtn" onClick={this.addToMenuButton}>Add to
-                                        list</button>
-                                </Link>
                             </div>
-                            <div id="details-left-container">
-                                <div className="details-heading">{book.volumeInfo.title}</div>
-                                <img className="dish-image" alt=""
-                                     src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
-
-                                <div id="details-image-text">{book.volumeInfo.description}</div>
-                                <Link to="/search">
-                                    <button id="backToSearchBtn" className="backBtn">Back to search</button>
-                                </Link>
-                            </div>
-                            <div id="details-preparation">
-                                <div className="details-heading">Search Info</div>
-                                {/*<div className="details-text">{book.searchInfo.textSnippet}</div>*/}
-                            </div>
+                            <div className="details-line"></div>
+                            <div
+                                id="details-ingredient-footer">{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * guests) + ' SEK' : ''}</div>
+                            <Link to="/bookList">
+                                <button id="addToMenuBtn" className="startBtn" onClick={this.addToMenuButton}>Add to
+                                    list
+                                </button>
+                            </Link>
                         </div>
+                        <div id="details-left-container">
+                            <div className="details-heading">{book.volumeInfo.title}</div>
+                            <img className="dish-image" alt=""
+                                 src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
+
+                            <div id="details-image-text">{book.volumeInfo.description}</div>
+                            <Link to="/search">
+                                <button id="backToSearchBtn" className="backBtn">Back to search</button>
+                            </Link>
+                        </div>
+                        <div id="details-preparation">
+                            <div className="details-heading">Search Info</div>
+                            {/*<div className="details-text">{book.searchInfo.textSnippet}</div>*/}
+                        </div>
+                    </div>
                 );
                 break;
             default:

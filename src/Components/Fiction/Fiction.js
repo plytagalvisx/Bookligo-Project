@@ -1,27 +1,25 @@
 import React, {Component} from "react";
 import modelInstance from "../../data/BookligoModel";
 import {Link} from "react-router-dom";
-import "./Books.css";
+import "./Fiction.css";
 import "../../App.css";
-import {debounce} from "lodash";
 
-class Books extends Component {
+class Fiction extends Component {
     constructor(props) {
         super(props);
         // We create the state to store the various statuses
         // e.g. API data loading or error
         this.state = {
             status: "LOADING",
-            query: '',
             sortBooks: '',
             books: [],
-            type: ''
+            type: '',
+            bookCategory: ''
         };
-        this.handleSearch = this.handleSearch.bind(this);
         this.handleSort = this.handleSort.bind(this);
-        this.pressSearchButton = this.pressSearchButton.bind(this);
         this.handleMissingProperties = this.handleMissingProperties.bind(this);
         this.handleSortedBooks = this.handleSortedBooks.bind(this);
+        this.handleCategory = this.handleCategory.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -30,9 +28,10 @@ class Books extends Component {
     componentDidMount() {
         // when data is retrieved we update the state
         // this will cause the component to re-render
-        let query = this.state.query;
+        //let query = this.state.query;
+        let subject = this.state.bookCategory;
         modelInstance
-            .getAllBooks(query)
+            .getAllBooks(subject)
             .then(books => {
                 let withFilledProperties = this.handleMissingProperties(books);
                 this.setState({
@@ -45,19 +44,6 @@ class Books extends Component {
                     status: "ERROR"
                 });
             });
-    }
-
-    handleSearch = debounce((query) => {
-        this.setState({query});
-        this.setState({status: "LOADING"}, this.componentDidMount);
-    }, 400);
-
-    /*handleSearch(e) {
-        this.setState({query: e.target.value});
-    }*/
-
-    pressSearchButton(e) {
-        this.setState({status: "LOADING"}, this.componentDidMount);
     }
 
     handleSort(event) {
@@ -93,29 +79,36 @@ class Books extends Component {
     }
 
     handleSortedBooks() {
-        let sortedBooks = this.state.books.sort((a, b) => {
+        let sortedBooks = this.state.books.sort((book1, book2) => {
             let isMostPopularBooks = (this.state.sortBooks === "Most Popular");
             let isNewestBooks = (this.state.sortBooks === "Publication date, new to old");
             let isOldestBooks = (this.state.sortBooks === "Publication date, old to new");
 
             if (isMostPopularBooks) {
-                return parseFloat(b.volumeInfo.averageRating) - parseFloat(a.volumeInfo.averageRating)
+                return parseFloat(book2.volumeInfo.averageRating) - parseFloat(book1.volumeInfo.averageRating)
             } else if (isNewestBooks) {
-                return parseInt(b.volumeInfo.publishedDate.substring(0, 4)) - parseInt(a.volumeInfo.publishedDate.substring(0, 4))
+                return parseInt(book2.volumeInfo.publishedDate.substring(0, 4)) - parseInt(book1.volumeInfo.publishedDate.substring(0, 4))
             } else if (isOldestBooks) {
-                return parseInt(a.volumeInfo.publishedDate.substring(0, 4)) - parseInt(b.volumeInfo.publishedDate.substring(0, 4))
+                return parseInt(book1.volumeInfo.publishedDate.substring(0, 4)) - parseInt(book2.volumeInfo.publishedDate.substring(0, 4))
             }
         });
 
         return sortedBooks;
     }
 
+    handleCategory(event) {
+        this.setState({
+            status: "LOADING",
+            bookCategory: event.target.value
+        },
+            this.componentDidMount);
+    }
+
     render() {
         let booksList = null;
         let loader = null;
-        let query = this.state.query;
-        let queryExists = (!query);
         let sortedBooks = this.handleSortedBooks();
+        let bookCategories;
 
         switch (this.state.status) {
             case "LOADING":
@@ -138,34 +131,44 @@ class Books extends Component {
                             </div>
                         </div>
                     </Link>
-                ))
+                ));
                 break;
             default:
                 booksList =
-                    <div
-                        id="updateTitle">{queryExists ? 'Please enter something into the field above to start a search.' : ''}</div>
+                    <div>Choose Book Category</div>
                 break;
         }
 
         return (
-                <div className="Dishes">
-                    <h3>Books</h3>
-                    <input id="inputDishTitle" type="text" value={this.state.query}
-                           onChange={e => this.handleSearch(e.target.value)}/>
-                    <button type="submit" onClick={this.pressSearchButton}>Search</button>
-                    <label className="space">
-                        <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort}>
-                            <option>Sort</option>
-                            <option>Most Popular</option>
-                            <option>Publication date, old to new</option>
-                            <option>Publication date, new to old</option>
-                        </select>
-                    </label>
-                    <div className="outer-loader">{loader}</div>
-                    <div className="displayDishes">{booksList}</div>
+            bookCategories = (
+                <div>
+                    <button type="submit" value='subject:Fiction' onClick={this.handleCategory}>Fiction</button>
+                    <button type="submit" value='subject:Romance' onClick={this.handleCategory}>Romance</button>
+                    <button type="submit" value='subject:History' onClick={this.handleCategory}>History</button>
+                    <button type="submit" value='subject:Nonfiction' onClick={this.handleCategory}>Non-Fiction</button>
+                    <button type="submit" value='subject:Science' onClick={this.handleCategory}>Science</button>
+                    <button type="submit" value='subject:Classic' onClick={this.handleCategory}>Classic</button>
+                    <button type="submit" value='subject:Poems' onClick={this.handleCategory}>Poems</button>
+                    <button type="submit" value='subject:Fantasy' onClick={this.handleCategory}>Fantasy</button>
+                    <button type="submit" value='subject:Thriller' onClick={this.handleCategory}>Thriller</button>
                 </div>
+            ),
+
+            <div className="Dishes">
+                {bookCategories}
+                <label className="space">
+                    <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort}>
+                        <option>Sort</option>
+                        <option>Most Popular</option>
+                        <option>Publication date, old to new</option>
+                        <option>Publication date, new to old</option>
+                    </select>
+                </label>
+                <div className="outer-loader">{loader}</div>
+                <div className="displayDishes">{booksList}</div>
+            </div>
         );
     }
 }
 
-export default Books;
+export default Fiction;
