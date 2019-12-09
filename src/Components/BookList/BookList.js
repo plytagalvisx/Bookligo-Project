@@ -8,12 +8,12 @@ class Sidebar extends Component {
 
         // we put on state the properties we want to use and modify in the component
         this.state = {
-            numberOfGuests: this.props.model.getNumberOfGuests(),
+            numberOfBooks: this.props.model.getNumberOfBooks(),
             books: this.props.model.getFullList(),
             price: this.props.model.getTotalMenuPrice(),
             navBarOpen: false
         };
-        this.removeDishFromMenuButton = this.removeDishFromMenuButton.bind(this);
+        this.removeBookFromListButton = this.removeBookFromListButton.bind(this);
         this.handleNavbar = this.handleNavbar.bind(this);
     }
 
@@ -34,28 +34,28 @@ class Sidebar extends Component {
     // cause the component to re-render
     update() {
         this.setState({
-            numberOfGuests: this.props.model.getNumberOfGuests(),
+            numberOfBooks: this.props.model.getNumberOfBooks(),
             books: this.props.model.getFullList(),
             price: this.props.model.getTotalMenuPrice(),
         });
     }
 
     // our handler for the input's on change event
-    onNumberOfGuestsChanged = e => {
-        this.props.model.setNumberOfGuests(e.target.value);
+    onNumberOfBooksChanged = e => {
+        this.props.model.setNumberOfBooks(e.target.value);
     };
 
-    removeDishFromMenuButton(dishId) {
-        this.props.model.removeBookFromList(dishId);
-        console.log("The dish has been removed");
+    removeBookFromListButton(bookId) {
+        this.props.model.removeBookFromList(bookId);
+        console.log("The book has been removed");
     }
 
     handleNavbar = () => {
         this.setState({navBarOpen: !this.state.navBarOpen});
-    }
+    };
 
     render() {
-        let guests = this.state.numberOfGuests;
+        let books = this.state.numberOfBooks;
         let price = this.state.price;
         let dishesContainer;
 
@@ -66,10 +66,10 @@ class Sidebar extends Component {
                 <div>
                     {book.volumeInfo.title}
                 </div>
-                <div>{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * guests) + ' SEK' : 'NOT FOR SALE'}</div>
+                <div>{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}</div>
                 <Link to="/bookList">
                     <button id="removeDishBtn" className="removeDishBtn"
-                            onClick={() => this.removeDishFromMenuButton(book.id)}>
+                            onClick={() => this.removeBookFromListButton(book.id)}>
                         <p className="removeBtn">&#x1f5d1;</p>
                     </button>
                 </Link>
@@ -90,8 +90,8 @@ class Sidebar extends Component {
                 collapsible = (
                     <div className="collapsible">
                         <div id="sidebar-people">Amount:</div>
-                        <input id="sidebar-num-people" type="number" value={this.state.numberOfGuests}
-                               onChange={this.onNumberOfGuestsChanged}/>
+                        <input id="sidebar-num-people" type="number" value={this.state.numberOfBooks}
+                               onChange={this.onNumberOfBooksChanged}/>
                         <div id="flex-between">
                             <div>Book Title</div>
                             <div>Cost</div>

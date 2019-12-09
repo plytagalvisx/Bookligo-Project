@@ -5,7 +5,7 @@ class BookligoModel extends ObservableModel {
   constructor() {
     super();
     this.state = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : {
-      numberOfGuests: 0,
+      numberOfBooks: 0,
       bookList: [],
       price: 0,
     };
@@ -16,23 +16,23 @@ class BookligoModel extends ObservableModel {
   }
 
   /**
-   * Get the number of guests
+   * Get the number of books
    * @returns {number}
    */
-  getNumberOfGuests() {
-    return this.state.numberOfGuests;
+  getNumberOfBooks() {
+    return this.state.numberOfBooks;
   }
 
   /**
-   * Set number of guests
+   * Set number of books
    * @param {number} num
    */
-  setNumberOfGuests(num) {
+  setNumberOfBooks(num) {
     if(num < 0)
       num = 0;
-    this.state.numberOfGuests = num;
+    this.state.numberOfBooks = num;
     this.updateLocalStorage();
-    this.notifyObservers("A number of guests has changed");
+    this.notifyObservers("A number of books has changed");
   }
 
   //Returns the book that is on the list for selected type
@@ -50,7 +50,7 @@ class BookligoModel extends ObservableModel {
     return this.state.bookList.map(book => book.extendedIngredients.map(name => name.name)).flat();
   }*/
 
-  //Returns the total price of the list (price per book multiplied by number of guests).
+  //Returns the total price of the list (price per book multiplied by number of books).
   getTotalMenuPrice() {
     let prices = this.state.bookList.map(book => {
       if(book.saleInfo.saleability === "FOR_SALE")
@@ -61,9 +61,9 @@ class BookligoModel extends ObservableModel {
         return 0;
       }
     });
-    let guests = this.getNumberOfGuests();
+    let noOfBooks = this.getNumberOfBooks();
     let sum = prices.reduce((total, amount) => total + amount, 0);
-    return sum*guests;
+    return sum*noOfBooks;
   }
 
   //Adds the passed book to the list.

@@ -13,7 +13,7 @@ class Book extends Component {
         // this.state har samma content som staten i redux store.
         this.state = {
             status: "LOADING",
-            numberOfGuests: this.props.model.getNumberOfGuests(),
+            numberOfBooks: this.props.model.getNumberOfBooks(),
             bookDetails: '',
             bookId: hash      // Dish ID hämtas via hash/href
         };
@@ -53,7 +53,7 @@ class Book extends Component {
     // cause the component to re-render
     update() {
         this.setState({
-            numberOfGuests: this.props.model.getNumberOfGuests()
+            numberOfBooks: this.props.model.getNumberOfBooks()
         });
     }
 
@@ -69,7 +69,7 @@ class Book extends Component {
     }
 
     render() {
-        let guests = this.state.numberOfGuests;
+        let books = this.state.numberOfBooks;
         let book = this.state.bookDetails;
         let bookDisplay = null;
 
@@ -89,7 +89,7 @@ class Book extends Component {
                     <div key={book.id} id="details-container">
                         <div id="details-ingredients">
                             <div id="details-ingredient-header" className="ingredient">Purchase
-                                for: {guests} people
+                                for: {books} people
                             </div>
                             <div className="details-line"></div>
                             <div id="details-ingredient-list">
@@ -98,16 +98,12 @@ class Book extends Component {
                                         className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? book.saleInfo.retailPrice.amount + ' SEK' : 'NOT FOR SALE'}</div>
                                     <div className="ingredient">Title: {book.volumeInfo.title}</div>
                                     <div className="ingredient">Category:</div>
-                                    <div className="ingredient">{book.volumeInfo.categories[0]}</div>
-                                    {/*
-                                        Sedan skulle jag kunna skriva typ något som "book.volumeInfo.categories.includes("BookCategories")" eller Romance och om
-                                        det blir true då display'ar jag dessa böcker som har BookCategories eller Romance genre.
-                                    */}
+                                    <div className="ingredient">{(book.volumeInfo.hasOwnProperty('categories')) ? book.volumeInfo.categories[0] : book.volumeInfo['categories'] = []}</div>
                                 </div>
                             </div>
                             <div className="details-line"></div>
                             <div
-                                id="details-ingredient-footer">{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * guests) + ' SEK' : ''}</div>
+                                id="details-ingredient-footer">{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : ''}</div>
                             <Link to="/bookList">
                                 <button id="addToMenuBtn" className="startBtn" onClick={this.addToMenuButton}>Add to
                                     list

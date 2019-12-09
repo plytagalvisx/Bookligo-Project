@@ -72,7 +72,6 @@ class Books extends Component {
             let publishedDateIsUndefined = (book.volumeInfo.hasOwnProperty('publishedDate') === false);
             let imageLinksIsUndefined = (book.volumeInfo.hasOwnProperty('imageLinks') === false);
             let averageRatingIsUndefined = (book.volumeInfo.hasOwnProperty('averageRating') === false);
-            let categoryIsUndefined = (book.volumeInfo.hasOwnProperty('categories') === false);
 
             if (publishedDateIsUndefined) {
                 book.volumeInfo['publishedDate'] = '0000';
@@ -82,8 +81,6 @@ class Books extends Component {
                 }
             } else if (averageRatingIsUndefined) {
                 book.volumeInfo['averageRating'] = '0';
-            } else if (categoryIsUndefined) {
-                console.log(book.volumeInfo['categories'] = []);
             }
 
             return book;
@@ -93,17 +90,17 @@ class Books extends Component {
     }
 
     handleSortedBooks() {
-        let sortedBooks = this.state.books.sort((a, b) => {
+        let sortedBooks = this.state.books.sort((book1, book2) => {
             let isMostPopularBooks = (this.state.sortBooks === "Most Popular");
             let isNewestBooks = (this.state.sortBooks === "Publication date, new to old");
             let isOldestBooks = (this.state.sortBooks === "Publication date, old to new");
 
             if (isMostPopularBooks) {
-                return parseFloat(b.volumeInfo.averageRating) - parseFloat(a.volumeInfo.averageRating)
+                return parseFloat(book2.volumeInfo.averageRating) - parseFloat(book1.volumeInfo.averageRating)
             } else if (isNewestBooks) {
-                return parseInt(b.volumeInfo.publishedDate.substring(0, 4)) - parseInt(a.volumeInfo.publishedDate.substring(0, 4))
+                return parseInt(book2.volumeInfo.publishedDate.substring(0, 4)) - parseInt(book1.volumeInfo.publishedDate.substring(0, 4))
             } else if (isOldestBooks) {
-                return parseInt(a.volumeInfo.publishedDate.substring(0, 4)) - parseInt(b.volumeInfo.publishedDate.substring(0, 4))
+                return parseInt(book1.volumeInfo.publishedDate.substring(0, 4)) - parseInt(book2.volumeInfo.publishedDate.substring(0, 4))
             }
         });
 

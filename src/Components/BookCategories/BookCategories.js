@@ -28,7 +28,6 @@ class BookCategories extends Component {
     componentDidMount() {
         // when data is retrieved we update the state
         // this will cause the component to re-render
-        //let query = this.state.query;
         let subject = this.state.bookCategory;
         modelInstance
             .getAllBooks(subject)
@@ -58,7 +57,6 @@ class BookCategories extends Component {
             let publishedDateIsUndefined = (book.volumeInfo.hasOwnProperty('publishedDate') === false);
             let imageLinksIsUndefined = (book.volumeInfo.hasOwnProperty('imageLinks') === false);
             let averageRatingIsUndefined = (book.volumeInfo.hasOwnProperty('averageRating') === false);
-            let categoryIsUndefined = (book.volumeInfo.hasOwnProperty('categories') === false);
 
             if (publishedDateIsUndefined) {
                 book.volumeInfo['publishedDate'] = '0000';
@@ -68,8 +66,6 @@ class BookCategories extends Component {
                 }
             } else if (averageRatingIsUndefined) {
                 book.volumeInfo['averageRating'] = '0';
-            } else if (categoryIsUndefined) {
-                console.log(book.volumeInfo['categories'] = []);
             }
 
             return book;
@@ -142,10 +138,10 @@ class BookCategories extends Component {
         return (
             bookCategories = (
                 <div>
-                    <button type="submit" value='subject:BookCategories' onClick={this.handleCategory}>BookCategories</button>
+                    <button type="submit" value='subject:Fiction' onClick={this.handleCategory}>Fiction</button>
                     <button type="submit" value='subject:Romance' onClick={this.handleCategory}>Romance</button>
                     <button type="submit" value='subject:History' onClick={this.handleCategory}>History</button>
-                    <button type="submit" value='subject:Nonfiction' onClick={this.handleCategory}>Non-BookCategories</button>
+                    <button type="submit" value='subject:Nonfiction' onClick={this.handleCategory}>Nonfiction</button>
                     <button type="submit" value='subject:Science' onClick={this.handleCategory}>Science</button>
                     <button type="submit" value='subject:Classic' onClick={this.handleCategory}>Classic</button>
                     <button type="submit" value='subject:Poems' onClick={this.handleCategory}>Poems</button>
