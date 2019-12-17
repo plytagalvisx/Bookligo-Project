@@ -1,0 +1,6 @@
+#container-404 {
+    grid-column: 1 / span 2;
+    grid-row: 6;
+    font-size: xx-large;
+    text-align: center;
+}
