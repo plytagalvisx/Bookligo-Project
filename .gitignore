@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /src/firebaseConfig/firebaseConfig.js
+/src/data/googlebooksapiConfig.js
 
 # testing
 /coverage

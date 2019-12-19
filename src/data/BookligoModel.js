@@ -1,5 +1,5 @@
 import ObservableModel from "./ObservableModel";
-import * as Constants from "./apiConfig";
+import * as Constants from "./googlebooksapiConfig";
 
 class BookligoModel extends ObservableModel {
   constructor() {
