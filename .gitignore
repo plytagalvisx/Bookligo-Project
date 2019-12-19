@@ -4,6 +4,7 @@
 /node_modules
 random.txt
 /src/firebaseConfig/random2.js
+/src/firebaseConfig/FireBase.js
 # testing
 /coverage
 
