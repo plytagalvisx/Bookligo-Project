@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import fireBase from "../firebaseConfig/FireBase";
+import fireBase from "../firebaseConfig/firebaseConfig";
 
 class LoginView extends Component {
     constructor(props) {

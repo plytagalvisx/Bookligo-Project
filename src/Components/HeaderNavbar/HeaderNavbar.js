@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./HeaderNavbar.css";
 import {Link} from "react-router-dom";
-import fireBase from "../../firebaseConfig/FireBase";
+import fireBase from "../../firebaseConfig/firebaseConfig";
 
 class HeaderNavbar extends Component {
     constructor(props) {

@@ -7,7 +7,7 @@ import DetailsView from "./DetailsView/DetailsView";
 import "./App.css";
 import BookListView from "./BookListView/BookListView";
 import BookCategoryView from "./BookCategoryView/BookCategoryView";
-import fireBase from "./firebaseConfig/FireBase";
+import fireBase from "./firebaseConfig/firebaseConfig";
 import LoginView from "./LoginView/LoginView";
 import Error404View from "./Error404View/Error404View";
 import Switch from "react-router-dom/Switch";
