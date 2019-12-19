@@ -7,6 +7,7 @@ class BookligoModel extends ObservableModel {
     this.state = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : {
       numberOfBooks: 0,
       bookList: [],
+      shoppingCart: [],
       price: 0,
     };
   }
@@ -43,6 +44,27 @@ class BookligoModel extends ObservableModel {
   //Returns all the books on the list.
   getFullList() {
     return this.state.bookList;
+  }
+
+  //Returns all the books on the shopping cart.
+  getFullShoppingCart() {
+    return this.state.shoppingCart;
+  }
+
+  //Returns the total price of the shopping cart (price per book multiplied by number of books).
+  getTotalShoppingCartPrice() {
+    let prices = this.state.shoppingCart.map(book => {
+      if(book.saleInfo.saleability === "FOR_SALE")
+      {
+        return book.saleInfo.retailPrice.amount;
+      }
+      else {
+        return 0;
+      }
+    });
+    let noOfBooks = this.getNumberOfBooks();
+    let sum = prices.reduce((total, amount) => total + amount, 0);
+    return sum*noOfBooks;
   }
 
   //Returns all ingredients for all the dishes on the menu.
