@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 random.txt
+/src/firebaseConfig/random2.js
 # testing
 /coverage
 
