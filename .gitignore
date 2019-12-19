@@ -2,8 +2,7 @@
 
 # dependencies
 /node_modules
-/.firebase
-
+random.txt
 # testing
 /coverage
 
