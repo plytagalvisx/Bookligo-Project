@@ -17,6 +17,9 @@ class Books extends Component {
             books: [],
             type: ''
         };
+        
+        this.delayedCallback = debounce(this.apiCall, 800);
+        
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSort = this.handleSort.bind(this);
         this.pressSearchButton = this.pressSearchButton.bind(this);
@@ -47,10 +50,16 @@ class Books extends Component {
             });
     }
 
-    handleSearch = debounce((query) => {
-        this.setState({query});
+    handleSearch(event) {
+        event.persist();
+        this.delayedCallback(event);
+    }
+    
+    apiCall = (event) => {
+        console.log(event.target.value);
+        this.setState({query: event.target.value});
         this.setState({status: "LOADING"}, this.componentDidMount);
-    }, 400);
+    } 
 
     /*handleSearch(e) {
         this.setState({query: e.target.value});
@@ -147,8 +156,8 @@ class Books extends Component {
         return (
                 <div className="Dishes">
                     <h3>Books</h3>
-                    <input id="inputDishTitle" type="text" value={this.state.query}
-                           onChange={e => this.handleSearch(e.target.value)}/>
+                    <input id="inputDishTitle" type="text" defaultValue={this.state.query}
+                           onChange={e => this.handleSearch(e)}/>
                     <button type="submit" onClick={this.pressSearchButton}>Search</button>
                     <label className="space">
                         <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort}>
