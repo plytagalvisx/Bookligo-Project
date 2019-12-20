@@ -3,15 +3,22 @@ This repository contains the code for project "Bookligo", which focuses on the M
 
 Bookligo is an application that allows the user to search for books (provided by Google Books API), look up their information and save them in a "to-read" booklist. The application also allows the user to put books in their shopping cart for purchase (note that this feature is only a simulation) which will require the user to login/sign up to an account. 
 
-The following describes features of the application; those that are marked have already been implemented otherwise it has yet to be completed:
-- [X] Use React to implement the View components.
-- [X] Allow the user to login/sign up using Firebase and its authentication.
-- [ ] Allow the user to search for and view information of a specific book.
-- [ ] Implement a simulated shopping cart, where the user can add or remove items from the cart.
-- [X] Implement a book-list, where the user can add or delete books from the list.
-- [X] The user can navigate through the application.
-- [ ] The user should be able to comment and/or review a specific book. 
-- [ ] Data should be persisted even after reloading the page.
+The following describes features of the application as well as the implementation status:
+
+| Feature                                         | Description | Status |
+| :---------------------------------------------- | :---------- | :---------- |
+| Use React framwork to implement View components |             | Done        |
+| Implement login/sign up system | Implement the login/sign up system using Firebase and its authentication, where the user is able to create or login into an account using their email and a password. | Done |
+| Ability to search and view a specific book's information | The application should fetch the required information from the API and display that information in a usable way for the user. The minimum required information is the book's title, author and publication. | In progress |
+| Ability to add/remove items from shopping cart | The user should be able to add or remove items that they wish to "purchase" in the shopping cart - note that this feature is only a simulation of a shopping cart and does not actually execute any real financial transactions. For this, it is required that a structure for the shopping cart is decided and implemented in the model. | In progress |
+| Ability to add/remove items from book-list | The book-list is intended to store the books that the user wishes to read in the future.  For this, it is required that a structure for the book-list is decided and implemented in the model. | Done |
+| Ability to navigate through the application | The user should be able to navigate through the application in a manner that is intuitive for the user. | In progress |
+| Ability to leave a review/comment for a specific book | To review a specific book, the application provides the user to rate the book with stars where the more stars a book has the better it is. Currently, the maximum number of stars that a user can give for each book is 5. |  |
+| Data should be persisted even after page reload | Data that has been inputted by the user should not disappear when the page refreshes/reloads. More specifically, the page should stay the same for the user even after reloading. For this, either local storage or cookies can be used. |  |
+| Data specific for each account should be persisted/saved | The user should be able to log in to an account and find the ratings as well as the items in their book-list and shopping cart has remained. |  |
+
+
+
 
 ## The API in this project
 This application uses the [Google Books API](https://developers.google.com/books/docs/v1/using).
