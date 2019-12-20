@@ -59,17 +59,7 @@ class Book extends Component {
     }
 
     addToBookListButton() {
-        /*let book = this.state.bookDetails;
-        if (book.saleInfo.saleability === "NOT_FOR_SALE") {
-            alert("This book is not for sale.");
-        } else {
-            this.props.model.addBookToList(this.state.bookDetails);
-        }
-
-        return 0;*/
-
         this.props.model.addBookToList(this.state.bookDetails);
-
     }
 
     addBookToShoppingCart() {

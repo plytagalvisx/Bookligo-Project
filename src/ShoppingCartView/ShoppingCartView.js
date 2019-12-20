@@ -9,7 +9,7 @@ class ShoppingCartView extends Component {
                 <HeaderNavbar/>
                 <h2>This is the Shopping Cart View</h2>
 
-                {/* We pass the model as property to the BookList component */}
+                {/* We pass the model as property to the ShoppingCart component */}
                 <ShoppingCart model={this.props.model} />
             </div>
         );
