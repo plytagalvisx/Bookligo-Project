@@ -27,9 +27,6 @@ class HeaderNavbar extends Component {
                     <li>
                         <Link to="/bookList">My Book List</Link>
                     </li>
-                    <li>
-                        <Link to="/search">&#128269;</Link>
-                    </li>
                     <li className="dropdown">
                         <a href="javascript:void(0)" className="dropbtn">Dropdown</a>
                         <div className="dropdown-content">
@@ -39,7 +36,13 @@ class HeaderNavbar extends Component {
                         </div>
                     </li>
                     <li>
+                        <Link to="/search">&#128269;</Link>
+                    </li>
+                    <li>
                         <a onClick={this.logout}>Logout</a>
+                    </li>
+                    <li className="shoppingCart">
+                        <Link to="/shoppingCart">&#x1F6D2;</Link>
                     </li>
                 </ul>
             </div>

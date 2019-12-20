@@ -48,3 +48,13 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.shoppingCart {
+    position: absolute;
+    right: 20px;
+}
+
+.headerBar {
+    position: absolute;
+    right: 880px;
+}

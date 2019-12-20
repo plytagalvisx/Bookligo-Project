@@ -17,7 +17,8 @@ class Book extends Component {
             bookDetails: '',
             bookId: hash      // Dish ID hämtas via hash/href
         };
-        this.addToMenuButton = this.addToMenuButton.bind(this);
+        this.addToBookListButton = this.addToBookListButton.bind(this);
+        this.addBookToShoppingCart = this.addBookToShoppingCart.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -57,12 +58,26 @@ class Book extends Component {
         });
     }
 
-    addToMenuButton() {
-        let book = this.state.bookDetails;
+    addToBookListButton() {
+        /*let book = this.state.bookDetails;
         if (book.saleInfo.saleability === "NOT_FOR_SALE") {
             alert("This book is not for sale.");
         } else {
             this.props.model.addBookToList(this.state.bookDetails);
+        }
+
+        return 0;*/
+
+        this.props.model.addBookToList(this.state.bookDetails);
+
+    }
+
+    addBookToShoppingCart() {
+        let book = this.state.bookDetails;
+        if (book.saleInfo.saleability === "NOT_FOR_SALE") {
+            alert("This book is not for sale.");
+        } else {
+            this.props.model.addBookToShoppingCart(this.state.bookDetails);
         }
 
         return 0;
@@ -105,8 +120,13 @@ class Book extends Component {
                             <div
                                 id="details-ingredient-footer">{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : ''}</div>
                             <Link to="/bookList">
-                                <button id="addToMenuBtn" className="startBtn" onClick={this.addToMenuButton}>Add to
-                                    list
+                                <button id="addToMenuBtn" className="startBtn" onClick={this.addToBookListButton}>Add to
+                                    my book list
+                                </button>
+                            </Link>
+                            <Link to="/shoppingCart">
+                                <button id="addToMenuBtn" className="startBtn" onClick={this.addBookToShoppingCart}>Add to
+                                    shopping cart
                                 </button>
                             </Link>
                         </div>

@@ -41,14 +41,34 @@ class BookligoModel extends ObservableModel {
     return this.state.bookList.filter(book => book.dishTypes.includes(type));
   }*/
 
-  //Returns all the books on the list.
-  getFullList() {
-    return this.state.bookList;
-  }
-
   //Returns all the books on the shopping cart.
   getFullShoppingCart() {
     return this.state.shoppingCart;
+  }
+
+  //Adds the passed book to the shopping cart.
+  addBookToShoppingCart(book) {
+    let bool;
+    this.state.shoppingCart.forEach(bookInList => {
+      if(bookInList.id === book.id)
+        bool = true;
+    });
+
+    if (!bool) {
+      this.state.shoppingCart.push(book);
+      this.updateLocalStorage();
+      this.notifyObservers("Book added to shopping cart");
+    }
+    else
+      alert("Book already in the shopping cart.");
+  }
+
+  //Removes book with specified id from shopping cart
+  removeBookFromShoppingCart(id) {
+    this.state.shoppingCart = this.state.shoppingCart.filter(book => book.id !== id);
+    this.updateLocalStorage();
+    this.notifyObservers("Book removed from shopping cart");
+    console.log(this.getFullShoppingCart());
   }
 
   //Returns the total price of the shopping cart (price per book multiplied by number of books).
@@ -72,8 +92,13 @@ class BookligoModel extends ObservableModel {
     return this.state.bookList.map(book => book.extendedIngredients.map(name => name.name)).flat();
   }*/
 
+  //Returns all the books on the list.
+  getFullList() {
+    return this.state.bookList;
+  }
+
   //Returns the total price of the list (price per book multiplied by number of books).
-  getTotalMenuPrice() {
+  /*getTotalMenuPrice() {
     let prices = this.state.bookList.map(book => {
       if(book.saleInfo.saleability === "FOR_SALE")
       {
@@ -86,7 +111,7 @@ class BookligoModel extends ObservableModel {
     let noOfBooks = this.getNumberOfBooks();
     let sum = prices.reduce((total, amount) => total + amount, 0);
     return sum*noOfBooks;
-  }
+  }*/
 
   //Adds the passed book to the list.
   addBookToList(book) {
@@ -99,7 +124,7 @@ class BookligoModel extends ObservableModel {
     if (!bool) {
       this.state.bookList.push(book);
       this.updateLocalStorage();
-      this.notifyObservers("Book added");
+      this.notifyObservers("Book added to list");
     }
     else
       alert("Book already in the list.");
@@ -109,11 +134,12 @@ class BookligoModel extends ObservableModel {
   removeBookFromList(id) {
     this.state.bookList = this.state.bookList.filter(book => book.id !== id);
     this.updateLocalStorage();
-    this.notifyObservers("Book removed");
+    this.notifyObservers("Book removed from list");
     console.log(this.getFullList());
   }
 
-  // API methods
+
+  // API methods:
 
   // Returns a book of specific ID
   getBook(id) {

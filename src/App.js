@@ -6,6 +6,7 @@ import SearchView from "./SearchView/SearchView";
 import DetailsView from "./DetailsView/DetailsView";
 import "./App.css";
 import BookListView from "./BookListView/BookListView";
+import ShoppingCartView from "./ShoppingCartView/ShoppingCartView";
 import BookCategoryView from "./BookCategoryView/BookCategoryView";
 import fireBase from "./firebaseConfig/firebaseConfig";
 import LoginView from "./LoginView/LoginView";
@@ -63,6 +64,11 @@ class App extends Component {
                     <Route
                         path="/bookList"
                         render={() => <BookListView model={modelInstance}/>}
+                    />
+
+                    <Route
+                        path="/shoppingCart"
+                        render={() => <ShoppingCartView model={modelInstance}/>}
                     />
 
                     <Route
