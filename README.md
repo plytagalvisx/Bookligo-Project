@@ -18,7 +18,7 @@ This application uses the [Google Books API](https://developers.google.com/books
 
 
 ## Understanding the code
-* [index.html](/index.html) - The default page for this application. 
+* [index.html](/public/index.html) - The default page for this application. 
 * [src/data/BookligoModel.js](/src/data/BookligoModel.js) - This is a skeleton for the model of the 
 application, it supports the functionality needed (number of books, total price of books, etc.). It also 
 contains API methods that fetches the needed data for this application. For example, getAllBooks function is implemented using `fetch()` and Observer pattern is also implemented.
@@ -26,6 +26,6 @@ contains API methods that fetches the needed data for this application. For exam
 * [src/index.css](/src/index.css) - Contains global styles for this application. 
 * [src/App.js](/src/App.js) - This is the overall code (root component) of the application. It is responsible for initial setup of the 
 App.
-* [src/Components/Book.js](/src/Components/Book.js), [src/Components/Books.js](/src/Components/Books.js) etc. - contain the `.js` and `.css` file for each component. 
-* [src/DetailsView.js](/src/DetailsView.js), [src/SearchView.js](/src/SearchView.js) etc. - contain the `.js` and `.css` file for each view containing certain components. 
+* [src/Components/Book.js](/src/Components/Book/Book.js), [src/Components/Books/Books.js](/src/Components/Books.js) etc. - contain the `.js` and `.css` file for each component. 
+* [src/DetailsView.js](/src/DetailsView/DetailsView.js), [src/SearchView.js](/src/SearchView/SearchView.js) etc. - contain the `.js` and `.css` file for each view containing certain components. 
 
