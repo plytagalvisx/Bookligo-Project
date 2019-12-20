@@ -4,7 +4,7 @@ This repository contains the code for project "Bookligo", which focuses on the M
 
 Bookligo is an application that allows the user to search for books (provided by Google Books API), look up their information and save them in a "to-read" booklist. The application also allows the user to put books in their shopping cart for purchase (note that this feature is only a simulation) which will require the user to login/sign up to an account.
 
-The following describes features of the application; those that are marked have already been implemented otherwise it has yet to be completed:
+The following describes features of the application as well as the implementation status:
 
 | Feature                                         | Description | Status |
 | :---------------------------------------------- | :---------- | :---------- |
@@ -17,6 +17,8 @@ The following describes features of the application; those that are marked have 
 | Ability to leave a review/comment for a specific book | To review a specific book, the application provides the user to rate the book with stars where the more stars a book has the better it is. Currently, the maximum number of stars that a user can give for each book is 5. |  |
 | Data should be persisted even after page reload | Data that has been inputted by the user should not disappear when the page refreshes/reloads. More specifically, the page should stay the same for the user even after reloading. For this, either local storage or cookies can be used. |  |
 | Data specific for each account should be persisted/saved | The user should be able to log in to an account and find the ratings as well as the items in their book-list and shopping cart has remained. |  |
+
+
 
 
 ## The API in this project
