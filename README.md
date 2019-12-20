@@ -1,6 +1,18 @@
 # Interaction Programing - Project "Bookligo" React
 This repository contains the code for project "Bookligo", which focuses on the Model-View-Controller paradigm using React Framework. 
 
+Bookligo is an application that allows the user to search for books (provided by Google Books API), look up their information and save them in a "to-read" booklist. The application also allows the user to put books in their shopping cart for purchase (note that this feature is only a simulation) which will require the user to login/sign up to an account. 
+
+The following describes features of the application; those that are marked have already been implemented otherwise it has yet to be completed:
+- [X] Use React to implement the View components.
+- [X] Allow the user to login/sign up using Firebase and its authentication.
+- [ ] Allow the user to search for and view information of a specific book.
+- [ ] Implement a simulated shopping cart, where the user can add or remove items from the cart.
+- [X] Implement a book-list, where the user can add or delete books from the list.
+- [X] The user can navigate through the application.
+- [ ] The user should be able to comment and/or review a specific book. 
+- [ ] Data should be persisted even after reloading the page.
+
 ## The API in this project
 This application uses the [Google Books API](https://developers.google.com/books/docs/v1/using).
 
