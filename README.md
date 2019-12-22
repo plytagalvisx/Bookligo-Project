@@ -8,14 +8,14 @@ The following describes features of the application as well as the implementatio
 
 | Feature                                         | Description | Status |
 | :---------------------------------------------- | :---------- | :---------- |
-| Use React framwork to implement View components |             | Done        |
-| Implement login/sign up system | Implement the login/sign up system using Firebase and its authentication, where the user is able to create or login into an account using their email and a password. | Done |
+| Use React framework to implement View components |             | Done        |
+| Implement login/sign up system | Implement the login/sign up system using Firebase and its authentication, where the user is able to create or login into an account using their email and a password. | In progress |
 | Ability to search and view a specific book's information | The application should fetch the required information from the API and display that information in a usable way for the user. The minimum required information is the book's title, author and publication. | In progress |
 | Ability to add/remove items from shopping cart | The user should be able to add or remove items that they wish to "purchase" in the shopping cart - note that this feature is only a simulation of a shopping cart and does not actually execute any real financial transactions. For this, it is required that a structure for the shopping cart is decided and implemented in the model. | In progress |
 | Ability to add/remove items from book-list | The book-list is intended to store the books that the user wishes to read in the future.  For this, it is required that a structure for the book-list is decided and implemented in the model. | Done |
 | Ability to navigate through the application | The user should be able to navigate through the application in a manner that is intuitive for the user. | In progress |
 | Ability to leave a review/comment for a specific book | To review a specific book, the application provides the user to rate the book with stars where the more stars a book has the better it is. Currently, the maximum number of stars that a user can give for each book is 5. |  |
-| Data should be persisted even after page reload | Data that has been inputted by the user should not disappear when the page refreshes/reloads. More specifically, the page should stay the same for the user even after reloading. For this, either local storage or cookies can be used. |  |
+| Data should be persisted even after page reload | Data that has been inputted by the user should not disappear when the page refreshes/reloads. More specifically, the page should stay the same for the user even after reloading. For this, either local storage or cookies can be used. | Done |
 | Data specific for each account should be persisted/saved | The user should be able to log in to an account and find the ratings as well as the items in their book-list and shopping cart has remained. |  |
 
 
@@ -27,7 +27,7 @@ This application uses the [Google Books API](https://developers.google.com/books
 
 ## Understanding the code
 
-* [index.html](/public/index.html) - The default page for this application.
+* [public/index.html](/public/index.html) - The default page for this application.
 * [src/data/BookligoModel.js](/src/data/BookligoModel.js) - This is a skeleton for the model of the
 application, it supports the functionality needed (number of books, total price of books, etc.). It also
 contains API methods that fetches the needed data for this application. For example, getAllBooks function is implemented using `fetch()` and Observer pattern is also implemented.
@@ -35,5 +35,5 @@ contains API methods that fetches the needed data for this application. For exam
 * [src/index.css](/src/index.css) - Contains global styles for this application.
 * [src/App.js](/src/App.js) - This is the overall code (root component) of the application. It is responsible for initial setup of the
 App.
-* [src/Components/Book.js](/src/Components/Book/Book.js), [src/Components/Books/Books.js](/src/Components/Books.js) etc. - contain the `.js` and `.css` file for each component.
-* [src/DetailsView.js](/src/DetailsView/DetailsView.js), [src/SearchView.js](/src/SearchView/SearchView.js) etc. - contain the `.js` and `.css` file for each view containing certain components.
+* [src/Components/Book/Book.js](/src/Components/Book/Book.js), [src/Components/Books/Books.js](/src/Components/Books/Books.js) etc. - contain the `.js` and `.css` file for each component.
+* [src/DetailsView/DetailsView.js](/src/DetailsView/DetailsView.js), [src/SearchView/SearchView.js](/src/SearchView/SearchView.js) etc. - contain the `.js` and `.css` file for each view containing certain components.
