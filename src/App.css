@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto:300&display=swap');
+
+.App-header {
+    background-color: #FFD966;
+    padding: 3vh;
+}
+
 .App-title {
-    height: 5vh;
-    background-color: lightgray;
     text-align: center;
     margin: 0;
-    padding: 0;
-    font-size: 3vh;
-    border-bottom: 3px solid grey;
+    font-size: 7vh;
+    font-family: 'Lobster', cursive;
 }
 
 /*
