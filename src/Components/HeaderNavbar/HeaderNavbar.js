@@ -1,20 +1,45 @@
 import React, { Component } from "react";
 import "./HeaderNavbar.css";
 import {Link} from "react-router-dom";
-import fireBase from "../../firebaseConfig/firebaseConfig";
+import firebase, {auth, provider} from "../../firebaseConfig/firebaseConfig";
+import modelInstance from "../../data/BookligoModel";
+import LoginView from "../../LoginView/LoginView";
 
 class HeaderNavbar extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            user: modelInstance.getCurrentUser(),
+        };
         this.logout = this.logout.bind(this);
+        this.login = this.login.bind(this);
+    }
+
+    async componentDidMount() {
+        await auth.onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({user});
+            }
+        });
     }
 
     logout() {
-        fireBase.auth().signOut();
+        firebase.auth().signOut();
+    }
+
+    login() {
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                const user = result.user;
+                this.setState({user});
+            });
     }
 
     render() {
+
+        console.log("HELLO: ", this.state.user);
+
         return (
             <div className="SelectDish">
                 <ul>
@@ -38,11 +63,29 @@ class HeaderNavbar extends Component {
                     <li>
                         <Link to="/search">&#128269;</Link>
                     </li>
-                    <li>
-                        <a onClick={this.logout}>Logout</a>
-                    </li>
                     <li className="shoppingCart">
                         <Link to="/shoppingCart">&#x1F6D2;</Link>
+                    </li>
+                    <li>
+                        {this.state.user ?
+                            <Link to="/logout" onClick={this.logout}>Logout</Link>
+                            :
+                            <Link to="/login" onClick={this.login}>Login</Link>
+                        }
+                    </li>
+                    <li className="dropdown">
+                        {this.state.user ?
+                            <div>
+                                <a href="javascript:void(0)" className="dropbtn">
+                                    <img className="dish-image-shoppingCart"  alt="" src={this.state.user.photoURL}/>
+                                </a>
+                                <div className="dropdown-content">
+                                    <Link to="/">Profile</Link>
+                                </div>
+                            </div>
+                            : ""
+                        }
+
                     </li>
                 </ul>
             </div>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import fireBase from "../firebaseConfig/firebaseConfig";
+import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 
 class LoginView extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class LoginView extends Component {
     render() {
         return (
             <div>
+                <HeaderNavbar/>
                 <div>
                     <label>Email address</label>
                     <input value={this.state.email} onChange={this.handleChange} type="email" name="email"

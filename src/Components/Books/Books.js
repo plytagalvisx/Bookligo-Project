@@ -19,7 +19,6 @@ class Books extends Component {
         };
         
         this.delayedCallback = debounce(this.apiCall, 800);
-        
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSort = this.handleSort.bind(this);
         this.pressSearchButton = this.pressSearchButton.bind(this);

@@ -12,18 +12,20 @@ import fireBase from "./firebaseConfig/firebaseConfig";
 import LoginView from "./LoginView/LoginView";
 import Error404View from "./Error404View/Error404View";
 import Switch from "react-router-dom/Switch";
+import Logout from "./Logout/Logout";
+import Login from "./Login/Login";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title: "Bookligo",
-            user: null,
+            //user: null,
         };
-        this.authenticationListener = this.authenticationListener.bind(this);
+        //this.authenticationListener = this.authenticationListener.bind(this);
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         this.authenticationListener();
     }
 
@@ -38,7 +40,7 @@ class App extends Component {
                 //localStorage.removeItem('user');
             }
         });
-    }
+    }*/
 
     render() {
         return (
@@ -49,7 +51,8 @@ class App extends Component {
 
                 {/* We rended diffrent component based on the path */}
                 <Switch>
-                    {this.state.user ? (<Route exact path="/" component={HomeView}/>) : (<Route exact path="/" component={LoginView}/>)}
+                    <Route exact path="/" component={HomeView}/>
+                    {/*{this.state.user ? (<Route exact path="/" component={HomeView}/>) : (<Route exact path="/" component={LoginView}/>)}*/}
 
                     <Route
                         path="/search"
@@ -75,6 +78,21 @@ class App extends Component {
                         path="/bookCategory"
                         render={() => <BookCategoryView model={modelInstance}/>}
                     />
+
+                    <Route
+                        path="/logout"
+                        render={() => <Logout model={modelInstance}/>}
+                    />
+
+                    <Route
+                        path="/login"
+                        render={() => <Login model={modelInstance}/>}
+                    />
+
+{/*
+                    {this.state.user ? (<Route exact path="/shoppingCart" component={ShoppingCartView}/>) : (<Route exact path="/shoppingCart" component={LoginView}/>)}
+                    {this.state.user ? (<Route exact path="/bookList" component={BookListView}/>) : (<Route exact path="/bookList" component={LoginView}/>)}
+*/}
 
                     <Route
                         exact path="/*"

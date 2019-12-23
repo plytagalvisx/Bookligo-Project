@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto:300&display=swap');
+
+.App-header {
+    background-color: #FFD966;
+    padding: 3vh;
+}
+
 .App-title {
-    height: 5vh;
-    background-color: lightgray;
     text-align: center;
     margin: 0;
-    padding: 0;
-    font-size: 3vh;
-    border-bottom: 3px solid grey;
+    font-size: 7vh;
+    font-family: 'Lobster', cursive;
 }
 
 /*
@@ -20,6 +24,18 @@ Source for loader: https://www.w3schools.com/howto/howto_css_loader.asp
     height: 120px;
     animation: spin 2s linear infinite;
     margin-top: 20%;
+}
+
+.spinner2 {
+    z-index: 1;
+    border: 16px solid orange;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin-top: 20%;
+    margin-left: 45%;
 }
 
 @keyframes spin {
