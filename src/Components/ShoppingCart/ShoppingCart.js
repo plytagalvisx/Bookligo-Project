@@ -135,9 +135,8 @@ class ShoppingCart extends Component {
                                 <div>Title: {book.title}</div>
                             </div>
                             <div>{(book.bookSaleAbility === "FOR_SALE") ? Math.round(book.bookSaleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}</div>
-                            <p>brought by: {book.user}
-                                <button onClick={() => this.removeItem(book.id)}>Remove Book</button>
-                            </p>
+                            <p>brought by: {book.user}</p>
+                            <p><Link to="/shoppingCart" onClick={() => this.removeItem(book.id)}>&#x1f5d1;</Link></p>
                         </div>
                         : ""}
                 </div>
