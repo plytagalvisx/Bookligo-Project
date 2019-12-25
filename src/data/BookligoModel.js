@@ -9,6 +9,7 @@ class BookligoModel extends ObservableModel {
       bookList: [],
       shoppingCart: [],
       price: 0,
+      user: null,
     };
   }
 
@@ -36,10 +37,15 @@ class BookligoModel extends ObservableModel {
     this.notifyObservers("A number of books has changed");
   }
 
-  //Returns the book that is on the list for selected type
-  /*getSelectedBooks(type) {
-    return this.state.bookList.filter(book => book.dishTypes.includes(type));
-  }*/
+  setCurrentUser(user) {
+    this.state.user = user;
+    this.updateLocalStorage();
+    this.notifyObservers("A different user has logged in");
+  }
+
+  getCurrentUser() {
+    return this.state.user;
+  }
 
   //Returns all the books on the shopping cart.
   getFullShoppingCart() {

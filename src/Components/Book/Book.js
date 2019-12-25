@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import modelInstance from "../../data/BookligoModel";
 import "./Book.css";
+import firebase, {auth} from "../../firebaseConfig/firebaseConfig";
 
 class Book extends Component {
     constructor(props) {
@@ -15,7 +16,10 @@ class Book extends Component {
             status: "LOADING",
             numberOfBooks: this.props.model.getNumberOfBooks(),
             bookDetails: '',
-            bookId: hash      // Dish ID hämtas via hash/href
+            bookId: hash,      // Dish ID hämtas via hash/href
+
+            books: [],
+            user: this.props.model.getCurrentUser(),
         };
         this.addToBookListButton = this.addToBookListButton.bind(this);
         this.addBookToShoppingCart = this.addBookToShoppingCart.bind(this);
@@ -24,7 +28,7 @@ class Book extends Component {
     // this methods is called by React lifecycle when the
     // component is actually shown to the user (mounted to DOM)
     // that's a good place to call the API and get the data
-    componentDidMount() {
+    async componentDidMount() {
         this.props.model.addObserver(this);
         // when data is retrieved we update the state
         // this will cause the component to re-render
@@ -42,6 +46,12 @@ class Book extends Component {
                     status: "ERROR"
                 });
             });
+
+        await auth.onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({user});
+            }
+        });
     }
 
     // this is called when component is removed from the DOM
@@ -54,7 +64,7 @@ class Book extends Component {
     // cause the component to re-render
     update() {
         this.setState({
-            numberOfBooks: this.props.model.getNumberOfBooks()
+            numberOfBooks: this.props.model.getNumberOfBooks(),
         });
     }
 
@@ -62,32 +72,36 @@ class Book extends Component {
         this.props.model.addBookToList(this.state.bookDetails);
     }
 
-    addBookToShoppingCart() {
-        let book = this.state.bookDetails;
-        if (book.saleInfo.saleability === "NOT_FOR_SALE") {
+    addBookToShoppingCart(e) {
+        //e.preventDefault();
+        let booksRef = firebase.database().ref('books');
+
+        let book = {
+            bookDetails: this.state.bookDetails,
+            user: this.state.user.displayName
+        };
+
+        if (book.bookDetails.saleInfo.saleability === "NOT_FOR_SALE") {
             alert("This book is not for sale.");
         } else {
-            this.props.model.addBookToShoppingCart(this.state.bookDetails);
+            booksRef.push(book);
         }
 
         return 0;
     }
 
     render() {
+        let loader = null;
         let books = this.state.numberOfBooks;
         let book = this.state.bookDetails;
         let bookDisplay = null;
-
-        let hash = window.location.href.split("/")[4];
-        console.log(hash);
-        console.log(book);
 
         // depending on the state we either generate
         // useful message to the user or show the selected
         // dish.
         switch (this.state.status) {
             case "LOADING":
-                bookDisplay = <em>Loading...</em>;
+                bookDisplay = <div className="spinner2"/>;
                 break;
             case "LOADED":
                 bookDisplay = (
@@ -103,7 +117,8 @@ class Book extends Component {
                                         className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? book.saleInfo.retailPrice.amount + ' SEK' : 'NOT FOR SALE'}</div>
                                     <div className="ingredient">Title: {book.volumeInfo.title}</div>
                                     <div className="ingredient">Category:</div>
-                                    <div className="ingredient">{(book.volumeInfo.hasOwnProperty('categories')) ? book.volumeInfo.categories[0] : book.volumeInfo['categories'] = []}</div>
+                                    <div
+                                        className="ingredient">{(book.volumeInfo.hasOwnProperty('categories')) ? book.volumeInfo.categories[0] : book.volumeInfo['categories'] = []}</div>
                                 </div>
                             </div>
                             <div className="details-line"></div>
@@ -115,9 +130,14 @@ class Book extends Component {
                                 </button>
                             </Link>
                             <Link to="/shoppingCart">
-                                <button id="addToMenuBtn" className="startBtn" onClick={this.addBookToShoppingCart}>Add to
-                                    shopping cart
-                                </button>
+                                {this.state.user ?
+                                    <button id="addToMenuBtn" className="startBtn" onClick={this.addBookToShoppingCart}>
+                                        Add to shopping cart
+                                    </button> :
+                                    <button id="addToMenuBtn" className="startBtn">
+                                        Login first here
+                                    </button>
+                                }
                             </Link>
                         </div>
                         <div id="details-left-container">
@@ -132,7 +152,6 @@ class Book extends Component {
                         </div>
                         <div id="details-preparation">
                             <div className="details-heading">Search Info</div>
-                            {/*<div className="details-text">{book.searchInfo.textSnippet}</div>*/}
                         </div>
                     </div>
                 );
@@ -148,10 +167,12 @@ class Book extends Component {
 
         return (
             <div>
+                <div className="outer-loader">{loader}</div>
                 <div>{bookDisplay}</div>
             </div>
         );
     }
+
 }
 
 export default Book;

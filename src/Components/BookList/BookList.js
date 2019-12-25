@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "./BookList.css";
 import {Link} from "react-router-dom";
+import modelInstance from "../../data/BookligoModel";
 
 class BookList extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class BookList extends Component {
 
         // we put on state the properties we want to use and modify in the component
         this.state = {
-            books: this.props.model.getFullList(),
+            books: modelInstance.getFullList(),
             navBarOpen: false
         };
         this.removeBookFromListButton = this.removeBookFromListButton.bind(this);
@@ -19,25 +20,25 @@ class BookList extends Component {
     // component is actually shown to the user (mounted to DOM)
     // that's a good place to setup model observer
     componentDidMount() {
-        this.props.model.addObserver(this);
+        modelInstance.addObserver(this);
     }
 
     // this is called when component is removed from the DOM
     // good place to remove observer
     componentWillUnmount() {
-        this.props.model.removeObserver(this);
+        modelInstance.removeObserver(this);
     }
 
     // in our update function we modify the state which will
     // cause the component to re-render
     update() {
         this.setState({
-            books: this.props.model.getFullList(),
+            books: modelInstance.getFullList(),
         });
     }
 
     removeBookFromListButton(bookId) {
-        this.props.model.removeBookFromList(bookId);
+        modelInstance.removeBookFromList(bookId);
         console.log("The book has been removed from list");
     }
 
