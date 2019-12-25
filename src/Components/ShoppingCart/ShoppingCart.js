@@ -60,7 +60,7 @@ class ShoppingCart extends Component {
         let dishesContainer;
 
         dishesContainer = this.state.books.map(book => (
-            <div key={book.id} className="flex-between-dishes">
+            <div key={book.id} className="flex-between-books">
                 <img className="dish-image-bookList" alt=""
                      src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
                 <div>

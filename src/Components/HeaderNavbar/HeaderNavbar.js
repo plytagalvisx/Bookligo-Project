@@ -22,7 +22,7 @@ class HeaderNavbar extends Component {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/bookCategory">Books</Link>
+                        <Link to="/bookCategory">Categories</Link>
                     </li>
                     <li>
                         <Link to="/bookList">My Book List</Link>
@@ -36,7 +36,7 @@ class HeaderNavbar extends Component {
                         </div>
                     </li>
                     <li>
-                        <Link to="/search">&#128269;</Link>
+                        <Link to="/search">Search</Link>
                     </li>
                     <li>
                         <a onClick={this.logout}>Logout</a>

@@ -8,9 +8,6 @@ class SearchView extends Component {
     return (
       <div className="SelectDish">
           <HeaderNavbar/>
-
-          <h2>This is the Search View</h2>
-
         {/* We pass the model as property to the BookList component */}
         <Books />
       </div>

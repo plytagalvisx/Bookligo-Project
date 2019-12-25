@@ -1,7 +1,6 @@
 .Sidebar {
     grid-column: 1;
     grid-row: 1 / span 3;
-    background-color: orange;
     min-width: 30vh;
 }
 
@@ -16,7 +15,6 @@
 }
 
 .dish-image-bookList {
-    border: 3px solid black;
     margin: 0;
     padding: 0;
     height: 140px;
@@ -35,7 +33,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 2px solid black;
 }
 
 @media (max-width: 450px) {
@@ -44,6 +41,12 @@
         padding-left: 2%;
         padding-right: 2%;
     }
+}
+
+#removeDishBtn {
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
 /*
@@ -72,7 +75,7 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
     grid-column: 1;
     grid-row: 2;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     background-color: white;
 }
 
@@ -119,14 +122,33 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
     padding: 1%;
 }
 
-.flex-between-dishes {
-    grid-column: 1 / span 4;
+.flex-between-books {
     display: flex;
+    flex-flow: row wrap;
     justify-content: space-around;
-    border: 2px solid black;
-    margin: 2px;
+    grid-column: 1 / span 4;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    margin: 15px;
     color: darkorange;
     padding: 1%;
+}
+
+.book-info-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.book-info-wrapper > div {
+    height: 140px;
+    width: 250px;
+    text-align: center;
+}
+
+.book-title-sign, .book-author-sign, .book-rating-sign, .book-date-sign {
+    color:black;
+    margin-bottom: 10px;
 }
 
 #sidebar-dishname {
@@ -186,4 +208,12 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
     width: 100%;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+#booklist-empty {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    margin-top: 100px;
+    font-size: large;
 }

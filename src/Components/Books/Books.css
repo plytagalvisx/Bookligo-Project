@@ -1,42 +1,144 @@
 .displayDishes {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.displayDishes > a {
+    margin: 30px;
+    text-decoration: none;
 }
 
 .dish-image {
-    border: 3px solid black;
-    margin: 0;
-    padding: 0;
-    height: 200px;
-    max-width: 100%;
-    width: 200px;
+    margin: 10px;
+    width: 128px;
+    height: 192px;
 }
 
 .dish-text {
-    border-bottom: 3px solid black;
-    border-left: 3px solid black;
-    border-right: 3px solid black;
-    margin: 0;
-    padding: 0;
-    width: 200px;
+    margin: 5px;
+    color: black;
+}
+
+.book-text-info {
+    color: #6F6F6F;
+}
+
+.book-text-title {
+    font-weight: bold;
+}
+
+.book-text-author > span {
+    margin-right: 15px;
+}
+
+.book-text-sale {
+    color: #A50A29;
+}
+
+.dish-text > p {
+    width: 300px;
+}
+
+.book-rating {
+    margin-left: 250px;
+    margin-right: 15px;
     color: black;
 }
 
 .dish {
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 10px;
-    max-width: 200px;
-    max-height: 200px;
-    margin-bottom: 50px;
+    flex-direction: row;
+    flex-flow: row wrap;
 }
 
-#dishes-items {
+.dishes-items {
+    border: 2px solid #CECECE;
+    box-shadow: 5px 10px 8px #888888;
+    transition: 0.3s;
+}
+
+.dishes-items:hover {
+    transform: scale(1.02);
+}
+
+.searchbar {
+    background-color: #434343;
+    padding: 30px;
     display: flex;
     flex-direction: row;
-    list-style: none;
-    padding: 30%;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#selectTypeDish {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em; 
+    box-sizing: border-box;
+    margin: 0;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+    
+    cursor: pointer;
+    border-right: none;
+    border-bottom: 1px solid #aaa;
+    border-top:1px solid #aaa;
+    border-left: 1px solid #aaa;
+}
+
+#inputDishTitle {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em; 
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid #aaa;
+    border-right: none;
+    border-bottom: 1px solid #aaa;
+    border-top:1px solid #aaa;
+    border-left: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    width: 80%;
+}
+
+.searchbar > button {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.3;
+    padding: .6em 1em .5em .8em; 
+    box-sizing: border-box;
+    margin: 0;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    border-top:1px solid #aaa;
+    border-left: none;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#updateTitle {
+    width: 100%;
+    font-size: large;
+    margin-top: 200px;
     text-align: center;
-    flex-wrap: wrap;
 }

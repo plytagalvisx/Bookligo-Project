@@ -130,17 +130,22 @@ class Books extends Component {
             case "LOADED":
                 booksList = sortedBooks.map(book => (
                     <Link key={book.id} to={"/details/" + book.id}>
-                        <div id="dishes-items">
+                        <div class="dishes-items">
                             <div className="dish">
                                 <img className="dish-image" alt=""
                                      src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
                                 <div className="dish-text">
-                                    <p>Title: {book.volumeInfo.title}</p>
-                                    <p>Published: {book.volumeInfo.publishedDate}</p>
-                                    <p>Author: {book.volumeInfo.authors} </p>
-                                    <p>Average Rating: {book.volumeInfo.averageRating}</p>
-                                    <p>{book.saleInfo.saleability}</p>
+                                    <p className="book-text-title">{book.volumeInfo.title}</p>
+                                    <p className="book-text-author">by {book.volumeInfo.authors.map(author => 
+                                            {return (<span key={Math.floor((Math.random() * 10000000))}>{author}</span>);}
+                                        )}
+                                    </p>
+                                    <p className="book-text-info"> {book.volumeInfo.publishedDate}, {book.volumeInfo.language}, 
+                                            ISBN {book.volumeInfo.industryIdentifiers[1] === undefined ? "" : book.volumeInfo.industryIdentifiers[1].identifier }
+                                    </p>
+                                    <p className="book-text-sale">{book.saleInfo.saleability}</p>   
                                 </div>
+                                <p className="book-rating">Average Rating: {book.volumeInfo.averageRating}</p>
                             </div>
                         </div>
                     </Link>
@@ -148,25 +153,27 @@ class Books extends Component {
                 break;
             default:
                 booksList =
-                    <div
-                        id="updateTitle">{queryExists ? 'Please enter something into the field above to start a search.' : ''}</div>
+                    <div id="updateTitle">
+                        {queryExists ? 'Please enter something into the field above to start a search.' : ''}
+                    </div>
                 break;
         }
 
         return (
                 <div className="Dishes">
-                    <h3>Books</h3>
-                    <input id="inputDishTitle" type="text" defaultValue={this.state.query}
-                           onChange={e => this.handleSearch(e)}/>
-                    <button type="submit" onClick={this.pressSearchButton}>Search</button>
-                    <label className="space">
-                        <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort}>
-                            <option>Sort</option>
-                            <option>Most Popular</option>
-                            <option>Publication date, old to new</option>
-                            <option>Publication date, new to old</option>
-                        </select>
-                    </label>
+                    <div className="searchbar">
+                        <label className="space">
+                            <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort}>
+                                <option>Sort</option>
+                                <option>Most Popular</option>
+                                <option>Publication date, old to new</option>
+                                <option>Publication date, new to old</option>
+                            </select>
+                        </label>
+                        <input id="inputDishTitle" type="text" placeholder="Search.." defaultValue={this.state.query}
+                            onChange={e => this.handleSearch(e)}/>
+                        <button type="submit" onClick={this.pressSearchButton}>&#128269;</button>
+                    </div>
                     <div className="outer-loader">{loader}</div>
                     <div className="displayDishes">{booksList}</div>
                 </div>

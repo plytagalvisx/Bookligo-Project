@@ -5,7 +5,7 @@ import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 class ShoppingCartView extends Component {
     render() {
         return (
-            <div className="SelectDish">
+            <div className="SelectBook">
                 <HeaderNavbar/>
                 <h2>This is the Shopping Cart View</h2>
 

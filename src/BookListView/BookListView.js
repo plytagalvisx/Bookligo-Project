@@ -6,9 +6,9 @@ import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 class BookListView extends Component {
     render() {
         return (
-            <div className="SelectDish">
+            <div className="SelectBook">
                 <HeaderNavbar/>
-                <h2>This is the Book List View</h2>
+                <h2>My To-Read List</h2>
 
                 {/* We pass the model as property to the BookList component */}
                 <BookList model={this.props.model} />
