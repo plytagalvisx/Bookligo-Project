@@ -87,6 +87,7 @@ class BookCategories extends Component {
             } else if (isOldestBooks) {
                 return parseInt(book1.volumeInfo.publishedDate.substring(0, 4)) - parseInt(book2.volumeInfo.publishedDate.substring(0, 4))
             }
+            return 0;
         });
 
         return sortedBooks;
@@ -113,17 +114,23 @@ class BookCategories extends Component {
             case "LOADED":
                 booksList = sortedBooks.map(book => (
                     <Link key={book.id} to={"/details/" + book.id}>
-                        <div id="dishes-items">
+                        <div className="dishes-items">
                             <div className="dish">
                                 <img className="dish-image" alt=""
                                      src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
                                 <div className="dish-text">
-                                    <p>Title: {book.volumeInfo.title}</p>
-                                    <p>Published: {book.volumeInfo.publishedDate}</p>
-                                    <p>Author: {book.volumeInfo.authors} </p>
-                                    <p>Average Rating: {book.volumeInfo.averageRating}</p>
-                                    <p>{book.saleInfo.saleability}</p>
+                                    <p className="book-text-title">{book.volumeInfo.title}</p>
+                                    <p className="book-text-author">by 
+                                        {book.volumeInfo.authors === undefined ? " Unknown" : book.volumeInfo.authors.map(author => 
+                                                    {return (<span key={Math.floor((Math.random() * 10000000))}> {author}</span>);}
+                                                ).reduce((prev, curr) => [prev, ', ', curr])}
+                                    </p>
+                                    <p className="book-text-info"> {book.volumeInfo.publishedDate}, {book.volumeInfo.language}, 
+                                            ISBN {book.volumeInfo.industryIdentifiers[1] === undefined ? " Unknown" : book.volumeInfo.industryIdentifiers[1].identifier }
+                                    </p>
+                                    <p className="book-text-sale">{book.saleInfo.saleability}</p>   
                                 </div>
+                                <p className="book-rating">Average Rating: {book.volumeInfo.averageRating}</p>
                             </div>
                         </div>
                     </Link>
@@ -131,13 +138,13 @@ class BookCategories extends Component {
                 break;
             default:
                 booksList =
-                    <div>Choose Book Category</div>
+                    <div id="updateTitle">Please choose book category.</div>
                 break;
         }
 
         return (
             bookCategories = (
-                <div>
+                <div className="bookCategories">
                     <button type="submit" value='subject:Fiction' onClick={this.handleCategory}>Fiction</button>
                     <button type="submit" value='subject:Romance' onClick={this.handleCategory}>Romance</button>
                     <button type="submit" value='subject:History' onClick={this.handleCategory}>History</button>
@@ -151,15 +158,17 @@ class BookCategories extends Component {
             ),
 
             <div className="Dishes">
-                {bookCategories}
-                <label className="space">
-                    <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort}>
-                        <option>Sort</option>
-                        <option>Most Popular</option>
-                        <option>Publication date, old to new</option>
-                        <option>Publication date, new to old</option>
-                    </select>
-                </label>
+                <div className="bookCatergoriesBar"> 
+                    <label className="space">
+                        <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort} required>
+                            <option disabled hidden value="">Sort by...</option>
+                            <option>Most Popular</option>
+                            <option>Publication date, old to new</option>
+                            <option>Publication date, new to old</option>
+                        </select>
+                    </label>
+                    {bookCategories}
+                </div>
                 <div className="outer-loader">{loader}</div>
                 <div className="displayDishes">{booksList}</div>
             </div>

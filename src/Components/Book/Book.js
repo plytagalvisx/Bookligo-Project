@@ -107,51 +107,80 @@ class Book extends Component {
                 bookDisplay = (
                     <div key={book.id} id="details-container">
                         <div id="details-ingredients">
-                            <div id="details-ingredient-header" className="ingredient">Purchase
-                                for: {books} people
-                            </div>
-                            <div className="details-line"></div>
-                            <div id="details-ingredient-list">
-                                <div key={book.id} className="details-ingredient-dish">
-                                    <div
-                                        className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? book.saleInfo.retailPrice.amount + ' SEK' : 'NOT FOR SALE'}</div>
-                                    <div className="ingredient">Title: {book.volumeInfo.title}</div>
-                                    <div className="ingredient">Category:</div>
-                                    <div
-                                        className="ingredient">{(book.volumeInfo.hasOwnProperty('categories')) ? book.volumeInfo.categories[0] : book.volumeInfo['categories'] = []}</div>
+                           
+                            <div className="book-information"> 
+                                <img className="dish-image" alt=""
+                                            src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
+
+                                <div id="details-ingredient-list">
+                                    <div id="details-ingredient-header" className="ingredient">
+                                        Purchase for: {books} people
+                                    </div>
+                                    <div key={book.id} className="details-ingredient-dish">
+                                        <div className="ingredient"><span className="details-book-list-black-text">Title:</span> {book.volumeInfo.title}</div>
+                                        <div><span className="details-book-list-black-text">Author:</span>  
+                                            {book.volumeInfo.authors === undefined ? " Unknown" : book.volumeInfo.authors.map(author => 
+                                                {return (<span key={Math.floor((Math.random() * 10000000))}> {author}</span>);}
+                                            ).reduce((prev, curr) => [prev, ', ', curr])}
+                                        </div>
+                                        <div className="ingredient"><span className="details-book-list-black-text">Category:</span>
+                                        <div
+                                            className="ingredient">{(book.volumeInfo.hasOwnProperty('categories')) ? book.volumeInfo.categories[0] : book.volumeInfo['categories'] = []}</div>
+                                        </div>
+                                        <div>
+                                            <span className="details-book-list-black-text">Publisher:</span> {book.volumeInfo.publisher} 
+                                        </div>
+                                        <div>
+                                            <span className="details-book-list-black-text">Published Date:</span> {book.volumeInfo.publishedDate} 
+                                        </div>
+                                        <div>
+                                            <span className="details-book-list-black-text">Language:</span> {book.volumeInfo.language}
+                                        </div>
+                                        <div>
+                                            <span className="details-book-list-black-text">ISBN:</span> {book.volumeInfo.industryIdentifiers[1] === undefined ? "" : book.volumeInfo.industryIdentifiers[1].identifier }
+                                        </div>
+                                        <div>
+                                            <span className="details-book-list-black-text">Page Count:</span> {book.volumeInfo.pageCount} 
+                                        </div>
+                                        <div>
+                                            <span className="details-book-list-black-text">Maturity Rating:</span> {book.volumeInfo.maturityRating} 
+                                        </div>
+                                        <div id="details-ingredient-footer">
+                                            <span className="details-book-list-black-text">Price:</span> {(book.saleInfo.saleability === "FOR_SALE") ? book.saleInfo.retailPrice.amount + ' SEK' : '0'}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            
+                               
+                                 <div className="buttons">
+                                    <Link to="/shoppingCart">
+                                        {this.state.user ?
+                                            <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addBookToShoppingCart}>
+                                                <div
+                                                    className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? 'Buy for ' + Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}
+                                                </div>
+                                            </button> :
+                                            <button id="addToMenuBtn" className="startBtn">
+                                                Login first here
+                                            </button>
+                                        }
+                                    </Link>
+                                    <Link to="/bookList">
+                                        <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
+                                            my book list
+                                        </button>
+                                    </Link>
+                                    <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? "0" : book.volumeInfo.averageRating}</p>
                                 </div>
                             </div>
-                            <div className="details-line"></div>
-                            <div
-                                id="details-ingredient-footer">{(book.saleInfo.saleability === "FOR_SALE") ? Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : ''}</div>
-                            <Link to="/bookList">
-                                <button id="addToMenuBtn" className="startBtn" onClick={this.addToBookListButton}>Add to
-                                    my book list
-                                </button>
-                            </Link>
-                            <Link to="/shoppingCart">
-                                {this.state.user ?
-                                    <button id="addToMenuBtn" className="startBtn" onClick={this.addBookToShoppingCart}>
-                                        Add to shopping cart
-                                    </button> :
-                                    <button id="addToMenuBtn" className="startBtn">
-                                        Login first here
-                                    </button>
-                                }
-                            </Link>
                         </div>
                         <div id="details-left-container">
                             <div className="details-heading">{book.volumeInfo.title}</div>
-                            <img className="dish-image" alt=""
-                                 src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
-
-                            <div id="details-image-text">{book.volumeInfo.description}</div>
+                            <div id="details-image-text" dangerouslySetInnerHTML={{ __html: book.volumeInfo.description }}/>
                             <Link to="/search">
-                                <button id="backToSearchBtn" className="backBtn">Back to search</button>
+                                <button id="backToSearchBtn" className="backBtn"> &lt;&lt; Back to search</button>
                             </Link>
-                        </div>
-                        <div id="details-preparation">
-                            <div className="details-heading">Search Info</div>
                         </div>
                     </div>
                 );

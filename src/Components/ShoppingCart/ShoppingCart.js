@@ -16,7 +16,7 @@ class ShoppingCart extends Component {
             //price: modelInstance.getTotalShoppingCartPrice(),
 
             booksFromDB: [],  // --> Books from Firebase DB
-            user: modelInstance.getCurrentUser(),
+            user: modelInstance.getCurrentUser()
         };
         this.removeBookFromShoppingCartButton = this.removeBookFromShoppingCartButton.bind(this);
         this.handleNavbar = this.handleNavbar.bind(this);

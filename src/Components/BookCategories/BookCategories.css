@@ -1,0 +1,33 @@
+.bookCatergoriesBar {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    background-color: #434343;
+    width: 100%;
+    font-family: Roboto, sans-serif;
+    padding: 30px;
+
+}
+
+.bookCategories > button{
+    color:#444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em;
+    box-sizing: border-box;
+    margin-left: 12px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color:transparent;
+    color: white;
+    cursor: pointer;
+    border: 2px solid #efc547;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.bookCategories > button:hover {
+    background-color: #efc547;
+    color: black;
+
+    transform: scale(1.1);
+}

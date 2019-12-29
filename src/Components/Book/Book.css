@@ -1,9 +1,49 @@
 #details-container {
+    padding-top: 2%;
+    height: 100%;
+    width: 100%;
     display: grid;
-    grid-template-columns: 4% 48% 48%;
+    grid-template-columns: repeat(auto-fill, minmax(0px, 370px));
     grid-template-rows: auto;
-    grid-column-gap: 2%;
+    font-family: Roboto, sans-serif;
 }
+
+.book-information {
+    display: flex;
+    flex-flow: row;
+    padding-bottom: 20px;
+}
+
+.book-information >  img {
+    width: 270px;
+    height: 406px;
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: stretch;
+}
+
+.buttons {
+    grid-column: 4;
+    grid-row: 1;
+    display: flex;
+    flex-flow: column wrap;
+
+    width: 40%;
+}
+
+.startBtn {
+    border: none;
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+    font-size: normal;
+}
+
+#buttons-book-rating {
+    margin-top: auto;
+    align-self: end;
+}
+
 
 @media (max-width: 450px) {
     #details-container {
@@ -31,6 +71,7 @@
     }
 }
 
+
 .details-text {
     font-size: initial;
     font-weight: normal;
@@ -42,17 +83,17 @@
     }
 }
 
+#details-ingredient-list {
+    width: 50%;
+}
+
 #details-ingredients {
-    grid-column: 3;
+    grid-column: 2 / 5;
     grid-row: 1;
-    margin-right: 10%;
-    background-color: coral;
-    border: 2px solid black;
 
     display: flex;
     height: auto;
-    flex: 1;
-    flex-direction: column;
+    flex-flow: column wrap;
 }
 
 @media (max-width: 450px) {
@@ -64,10 +105,17 @@
 }
 
 .details-ingredient-dish {
-    display: grid;
-    grid-template-columns: 50% 50%;
     margin: 2%;
     margin-left: 3%;
+    color: #808080;
+}
+
+.details-ingredient-dish > div {
+    margin-top: 3%;
+}
+
+.details-book-list-black-text {
+    color: black;
 }
 
 .amount {
@@ -79,30 +127,40 @@
 }
 
 #details-ingredient-header {
-    grid-column: 1 / span 2;
-    grid-row: 1;
     margin-top: 2%;
     margin-left: 3%;
     font-weight: bold;
 }
 
-#details-ingredient-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-left: 3%;
-    margin-right: 3%;
+#addToMenuBtn {
+    width: 100%;
 }
 
-#addToMenuBtn {
-    /*width: auto;*/
-    width: 100px;
+.shoppingCartBtn {
+    background-color: #5CB85C;
+    color: white;
+}
+
+.shoppingCartBtn:hover {
+    background-color: #449D44;
+}
+
+.bookListBtn {
+    background-color: white;
+    border: 1px solid #A9A9A9;
+
+    margin-top: 15px;
+}
+
+.bookListBtn:hover {
+    background-color: #E6E6E6;
 }
 
 #details-left-container {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    max-width: available;
-    max-height: available;
+    border-top: 2px solid #CECECE;
+    border-bottom: 2px solid #CECECE;
+    grid-column: 2 / 5;
+    grid-row: 2 / span 3;
 }
 
 @media (max-width: 450px) {
@@ -119,7 +177,6 @@
 }
 
 #details-image-text {
-    font-size: small;
     max-height: 100%;
 }
 
@@ -148,18 +205,23 @@
 }
 
 #backToSearchBtn {
-    grid-column: 2;
-    grid-row: 4;
     width: 150px;
     text-align: center;
+    border: none;
 }
 
 .backBtn {
     display: inline-block;
     position: relative;
-    background: orange;
     padding: 5px;
     margin: 10px;
+    background-color: white;
+    color: #A50A29;
+    cursor: pointer;
+}
+
+.backBtn:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 450px) {

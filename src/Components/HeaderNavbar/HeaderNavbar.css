@@ -20,10 +20,13 @@ li a, .dropbtn {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+
+    transition: 0.3s;
 }
 
 li a:hover, .dropdown:hover .dropbtn {
     background-color: #292424;
+    transform: scale(1.1);
 }
 
 li.dropdown {

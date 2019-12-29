@@ -37,9 +37,6 @@ class HeaderNavbar extends Component {
     }
 
     render() {
-
-        console.log("HELLO: ", this.state.user);
-
         return (
             <div className="SelectDish">
                 <ul>

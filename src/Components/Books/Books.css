@@ -31,10 +31,6 @@
     font-weight: bold;
 }
 
-.book-text-author > span {
-    margin-right: 15px;
-}
-
 .book-text-sale {
     color: #A50A29;
 }
