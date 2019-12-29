@@ -49,14 +49,6 @@ class HeaderNavbar extends Component {
                     <li>
                         <Link to="/bookList">My Book List</Link>
                     </li>
-                    <li className="dropdown">
-                        <a href="javascript:void(0)" className="dropbtn">Dropdown</a>
-                        <div className="dropdown-content">
-                            <Link to="/">Link 1</Link>
-                            <Link to="/">Link 2</Link>
-                            <Link to="/">Link 3</Link>
-                        </div>
-                    </li>
                     <li>
                         <Link to="/search">Search</Link>
                     </li>
