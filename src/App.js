@@ -6,16 +6,14 @@ import SearchView from "./SearchView/SearchView";
 import DetailsView from "./DetailsView/DetailsView";
 import "./App.css";
 import BookListView from "./BookListView/BookListView";
-import ShoppingCartView from "./ShoppingCartView/ShoppingCartView";
 import BookCategoryView from "./BookCategoryView/BookCategoryView";
-import fireBase from "./firebaseConfig/firebaseConfig";
-import LoginView from "./LoginView/LoginView";
 import Error404View from "./Error404View/Error404View";
 import Switch from "react-router-dom/Switch";
 import Logout from "./Logout/Logout";
 import Login from "./Login/Login";
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
+import ProfileView from "./ProfileView/ProfileView";
 
 
 class App extends Component {
@@ -23,27 +21,8 @@ class App extends Component {
         super(props);
         this.state = {
             title: "Bookligo",
-            //user: null,
         };
-        //this.authenticationListener = this.authenticationListener.bind(this);
     }
-
-    /*componentDidMount() {
-        this.authenticationListener();
-    }
-
-    authenticationListener() {
-        fireBase.auth().onAuthStateChanged((user) => {
-            // console.log(user);
-            if (user) {
-                this.setState({ user });
-                //localStorage.setItem('user', user.uid);
-            } else {
-                this.setState({ user: null });
-                //localStorage.removeItem('user');
-            }
-        });
-    }*/
 
     render() {
         return (
@@ -52,10 +31,9 @@ class App extends Component {
                     <h1 className="App-title">{this.state.title}</h1>
                 </header>
 
-                {/* We rended diffrent component based on the path */}
+                {/* We rendered different components based on the path */}
                 <Switch>
                     <Route exact path="/" component={HomeView}/>
-                    {/*{this.state.user ? (<Route exact path="/" component={HomeView}/>) : (<Route exact path="/" component={LoginView}/>)}*/}
 
                     <Route
                         path="/search"
@@ -87,10 +65,10 @@ class App extends Component {
                         render={() => <Login model={modelInstance}/>}
                     />
 
-{/*
-                    {this.state.user ? (<Route exact path="/shoppingCart" component={ShoppingCartView}/>) : (<Route exact path="/shoppingCart" component={LoginView}/>)}
-                    {this.state.user ? (<Route exact path="/bookList" component={BookListView}/>) : (<Route exact path="/bookList" component={LoginView}/>)}
-*/}
+                    <Route
+                        path="/profile"
+                        render={() => <ProfileView model={modelInstance}/>}
+                    />
 
                     <Route
                         exact path="/*"

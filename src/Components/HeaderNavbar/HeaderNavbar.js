@@ -79,7 +79,7 @@ class HeaderNavbar extends Component {
                                     <img className="dish-image-shoppingCart"  alt="" src={this.state.user.photoURL}/>
                                 </a>
                                 <div className="dropdown-content">
-                                    <Link to="/">Profile</Link>
+                                    <Link to="/profile">Profile</Link>
                                 </div>
                             </div>
                             : ""
