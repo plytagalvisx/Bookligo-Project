@@ -95,7 +95,6 @@ class Book extends Component {
     }
 
     addToBookListButton() {
- HEAD
         //this.props.model.addBookToList(this.state.bookDetails);
 
         let bookListRef = firebase.database().ref('bookList');
@@ -110,25 +109,17 @@ class Book extends Component {
 
     addToShoppingCart(e) {
         //this.props.model.addBookToShoppingCart(this.state.bookDetails);
-
-        this.props.model.addBookToList(this.state.bookDetails);
-    }
-
-    addToShoppingCart(e) {
-        
-        //e.preventDefault();
- c3a9826a78cf74be0c664247c8dd5a37675a7ca4
         let booksRef = firebase.database().ref('books');
-        
+
         let book = {
             bookDetails: this.state.bookDetails,
             user: this.state.user.displayName
         };
-        
+
         if (book.bookDetails.saleInfo.saleability === "NOT_FOR_SALE") {
             NotificationManager.error("This book is not for sale.", 'Error!');
         } else {
-            this.props.model.addBookToShoppingCart(this.state.bookDetails);
+            NotificationManager.success('Book has been added to shopping cart!', 'Successful!', 2000);
             booksRef.push(book);
         }
 
@@ -170,10 +161,10 @@ class Book extends Component {
                 bookDisplay = (
                     <div key={book.id} id="details-container">
                         <div id="details-ingredients">
-                           
-                            <div className="book-information"> 
+
+                            <div className="book-information">
                                 <img className="dish-image" alt=""
-                                            src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
+                                     src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
 
                                 <div id="details-ingredient-list">
                                     <div id="details-ingredient-header" className="ingredient">
@@ -181,20 +172,20 @@ class Book extends Component {
                                     </div>
                                     <div key={book.id} className="details-ingredient-dish">
                                         <div className="ingredient"><span className="details-book-list-black-text">Title:</span> {book.volumeInfo.title}</div>
-                                        <div><span className="details-book-list-black-text">Author:</span>  
-                                            {book.volumeInfo.authors === undefined ? " Unknown" : book.volumeInfo.authors.map(author => 
+                                        <div><span className="details-book-list-black-text">Author:</span>
+                                            {book.volumeInfo.authors === undefined ? " Unknown" : book.volumeInfo.authors.map(author =>
                                                 {return (<span key={Math.floor((Math.random() * 10000000))}> {author}</span>);}
                                             ).reduce((prev, curr) => [prev, ', ', curr])}
                                         </div>
                                         <div className="ingredient"><span className="details-book-list-black-text">Category:</span>
-                                        <div
-                                            className="ingredient">{(book.volumeInfo.hasOwnProperty('categories')) ? book.volumeInfo.categories[0] : book.volumeInfo['categories'] = []}</div>
+                                            <div
+                                                className="ingredient">{(book.volumeInfo.hasOwnProperty('categories')) ? book.volumeInfo.categories[0] : book.volumeInfo['categories'] = []}</div>
                                         </div>
                                         <div>
-                                            <span className="details-book-list-black-text">Publisher:</span> {book.volumeInfo.publisher} 
+                                            <span className="details-book-list-black-text">Publisher:</span> {book.volumeInfo.publisher}
                                         </div>
                                         <div>
-                                            <span className="details-book-list-black-text">Published Date:</span> {book.volumeInfo.publishedDate} 
+                                            <span className="details-book-list-black-text">Published Date:</span> {book.volumeInfo.publishedDate}
                                         </div>
                                         <div>
                                             <span className="details-book-list-black-text">Language:</span> {book.volumeInfo.language}
@@ -203,10 +194,10 @@ class Book extends Component {
                                             <span className="details-book-list-black-text">ISBN:</span> {book.volumeInfo.industryIdentifiers === undefined ? "" : book.volumeInfo.industryIdentifiers[1].identifier }
                                         </div>
                                         <div>
-                                            <span className="details-book-list-black-text">Page Count:</span> {book.volumeInfo.pageCount} 
+                                            <span className="details-book-list-black-text">Page Count:</span> {book.volumeInfo.pageCount}
                                         </div>
                                         <div>
-                                            <span className="details-book-list-black-text">Maturity Rating:</span> {book.volumeInfo.maturityRating} 
+                                            <span className="details-book-list-black-text">Maturity Rating:</span> {book.volumeInfo.maturityRating}
                                         </div>
                                         <div id="details-ingredient-footer">
                                             <span className="details-book-list-black-text">Price:</span> {(book.saleInfo.saleability === "FOR_SALE") ? book.saleInfo.retailPrice.amount + ' SEK' : '0'}
@@ -214,21 +205,21 @@ class Book extends Component {
 
                                     </div>
                                 </div>
-                            
-                                 <div className="buttons">
+
+                                <div className="buttons">
                                     {this.state.user ?
-                                            <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addToShoppingCart}>
-                                                <div
-                                                    className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? 'Buy for ' + Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}
-                                                </div>
-                                            </button> :
-                                            <button id="addToMenuBtn" className="startBtn">
-                                                Login first here
-                                            </button>
-                                    }
-                                        <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
-                                            my book list
+                                        <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addToShoppingCart}>
+                                            <div
+                                                className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? 'Buy for ' + Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}
+                                            </div>
+                                        </button> :
+                                        <button id="addToMenuBtn" className="startBtn">
+                                            Login first here
                                         </button>
+                                    }
+                                    <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
+                                        my book list
+                                    </button>
                                     <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? "0" : book.volumeInfo.averageRating}</p>
                                 </div>
                             </div>
@@ -260,7 +251,7 @@ class Book extends Component {
                             </Link>
                         </div>
                     </div>
-                    
+
                 );
                 break;
             default:
@@ -283,4 +274,3 @@ class Book extends Component {
 }
 
 export default Book;
-
