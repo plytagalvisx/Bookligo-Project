@@ -7,8 +7,6 @@ class ShoppingCartView extends Component {
         return (
             <div className="SelectBook">
                 <HeaderNavbar/>
-                <h2>This is the Shopping Cart View</h2>
-
                 {/* We pass the model as property to the ShoppingCart component */}
                 <ShoppingCart model={this.props.model} />
             </div>

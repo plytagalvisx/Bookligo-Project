@@ -1,8 +1,14 @@
 .SelectBook {
     font-family: 'Roboto', sans-serif;
+    background-image: url("https://cdna.artstation.com/p/assets/images/images/016/781/114/medium/cedric-arsenault-bookspile-booksedit.jpg?1553456335");
+    background-size: 100% 100%;
+    min-height: 85vh;
 }
 
 .SelectBook > h2 {
-    font-weight: lighter;
-    padding-left: 20px; 
+    font-size: 2vw;
+    font-weight: bold;
+    padding-left: 20px;
+    color: white;
+    text-align: center; 
 }

@@ -5,7 +5,7 @@
     background-color: #434343;
     width: 100%;
     font-family: Roboto, sans-serif;
-    padding: 30px;
+    padding-bottom: 30px;
 
 }
 
@@ -28,6 +28,15 @@
 .bookCategories > button:hover {
     background-color: #efc547;
     color: black;
-
     transform: scale(1.1);
+}
+
+@media (max-width: 450px) {
+    .bookCategories {
+        margin-top: 10%;
+    }
+    
+    .bookCategories > button {
+        margin-top: 10%;
+    }
 }

@@ -39,7 +39,6 @@ class BookList extends Component {
 
     removeBookFromListButton(bookId) {
         modelInstance.removeBookFromList(bookId);
-        console.log("The book has been removed from list");
     }
 
     handleNavbar = () => {
@@ -105,11 +104,7 @@ class BookList extends Component {
                 break;
             case false:
                 collapsible = (
-                    <div className="collapsible">
-                        <div id="flex-between">
-                        </div>
-                        <div id="sidebar-dishes">{booksContainer}</div>
-                    </div>
+                    <div id="sidebar-dishes">{booksContainer}</div>
                 );
                 break;
             default:

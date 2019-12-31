@@ -13,7 +13,8 @@ class ShoppingCart extends Component {
             numberOfBooks: modelInstance.getNumberOfBooks(),
             navBarOpen: false,
             //books: modelInstance.getFullShoppingCart(),
-            //price: modelInstance.getTotalShoppingCartPrice(),
+            price: modelInstance.getTotalShoppingCartPrice(),
+            toggled: false,
 
             booksFromDB: [],  // --> Books from Firebase DB
             user: modelInstance.getCurrentUser()
@@ -61,6 +62,14 @@ class ShoppingCart extends Component {
     removeItem(bookId) {
         const bookRef = firebase.database().ref(`/books/${bookId}`);
         bookRef.remove();
+    }
+
+    toggledShoppingCart() {
+        let toggle = !this.state.toggled;
+        this.setState({
+            toggled: toggle
+        });
+        console.log(this.state.toggled);
     }
 
     // this is called when component is removed from the DOM
@@ -128,15 +137,11 @@ class ShoppingCart extends Component {
                 <div key={book.id}>
                     {book.user === this.state.user.displayName ?
                         <div className="flex-between-dishes">
-                            <img className="dish-image-bookList" alt=""
-                                 src={(book.bookImageLinks === undefined) ? "" : `${book.bookImageThumbnail}`}/>
-                            <div>
-                                <div style={{color: "black"}}>Book Title:</div>
-                                <div>Title: {book.title}</div>
-                            </div>
+                            <div>{book.title}</div>
+                            <div>{(book.bookSaleAbility === "FOR_SALE") ? Math.round(book.bookSaleInfo.retailPrice.amount) + ' SEK' : 'NOT FOR SALE'}</div>
+                            <div>{books}</div>
                             <div>{(book.bookSaleAbility === "FOR_SALE") ? Math.round(book.bookSaleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}</div>
-                            <p>brought by: {book.user}</p>
-                            <p><Link to="/shoppingCart" onClick={() => this.removeItem(book.id)}>&#x1f5d1;</Link></p>
+                            <p onClick={() => this.removeItem(book.id)}>&#x1f5d1;</p>
                         </div>
                         : ""}
                 </div>
@@ -156,15 +161,21 @@ class ShoppingCart extends Component {
             case false:
                 collapsible = (
                     <div className="collapsible">
-                        <div id="sidebar-people">Amount:</div>
-                        <input id="sidebar-num-people" type="number" value={this.state.numberOfBooks}
-                               onChange={this.onNumberOfBooksChanged}/>
-                        <div id="flex-between">
+                        <div id="sidebar-dishes">
+                            <div id="sidebar-signs">
+                                <div id="shopping-cart-product">Product:</div>
+                                <div id="shopping-cart-price">Price:</div>
+                                <div id="shopping-cart-quantity">Quantity:</div>
+                                <div id="shopping-cart-totalprice">Total Price:</div>
+                                <input id="sidebar-num-people" type="number" value={this.state.numberOfBooks}
+                                    onChange={this.onNumberOfBooksChanged}/>
+                            </div>
+                            {dishesContainer}
+                            <div id="sidebar-cost">
+                                <div>Total: {Math.round(price)} SEK</div>
+                            </div>
                         </div>
-                        <div id="sidebar-dishes">{dishesContainer}</div>
-                        <div id="sidebar-cost">
-                            {/*<div>SEK {Math.round(price)}</div>*/}
-                        </div>
+                        
                     </div>
                 );
                 break;
@@ -174,7 +185,7 @@ class ShoppingCart extends Component {
         }
 
         return (
-            <div>
+            <div className="shopping-cart-dropdown">
                 <div className='app'>
                     <header>
                         <div className="wrapper">
@@ -205,12 +216,6 @@ class ShoppingCart extends Component {
                 </div>
 
                 <div className="Sidebar">
-                    <div id="sidebar-top">
-                        <div>Shopping Cart</div>
-                        <div className="SEK-text">SEK {price}</div>
-                        <button id="collapse-sidebar-btn" className="hamburger" onClick={this.handleNavbar}></button>
-                    </div>
-
                     {collapsible}
                 </div>
             </div>

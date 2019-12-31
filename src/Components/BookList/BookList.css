@@ -127,11 +127,11 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
     flex-flow: row wrap;
     justify-content: space-around;
     grid-column: 1 / span 4;
-    border-top:1px solid black;
-    border-bottom:1px solid black;
     margin: 15px;
     color: darkorange;
     padding: 1%;
+    background-color: #434343;
+    border-radius: 10px;
 }
 
 .book-info-wrapper {
@@ -141,13 +141,13 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
 }
 
 .book-info-wrapper > div {
-    height: 140px;
+    height: 100%;
     width: 250px;
     text-align: center;
 }
 
 .book-title-sign, .book-author-sign, .book-rating-sign, .book-date-sign {
-    color:black;
+    color:white;
     margin-bottom: 10px;
 }
 
@@ -164,6 +164,7 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
 
 #sidebar-dishes {
     grid-column: 1 / span 4;
+    width:100%;
 }
 
 #sidebar-confirm {
@@ -215,5 +216,8 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
     text-align: center;
     justify-content: center;
     margin-top: 100px;
-    font-size: large;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Inria Serif', serif;
 }

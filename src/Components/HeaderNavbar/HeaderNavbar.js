@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 import firebase, {auth, provider} from "../../firebaseConfig/firebaseConfig";
 import modelInstance from "../../data/BookligoModel";
 import LoginView from "../../LoginView/LoginView";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import "../ShoppingCart/ShoppingCart.css";
 
 class HeaderNavbar extends Component {
     constructor(props) {
@@ -11,9 +13,11 @@ class HeaderNavbar extends Component {
 
         this.state = {
             user: modelInstance.getCurrentUser(),
+            shoppingCartTriggered: false
         };
         this.logout = this.logout.bind(this);
         this.login = this.login.bind(this);
+        this.triggerShoppingCart = this.triggerShoppingCart.bind(this);
     }
 
     async componentDidMount() {
@@ -22,6 +26,12 @@ class HeaderNavbar extends Component {
                 this.setState({user});
             }
         });
+    }
+
+    triggerShoppingCart() {
+        this.setState({
+            shoppingCartTriggered: !this.state.shoppingCartTriggered
+        })
     }
 
     logout() {
@@ -38,7 +48,7 @@ class HeaderNavbar extends Component {
 
     render() {
         return (
-            <div className="SelectDish">
+            <div className="NavBar">
                 <ul>
                     <li>
                         <Link to="/">Home</Link>
@@ -53,7 +63,7 @@ class HeaderNavbar extends Component {
                         <Link to="/search">Search</Link>
                     </li>
                     <li className="shoppingCart">
-                        <Link to="/shoppingCart">&#x1F6D2;</Link>
+                        <button onClick={this.triggerShoppingCart}>&#x1F6D2;</button>
                     </li>
                     <li>
                         {this.state.user ?
@@ -77,6 +87,14 @@ class HeaderNavbar extends Component {
 
                     </li>
                 </ul>
+                {
+                    this.state.shoppingCartTriggered ? (
+                        <ShoppingCart model={this.modelInstance} />
+                    )
+                    : (
+                        null
+                    )
+                }
             </div>
         );
     }

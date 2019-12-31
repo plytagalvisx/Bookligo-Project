@@ -14,6 +14,9 @@ import Error404View from "./Error404View/Error404View";
 import Switch from "react-router-dom/Switch";
 import Logout from "./Logout/Logout";
 import Login from "./Login/Login";
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
+
 
 class App extends Component {
     constructor(props) {
@@ -70,11 +73,6 @@ class App extends Component {
                     />
 
                     <Route
-                        path="/shoppingCart"
-                        render={() => <ShoppingCartView model={modelInstance}/>}
-                    />
-
-                    <Route
                         path="/bookCategory"
                         render={() => <BookCategoryView model={modelInstance}/>}
                     />
@@ -99,6 +97,7 @@ class App extends Component {
                         component={Error404View}
                     />
                 </Switch>
+                <NotificationContainer />
 
             </div>
         );

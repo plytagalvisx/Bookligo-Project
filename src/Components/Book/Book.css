@@ -15,7 +15,7 @@
 }
 
 .book-information >  img {
-    width: 270px;
+    width: 300px;
     height: 406px;
     grid-row: 1;
     grid-column: 2;
@@ -45,14 +45,6 @@
 }
 
 
-@media (max-width: 450px) {
-    #details-container {
-        grid-template-columns: 100%;
-        grid-column-gap: 0;
-        border: 0;
-    }
-}
-
 .details-line {
     border-bottom: 2px solid black;
     width: 95%;
@@ -65,27 +57,11 @@
     margin-top: 2%;
 }
 
-@media (max-width: 450px) {
-    .details-heading {
-        margin-left: 2%;
-    }
-}
-
-
 .details-text {
     font-size: initial;
     font-weight: normal;
 }
 
-@media (max-width: 450px) {
-    .details-text {
-        font-size: small;
-    }
-}
-
-#details-ingredient-list {
-    width: 50%;
-}
 
 #details-ingredients {
     grid-column: 2 / 5;
@@ -94,14 +70,6 @@
     display: flex;
     height: auto;
     flex-flow: column wrap;
-}
-
-@media (max-width: 450px) {
-    #details-ingredients {
-        grid-column: 1;
-        grid-row: 5;
-        margin-right: 0;
-    }
 }
 
 .details-ingredient-dish {
@@ -163,11 +131,6 @@
     grid-row: 2 / span 3;
 }
 
-@media (max-width: 450px) {
-    #details-left-container {
-        grid-column: 1;
-    }
-}
 
 .details-image {
     max-width: 100%;
@@ -180,29 +143,11 @@
     max-height: 100%;
 }
 
-@media (max-width: 450px) {
-    #details-image-text {
-        margin-left: 2%;
-        margin-right: 2%;
-        text-align: justify;
-    }
-}
-
 #details-preparation {
     grid-row: 5;
     grid-column: 2;
 }
 
-@media (max-width: 450px) {
-    #details-preparation {
-        grid-column: 1;
-        grid-row: 6;
-        text-align: justify;
-        margin-left: 2px;
-        margin-right: 2px;
-        font-size: small;
-    }
-}
 
 #backToSearchBtn {
     width: 150px;
@@ -224,8 +169,77 @@
     text-decoration: underline;
 }
 
+#details-ingredient-list {
+    width: 60%;
+}
+
+
 @media (max-width: 450px) {
+
+    #details-container {
+        grid-template-columns: 100%;
+        grid-column-gap: 0;
+        border: 0;
+    }
+
+    .details-heading {
+        margin-left: 2%;
+    }
+
+    .details-text {
+        font-size: small;
+    }
+
     #backToSearchBtn {
         grid-column: 1;
+    }
+
+    #details-ingredients {
+        grid-column: 1;
+        grid-row: 5;
+        margin-right: 0;
+    }
+
+    #details-ingredient-list {
+        height: auto;
+    }
+
+    #details-preparation {
+        grid-column: 1;
+        grid-row: 6;
+        text-align: justify;
+        margin-left: 2px;
+        margin-right: 2px;
+        font-size: small;
+    }
+
+    #details-image-text {
+        margin-left: 2%;
+        margin-right: 2%;
+        text-align: justify;
+    }
+
+    #details-left-container {
+        grid-column: 1;
+        margin-bottom: 10%;
+    }
+
+    .book-information {
+        flex-flow: column;
+        justify-content: center;
+        height: 100%;
+    }
+    
+    .buttons {
+        width: 98%;
+        padding-top: 10%;
+    }
+
+    .bookListBtn {
+        margin-top: 2%;
+    }
+
+    #buttons-book-rating {
+        margin-top: 6%;
     }
 }
