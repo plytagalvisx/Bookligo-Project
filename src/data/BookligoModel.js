@@ -6,10 +6,11 @@ class BookligoModel extends ObservableModel {
     super();
     this.state = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : {
       numberOfBooks: 0,
-      bookList: [],
-      shoppingCart: [],
+      //bookList: [],
+      //shoppingCart: [],
       price: 0,
       user: null,
+      booksFromDB: [],
     };
   }
 
@@ -47,6 +48,16 @@ class BookligoModel extends ObservableModel {
     return this.state.user;
   }
 
+  setBooksFromDB(books) {
+    this.state.booksFromDB = books;
+    this.updateLocalStorage();
+    this.notifyObservers("New books from Firebase");
+  }
+
+  getBooksFromDB() {
+    return this.state.booksFromDB;
+  }
+
   //Returns all the books on the shopping cart.
   getFullShoppingCart() {
     return this.state.shoppingCart;
@@ -65,8 +76,8 @@ class BookligoModel extends ObservableModel {
       this.updateLocalStorage();
       this.notifyObservers("Book added to shopping cart");
     }
-    else
-      alert("Book already in the shopping cart.");
+    else {}
+      //alert("Book already in the shopping cart.");
   }
 
   //Removes book with specified id from shopping cart
@@ -132,8 +143,8 @@ class BookligoModel extends ObservableModel {
       this.updateLocalStorage();
       this.notifyObservers("Book added to list");
     }
-    else
-      alert("Book already in the list.");
+    else {}
+      //alert("Book already in the list.");
   }
 
   //Removes book with specified id from list

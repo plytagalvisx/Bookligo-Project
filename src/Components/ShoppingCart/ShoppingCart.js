@@ -13,16 +13,17 @@ class ShoppingCart extends Component {
             numberOfBooks: modelInstance.getNumberOfBooks(),
             navBarOpen: false,
             //books: modelInstance.getFullShoppingCart(),
-            price: modelInstance.getTotalShoppingCartPrice(),
+            //price: modelInstance.getTotalShoppingCartPrice(),
             toggled: false,
 
             booksFromDB: [],  // --> Books from Firebase DB
             user: modelInstance.getCurrentUser()
         };
-        this.removeBookFromShoppingCartButton = this.removeBookFromShoppingCartButton.bind(this);
+        //this.removeBookFromShoppingCartButton = this.removeBookFromShoppingCartButton.bind(this);
         this.handleNavbar = this.handleNavbar.bind(this);
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
+        this.toggledShoppingCart = this.toggledShoppingCart.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -55,7 +56,9 @@ class ShoppingCart extends Component {
             }
             this.setState({
                 booksFromDB: newState
-            });
+        });
+            modelInstance.setBooksFromDB(this.state.booksFromDB);
+
         });
     }
 
@@ -84,7 +87,7 @@ class ShoppingCart extends Component {
         this.setState({
             numberOfBooks: modelInstance.getNumberOfBooks(),
             //books: modelInstance.getFullShoppingCart(),
-            price: modelInstance.getTotalShoppingCartPrice(),
+            //price: modelInstance.getTotalShoppingCartPrice(),
         });
     }
 
@@ -97,10 +100,10 @@ class ShoppingCart extends Component {
         modelInstance.setNumberOfBooks(e.target.value);
     };
 
-    removeBookFromShoppingCartButton(bookId) {
+    /*removeBookFromShoppingCartButton(bookId) {
         modelInstance.removeBookFromShoppingCart(bookId);
         console.log("The book has been removed from shopping cart");
-    }
+    }*/
 
     handleNavbar = () => {
         this.setState({navBarOpen: !this.state.navBarOpen});
@@ -130,9 +133,9 @@ class ShoppingCart extends Component {
     render() {
         let books = this.state.numberOfBooks;
         let price = this.state.price;
-        let dishesContainer;
+        let booksContainer;
 
-        dishesContainer = this.state.booksFromDB.map((book) => {
+        booksContainer = this.state.booksFromDB.map((book) => {
             return (
                 <div key={book.id}>
                     {book.user === this.state.user.displayName ?
@@ -170,9 +173,9 @@ class ShoppingCart extends Component {
                                 <input id="sidebar-num-people" type="number" min="1" value={this.state.numberOfBooks}
                                     onChange={this.onNumberOfBooksChanged}/>
                             </div>
-                            {dishesContainer}
+                            {booksContainer}
                             <div id="sidebar-cost">
-                                <div>Total: {Math.round(price)} SEK</div>
+                                {/*<div>Total: {Math.round(price)} SEK</div>*/}
                             </div>
                         </div>
                         

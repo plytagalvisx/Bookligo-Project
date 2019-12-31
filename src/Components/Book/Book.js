@@ -21,9 +21,17 @@ class Book extends Component {
 
             books: [],
             user: this.props.model.getCurrentUser(),
+
+            booksFromDB: this.props.model.getBooksFromDB(),
+            review: '',
+            reviewsFromDB: [],
         };
         this.addToBookListButton = this.addToBookListButton.bind(this);
         this.addToShoppingCart = this.addToShoppingCart.bind(this);
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     // this methods is called by React lifecycle when the
@@ -53,6 +61,23 @@ class Book extends Component {
                 this.setState({user});
             }
         });
+
+        let reviewsRef = await firebase.database().ref("reviews");
+        reviewsRef.once('value', (snap) => {
+            console.log("reviews: ", snap.val());
+            let reviews = snap.val();
+            let newState = [];
+            for (let review in reviews) {
+                newState.push({
+                    id: review,
+                    review: reviews[review].review,
+                    user: reviews[review].user,
+                });
+            }
+            this.setState({
+                reviewsFromDB: newState
+            });
+        });
     }
 
     // this is called when component is removed from the DOM
@@ -70,14 +95,20 @@ class Book extends Component {
     }
 
     addToBookListButton() {
-        this.props.model.addBookToList(this.state.bookDetails);
+        //this.props.model.addBookToList(this.state.bookDetails);
+
+        let bookListRef = firebase.database().ref('bookList');
+        const bookInList = {
+            bookDetails: this.state.bookDetails,
+            user: this.state.user.displayName
+        };
+        bookListRef.push(bookInList);
+
         NotificationManager.success('Book has been added to book list!', 'Successful!', 2000);
     }
 
     addToShoppingCart(e) {
-        this.props.model.addBookToShoppingCart(this.state.bookDetails);
-
-        //e.preventDefault();
+        //this.props.model.addBookToShoppingCart(this.state.bookDetails);
         let booksRef = firebase.database().ref('books');
 
         let book = {
@@ -93,6 +124,24 @@ class Book extends Component {
         }
 
         return 0;
+    }
+
+    handleChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    handleSubmit(bookId) {
+        const reviewsRef = firebase.database().ref('reviews');
+        const review = {
+            review: this.state.review,
+            user: this.state.user.displayName
+        };
+        reviewsRef.push(review);
+        this.setState({
+            review: '',
+        });
     }
 
     render() {
@@ -178,6 +227,25 @@ class Book extends Component {
                         <div id="details-left-container">
                             <div className="details-heading">{book.volumeInfo.title}</div>
                             <div id="details-image-text" dangerouslySetInnerHTML={{ __html: book.volumeInfo.description }}/>
+
+                            <div className="details-heading">Reviews: </div>
+                            <div>
+                                <form onSubmit={this.handleSubmit}>
+                                    <input type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
+                                    <button>Add review</button>
+                                </form>
+                            </div>
+                            <div>
+                                {this.state.reviewsFromDB.map((review) => {
+                                    return (
+                                        <div key={review.id}>
+                                            <p>Review: {review.review}</p>
+                                            <p>Posted by: <strong>{review.user}</strong></p>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
                             <Link to="/search">
                                 <button id="backToSearchBtn" className="backBtn"> &lt;&lt; Back to search</button>
                             </Link>
