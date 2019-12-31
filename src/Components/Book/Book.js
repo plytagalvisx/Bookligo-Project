@@ -95,6 +95,7 @@ class Book extends Component {
     }
 
     addToBookListButton() {
+ HEAD
         //this.props.model.addBookToList(this.state.bookDetails);
 
         let bookListRef = firebase.database().ref('bookList');
@@ -109,17 +110,25 @@ class Book extends Component {
 
     addToShoppingCart(e) {
         //this.props.model.addBookToShoppingCart(this.state.bookDetails);
-        let booksRef = firebase.database().ref('books');
 
+        this.props.model.addBookToList(this.state.bookDetails);
+    }
+
+    addToShoppingCart(e) {
+        
+        //e.preventDefault();
+ c3a9826a78cf74be0c664247c8dd5a37675a7ca4
+        let booksRef = firebase.database().ref('books');
+        
         let book = {
             bookDetails: this.state.bookDetails,
             user: this.state.user.displayName
         };
-
+        
         if (book.bookDetails.saleInfo.saleability === "NOT_FOR_SALE") {
             NotificationManager.error("This book is not for sale.", 'Error!');
         } else {
-            NotificationManager.success('Book has been added to shopping cart!', 'Successful!', 2000);
+            this.props.model.addBookToShoppingCart(this.state.bookDetails);
             booksRef.push(book);
         }
 

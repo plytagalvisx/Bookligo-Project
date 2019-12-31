@@ -1,5 +1,6 @@
 import ObservableModel from "./ObservableModel";
 import * as Constants from "./googlebooksapiConfig";
+import { NotificationManager } from 'react-notifications';
 
 class BookligoModel extends ObservableModel {
   constructor() {
@@ -75,9 +76,15 @@ class BookligoModel extends ObservableModel {
       this.state.shoppingCart.push(book);
       this.updateLocalStorage();
       this.notifyObservers("Book added to shopping cart");
+      NotificationManager.success('Book has been added to shopping cart!', 'Successful!', 2000);
     }
+<<<<<<< HEAD
     else {}
       //alert("Book already in the shopping cart.");
+=======
+    else
+      NotificationManager.error("Book is already in shopping cart!", 'Error!');
+>>>>>>> c3a9826a78cf74be0c664247c8dd5a37675a7ca4
   }
 
   //Removes book with specified id from shopping cart
@@ -142,9 +149,16 @@ class BookligoModel extends ObservableModel {
       this.state.bookList.push(book);
       this.updateLocalStorage();
       this.notifyObservers("Book added to list");
+      NotificationManager.success('Book has been added to book list!', 'Successful!', 2000);
     }
+    else {
+      NotificationManager.error("Book is already in book list!", 'Error!');
+    }
+<<<<<<< HEAD
     else {}
       //alert("Book already in the list.");
+=======
+>>>>>>> c3a9826a78cf74be0c664247c8dd5a37675a7ca4
   }
 
   //Removes book with specified id from list
