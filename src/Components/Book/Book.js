@@ -19,10 +19,6 @@ class Book extends Component {
             bookDetails: '',
             bookId: hash,      // Dish ID hämtas via hash/href
 
-
-            addedBookToList: false,
-            addedBookToCart: false,
-
             books: [],
             user: this.props.model.getCurrentUser(),
         };
@@ -75,9 +71,6 @@ class Book extends Component {
 
     addToBookListButton() {
         this.props.model.addBookToList(this.state.bookDetails);
-        this.setState({
-            addedBookToList: !this.state.addedBookToList
-        })
         NotificationManager.success('Book has been added to book list!', 'Successful!', 2000);
     }
 
