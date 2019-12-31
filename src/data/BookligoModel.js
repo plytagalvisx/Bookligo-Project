@@ -30,7 +30,7 @@ class BookligoModel extends ObservableModel {
    * @param {number} num
    */
   setNumberOfBooks(num) {
-    if(num < 0)
+    if(num <= 0)
       num = 0;
     this.state.numberOfBooks = num;
     this.updateLocalStorage();

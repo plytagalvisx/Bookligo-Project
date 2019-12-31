@@ -143,7 +143,7 @@ class Books extends Component {
                                     <p className="book-text-info"> {book.volumeInfo.publishedDate}, {book.volumeInfo.language}, 
                                             ISBN {book.volumeInfo.industryIdentifiers[1] === undefined ? " Unknown" : book.volumeInfo.industryIdentifiers[1].identifier }
                                     </p>
-                                    <p className="book-text-sale">{book.saleInfo.saleability}</p>   
+                                    <p className="book-text-sale">{book.saleInfo.saleability === "FOR_SALE" ? "SEK " + book.saleInfo.retailPrice.amount : book.saleInfo.saleability}</p>
                                 </div>
                                 <p className="book-rating">Average Rating: {book.volumeInfo.averageRating}</p>
                             </div>

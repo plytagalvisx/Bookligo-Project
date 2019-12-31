@@ -84,7 +84,7 @@ class ShoppingCart extends Component {
         this.setState({
             numberOfBooks: modelInstance.getNumberOfBooks(),
             //books: modelInstance.getFullShoppingCart(),
-            //price: modelInstance.getTotalShoppingCartPrice(),
+            price: modelInstance.getTotalShoppingCartPrice(),
         });
     }
 
@@ -167,7 +167,7 @@ class ShoppingCart extends Component {
                                 <div id="shopping-cart-price">Price:</div>
                                 <div id="shopping-cart-quantity">Quantity:</div>
                                 <div id="shopping-cart-totalprice">Total Price:</div>
-                                <input id="sidebar-num-people" type="number" value={this.state.numberOfBooks}
+                                <input id="sidebar-num-people" type="number" min="1" value={this.state.numberOfBooks}
                                     onChange={this.onNumberOfBooksChanged}/>
                             </div>
                             {dishesContainer}

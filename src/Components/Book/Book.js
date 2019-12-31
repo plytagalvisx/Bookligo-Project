@@ -23,7 +23,7 @@ class Book extends Component {
             user: this.props.model.getCurrentUser(),
         };
         this.addToBookListButton = this.addToBookListButton.bind(this);
-        this.addBookToShoppingCart = this.addBookToShoppingCart.bind(this);
+        this.addToShoppingCart = this.addToShoppingCart.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -74,7 +74,9 @@ class Book extends Component {
         NotificationManager.success('Book has been added to book list!', 'Successful!', 2000);
     }
 
-    addBookToShoppingCart(e) {
+    addToShoppingCart(e) {
+        this.props.model.addBookToShoppingCart(this.state.bookDetails);
+
         //e.preventDefault();
         let booksRef = firebase.database().ref('books');
 
@@ -157,7 +159,7 @@ class Book extends Component {
                             
                                  <div className="buttons">
                                     {this.state.user ?
-                                            <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addBookToShoppingCart}>
+                                            <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addToShoppingCart}>
                                                 <div
                                                     className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? 'Buy for ' + Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}
                                                 </div>
