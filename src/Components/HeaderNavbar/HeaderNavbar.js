@@ -65,13 +65,6 @@ class HeaderNavbar extends Component {
                     <li className="shoppingCart">
                         <button onClick={this.triggerShoppingCart}>&#x1F6D2;</button>
                     </li>
-                    <li>
-                        {this.state.user ?
-                            <Link to="/logout" onClick={this.logout}>Logout</Link>
-                            :
-                            <Link to="/login" onClick={this.login}>Login</Link>
-                        }
-                    </li>
                     <li className="dropdown">
                         {this.state.user ?
                             <div>
@@ -80,9 +73,10 @@ class HeaderNavbar extends Component {
                                 </a>
                                 <div className="dropdown-content">
                                     <Link to="/profile">Profile</Link>
+                                    <Link to="/logout" onClick={this.logout}>Logout</Link>
                                 </div>
                             </div>
-                            : ""
+                            : <Link to="/login" onClick={this.login}>Login</Link>
                         }
 
                     </li>

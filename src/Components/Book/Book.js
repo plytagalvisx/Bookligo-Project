@@ -4,6 +4,7 @@ import modelInstance from "../../data/BookligoModel";
 import "./Book.css";
 import firebase, {auth} from "../../firebaseConfig/firebaseConfig";
 import { NotificationManager } from 'react-notifications';
+import StarRatings from 'react-star-ratings';
 
 class Book extends Component {
     constructor(props) {
@@ -25,12 +26,17 @@ class Book extends Component {
             booksFromDB: this.props.model.getBooksFromDB(),
             review: '',
             reviewsFromDB: [],
+
+            rating: 0,
         };
         this.addToBookListButton = this.addToBookListButton.bind(this);
         this.addToShoppingCart = this.addToShoppingCart.bind(this);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.changeRating = this.changeRating.bind(this);
+
 
     }
 
@@ -72,6 +78,7 @@ class Book extends Component {
                     id: review,
                     review: reviews[review].review,
                     user: reviews[review].user,
+                    rating: reviews[review].rating,
                 });
             }
             this.setState({
@@ -136,11 +143,19 @@ class Book extends Component {
         const reviewsRef = firebase.database().ref('reviews');
         const review = {
             review: this.state.review,
+            rating: this.state.rating,
             user: this.state.user.displayName
         };
         reviewsRef.push(review);
         this.setState({
             review: '',
+            rating: 0
+        });
+    }
+
+    changeRating(newRating, name) {
+        this.setState({
+            rating: newRating
         });
     }
 
@@ -214,13 +229,19 @@ class Book extends Component {
                                             </div>
                                         </button> :
                                         <button id="addToMenuBtn" className="startBtn">
-                                            Login first here
+                                            Login first
                                         </button>
                                     }
                                     <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
                                         my book list
                                     </button>
-                                    <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? "0" : book.volumeInfo.averageRating}</p>
+                                    {/*<p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? "0" : book.volumeInfo.averageRating}</p>*/}
+                                    <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? 0 : book.volumeInfo.averageRating + (this.state.rating)/2}</p>
+                                    <StarRatings
+                                        rating={book.volumeInfo.averageRating === undefined ? 0 : book.volumeInfo.averageRating + (this.state.rating)/2}
+                                        starDimension="40px"
+                                        starSpacing="15px"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -230,10 +251,19 @@ class Book extends Component {
 
                             <div className="details-heading">Reviews: </div>
                             <div>
+                                {this.state.user ?
                                 <form onSubmit={this.handleSubmit}>
                                     <input type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
                                     <button>Add review</button>
+                                    <StarRatings
+                                        rating={this.state.rating}
+                                        starRatedColor="blue"
+                                        changeRating={this.changeRating}
+                                        numberOfStars={5}
+                                        name='rating'
+                                    />
                                 </form>
+                                    : "You have to login first to add and view reviews"}
                             </div>
                             <div>
                                 {this.state.reviewsFromDB.map((review) => {
@@ -241,6 +271,11 @@ class Book extends Component {
                                         <div key={review.id}>
                                             <p>Review: {review.review}</p>
                                             <p>Posted by: <strong>{review.user}</strong></p>
+                                            <StarRatings
+                                                rating={review.rating}
+                                                starDimension="40px"
+                                                starSpacing="15px"
+                                            />
                                         </div>
                                     )
                                 })}
