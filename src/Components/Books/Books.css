@@ -6,8 +6,13 @@
     color: black;
     font-family: 'Roboto', sans-serif;
     background-size: 100% 100%;
-background-image: url("https://static.tildacdn.com/tild3432-3439-4839-b932-303462393264/library.jpg");
+    background-image: url("https://static.tildacdn.com/tild3432-3439-4839-b932-303462393264/library.jpg");
     min-height: 85vh;
+}
+
+.Dishes {
+    position: relative;
+    width: 100%;
 }
 
 .displayDishes > a {

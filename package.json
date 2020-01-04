@@ -15,7 +15,6 @@
     "react-star-ratings": "^2.3.0",
     "sass": "^1.23.7",
     "typescript": "^3.7.3",
-    "history": "latest",
     "history": "latest"
   },
   "scripts": {

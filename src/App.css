@@ -48,4 +48,19 @@ Source for loader: https://www.w3schools.com/howto/howto_css_loader.asp
 .outer-loader {
     display: flex;
     justify-content: center;
+    position: absolute;
+    z-index: 90;
+    height: 100%;
+    width: 100%;
+}
+
+.overlay-loader {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 90;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.6;
 }

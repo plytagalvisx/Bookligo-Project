@@ -13,7 +13,6 @@ class BookCategories extends Component {
             status: "LOADING",
             sortBooks: '',
             books: [],
-            type: '',
             bookCategory: ''
         };
         this.handleSort = this.handleSort.bind(this);
@@ -28,14 +27,17 @@ class BookCategories extends Component {
     componentDidMount() {
         // when data is retrieved we update the state
         // this will cause the component to re-render
-        let subject = this.state.bookCategory;
+
+        let sortBooks = localStorage.getItem('sortBooksCategories') ? localStorage.getItem('sortBooksCategories') : "";
+        let subject = localStorage.getItem('bookCategory') ? localStorage.getItem('bookCategory') : "";
         modelInstance
             .getAllBooks(subject)
             .then(books => {
                 let withFilledProperties = this.handleMissingProperties(books);
                 this.setState({
                     status: "LOADED",
-                    books: withFilledProperties  //books.items
+                    books: withFilledProperties,  //books.items
+                    sortBooks: sortBooks
                 });
             })
             .catch(() => {
@@ -46,9 +48,8 @@ class BookCategories extends Component {
     }
 
     handleSort(event) {
-        console.log(event.target.value);
+        localStorage.setItem('sortBooksCategories',event.target.value);
         this.setState({sortBooks: event.target.value});
-        this.setState({type: event.target.value});
     }
 
     // We give default values to the missing properties of the book object inside the book.items array.
@@ -94,6 +95,7 @@ class BookCategories extends Component {
     }
 
     handleCategory(event) {
+        localStorage.setItem('bookCategory',event.target.value);
         this.setState({
             status: "LOADING",
             bookCategory: event.target.value
@@ -109,7 +111,7 @@ class BookCategories extends Component {
 
         switch (this.state.status) {
             case "LOADING":
-                loader = <div className="spinner"/>;
+                loader = <div className="outer-loader"><div className="spinner"/> <div className="overlay-loader"></div></div>;
                 break;
             case "LOADED":
                 booksList = sortedBooks.map(book => (
@@ -158,9 +160,10 @@ class BookCategories extends Component {
             ),
 
             <div className="Dishes">
+                {loader}
                 <div className="bookCatergoriesBar"> 
                     <label className="space">
-                        <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort} required>
+                        <select id="selectTypeDish" value={this.state.sortBooks} onChange={this.handleSort} required>
                             <option disabled hidden value="">Sort by...</option>
                             <option>Most Popular</option>
                             <option>Publication date, old to new</option>
@@ -169,7 +172,6 @@ class BookCategories extends Component {
                     </label>
                     {bookCategories}
                 </div>
-                <div className="outer-loader">{loader}</div>
                 <div className="displayDishes">{booksList}</div>
             </div>
         );

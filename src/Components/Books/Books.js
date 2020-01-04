@@ -14,8 +14,7 @@ class Books extends Component {
             status: "LOADING",
             query: '',
             sortBooks: '',
-            books: [],
-            type: '',
+            books: []
         };
         
         this.delayedCallback = debounce(this.apiCall, 800);
@@ -32,14 +31,17 @@ class Books extends Component {
     componentDidMount() {
         // when data is retrieved we update the state
         // this will cause the component to re-render
-        let query = this.state.query;
+        let sortBooks = localStorage.getItem('sortBooksSearch') ? localStorage.getItem('sortBooksSearch') : "";
+        let query = localStorage.getItem('searchQuery') ? localStorage.getItem('searchQuery') : "";
         modelInstance
             .getAllBooks(query)
             .then(books => {
                 let withFilledProperties = this.handleMissingProperties(books);
                 this.setState({
                     status: "LOADED",
-                    books: withFilledProperties  //books.items
+                    books: withFilledProperties,  //books.items
+                    query: query,
+                    sortBooks: sortBooks
                 });
             })
             .catch(() => {
@@ -55,23 +57,18 @@ class Books extends Component {
     }
     
     apiCall = (event) => {
-        console.log(event.target.value);
+        localStorage.setItem('searchQuery',event.target.value);
         this.setState({query: event.target.value});
         this.setState({status: "LOADING"}, this.componentDidMount);
     }
-
-    /*handleSearch(e) {
-        this.setState({query: e.target.value});
-    }*/
 
     pressSearchButton(e) {
         this.setState({status: "LOADING"}, this.componentDidMount);
     }
 
     handleSort(event) {
-        console.log(event.target.value);
+        localStorage.setItem('sortBooksSearch', event.target.value);
         this.setState({sortBooks: event.target.value});
-        this.setState({type: event.target.value});
     }
 
     // We give default values to the missing properties of the book object inside the book.items array.
@@ -80,6 +77,8 @@ class Books extends Component {
             let publishedDateIsUndefined = (book.volumeInfo.hasOwnProperty('publishedDate') === false);
             let imageLinksIsUndefined = (book.volumeInfo.hasOwnProperty('imageLinks') === false);
             let averageRatingIsUndefined = (book.volumeInfo.hasOwnProperty('averageRating') === false);
+            let industryIdentifier0IsUndefined = (book.volumeInfo.industryIdentifiers[0].hasOwnProperty('identifier') === false);
+            let industryIdentifier1IsUndefined = (book.volumeInfo.industryIdentifiers[1].hasOwnProperty('identifier') === false);
 
             if (publishedDateIsUndefined) {
                 book.volumeInfo['publishedDate'] = '0000';
@@ -89,7 +88,12 @@ class Books extends Component {
                 }
             } else if (averageRatingIsUndefined) {
                 book.volumeInfo['averageRating'] = '0';
+            } else if (industryIdentifier0IsUndefined) {
+                book.volumeInfo['identifier'] = '0'
+            } else if (industryIdentifier1IsUndefined) {
+                book.volumeInfo['identifier'] = '0'
             }
+
             return book;
         });
 
@@ -123,7 +127,8 @@ class Books extends Component {
 
         switch (this.state.status) {
             case "LOADING":
-                loader = <div className="spinner"/>;
+                loader = 
+                <div className="outer-loader"><div className="spinner"/> <div className="overlay-loader"></div></div>;
                 break;
             case "LOADED":
                 booksList = sortedBooks.map(book => (
@@ -140,7 +145,7 @@ class Books extends Component {
                                                 ).reduce((prev, curr) => [prev, ', ', curr])}
                                     </p>
                                     <p className="book-text-info"> {book.volumeInfo.publishedDate}, {book.volumeInfo.language}, 
-                                            ISBN {book.volumeInfo.industryIdentifiers[1] === undefined ? " Unknown" : book.volumeInfo.industryIdentifiers[1].identifier }
+                                            ISBN {(book.volumeInfo.industryIdentifiers === undefined || book.volumeInfo.industryIdentifiers[1] === undefined) ? " Unknown" : book.volumeInfo.industryIdentifiers[1].identifier }
                                     </p>
                                     <p className="book-text-sale">{book.saleInfo.saleability === "FOR_SALE" ? "SEK " + book.saleInfo.retailPrice.amount : book.saleInfo.saleability}</p>
                                 </div>
@@ -159,10 +164,11 @@ class Books extends Component {
         }
 
         return (
-                <div className="Dishes">
+                <div className="Dishes"> 
+                    {loader}
                     <div className="searchbar">
                         <label className="space">
-                            <select id="selectTypeDish" value={this.state.type} onChange={this.handleSort}>
+                            <select id="selectTypeDish" value={this.state.sortBooks} onChange={this.handleSort}>
                                 <option disabled hidden value="">Sort by...</option>
                                 <option>Most Popular</option>
                                 <option>Publication date, old to new</option>
@@ -173,7 +179,6 @@ class Books extends Component {
                             onChange={e => this.handleSearch(e)}/>
                         <button type="submit" onClick={this.pressSearchButton}>&#128269;</button>
                     </div>
-                    <div className="outer-loader">{loader}</div>
                     <div className="displayDishes">{booksList}</div>
                 </div>
         );

@@ -182,7 +182,6 @@ class Book extends Component {
     }
 
     render() {
-        let loader = null;
         let books = this.state.numberOfBooks;
         let book = this.state.bookDetails;
         let bookDisplay = null;
@@ -218,7 +217,8 @@ class Book extends Component {
         // dish.
         switch (this.state.status) {
             case "LOADING":
-                bookDisplay = <div className="spinner2"/>;
+                bookDisplay = 
+                <div className="outer-loader"><div className="spinner"/></div>;
                 break;
             case "LOADED":
                 bookDisplay = (
@@ -335,8 +335,7 @@ class Book extends Component {
 
         return (
             <div>
-                <div className="outer-loader">{loader}</div>
-                <div>{bookDisplay}</div>
+                {bookDisplay}
             </div>
         );
     }
