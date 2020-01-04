@@ -26,6 +26,7 @@ class Book extends Component {
             review: '',
             rating: 0,
             booksFromDbWithReviews: [],
+            ratingFromDB: [],
         };
         this.addToBookListButton = this.addToBookListButton.bind(this);
         this.addToShoppingCart = this.addToShoppingCart.bind(this);
@@ -79,8 +80,17 @@ class Book extends Component {
                     reviewId: books[book].reviewDetails.bookId,
                 });
             }
+
+            let ratings = [];
+            for (let book in books) {
+                ratings.push({
+                    rating: books[book].reviewDetails.rating,
+                    reviewId: books[book].reviewDetails.bookId,
+                });
+            }
             this.setState({
-                booksFromDbWithReviews: newState
+                booksFromDbWithReviews: newState,
+                ratingFromDB: ratings
             });
         });
     }
@@ -146,7 +156,20 @@ class Book extends Component {
                 bookId: this.state.bookID,
             }};
         booksWithReviewsRef.push(bookWithReviews);
+
+        this.setState({
+            review: '',
+            rating: 0,
+        });
     }
+
+    removeItem(bookId) {
+        const reviewsRef = firebase.database().ref(`/reviews/${bookId}`);
+        reviewsRef.remove();
+
+        this.componentDidMount();
+    }
+
 
     changeRating(newRating, name) {
         this.setState({
@@ -165,6 +188,9 @@ class Book extends Component {
         let bookDisplay = null;
         let bookReviews;
         let bookID = this.state.bookID;
+        let userDisplayName = this.state.user ? this.state.user.displayName : "";
+        let totalRatingSum = this.state.ratingFromDB.reduce((total, amount) =>
+            (amount.reviewId === bookID ? total + amount.rating/2 : 0), 0);
 
         bookReviews = this.state.booksFromDbWithReviews.map(book => (
                         <div key={book.id}>
@@ -177,7 +203,13 @@ class Book extends Component {
                                         starDimension="40px"
                                         starSpacing="15px"
                                     />
-                                </div> : "" }
+                                    {book.user === userDisplayName ?
+                                        <Link to={"/details/" + book.reviewId}>
+                                            <button onClick={() => this.removeItem(book.id)}>delete review</button>
+                                        </Link>
+                                        : ""}
+                                </div>
+                                : "" }
                         </div>
             ));
 
@@ -252,9 +284,9 @@ class Book extends Component {
                                         my book list
                                     </button>
                                     {/*<p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? "0" : book.volumeInfo.averageRating}</p>*/}
-                                    <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? 0 : book.volumeInfo.averageRating + (this.state.rating)/2}</p>
+                                    <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? totalRatingSum : book.volumeInfo.averageRating + totalRatingSum}</p>
                                     <StarRatings
-                                        rating={book.volumeInfo.averageRating === undefined ? 0 : book.volumeInfo.averageRating + (this.state.rating)/2}
+                                        rating={book.volumeInfo.averageRating === undefined ? totalRatingSum : book.volumeInfo.averageRating + totalRatingSum}
                                         starDimension="40px"
                                         starSpacing="15px"
                                     />
