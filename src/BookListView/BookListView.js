@@ -7,7 +7,7 @@ class BookListView extends Component {
     render() {
         return (
             <div className="SelectBook">
-                <h2>My To-Read List</h2>
+                <div className="booklist-title">My To-Read List</div>
 
                 {/* We pass the model as property to the BookList component */}
                 <BookList model={this.props.model} />

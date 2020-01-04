@@ -5,8 +5,9 @@
     min-height: 85vh;
 }
 
-.SelectBook > h2 {
-    font-size: 2vw;
+.booklist-title {
+    padding: 2% 0 1% 0;
+    font-size: 30px;
     font-weight: bold;
     padding-left: 20px;
     color: white;
