@@ -95,7 +95,7 @@ class BookList extends Component {
                                 <img className="dish-image-bookList" alt="" src={(book.bookImageLinks === undefined) ? 'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:' : `${book.bookImageThumbnail}`}/>
                             </Link>
                             <div className="book-info-wrapper">
-                                <div>
+                                <div className="book-title-wrapper">
                                     <p className="book-title-sign">Book Title:</p>
                                     <Link to={"/details/" + book.bookId}>
                                         <p>{book.title}</p>

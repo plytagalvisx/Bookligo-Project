@@ -134,6 +134,22 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
     border-radius: 10px;
 }
 
+.flex-between-books a {
+    color: darkorange;
+    text-decoration: none;
+    height: 5%;
+}
+
+.book-title-wrapper a {
+    color: darkorange;
+    text-decoration: none;
+    height: 5%;
+}
+
+.book-title-wrapper a:hover {
+    text-decoration: underline;
+}
+
 .book-info-wrapper {
     display: flex;
     flex-flow: row wrap;
