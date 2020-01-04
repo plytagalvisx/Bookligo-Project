@@ -6,7 +6,6 @@ class ProfileView extends Component {
     render() {
         return (
             <div>
-                <HeaderNavbar/>
                 <Profile />
             </div>
         );

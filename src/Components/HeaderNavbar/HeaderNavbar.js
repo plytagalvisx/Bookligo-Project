@@ -3,7 +3,6 @@ import "./HeaderNavbar.css";
 import {Link} from "react-router-dom";
 import firebase, {auth, provider} from "../../firebaseConfig/firebaseConfig";
 import modelInstance from "../../data/BookligoModel";
-import LoginView from "../../LoginView/LoginView";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "../ShoppingCart/ShoppingCart.css";
 
@@ -12,7 +11,7 @@ class HeaderNavbar extends Component {
         super(props);
 
         this.state = {
-            user: modelInstance.getCurrentUser(),
+            user: '',
             shoppingCartTriggered: false
         };
         this.logout = this.logout.bind(this);
@@ -36,6 +35,7 @@ class HeaderNavbar extends Component {
 
     logout() {
         firebase.auth().signOut();
+        this.setState({user: null});
     }
 
     login() {

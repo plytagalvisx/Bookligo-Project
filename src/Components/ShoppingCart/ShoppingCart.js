@@ -12,14 +12,12 @@ class ShoppingCart extends Component {
             status: "LOADING",
             numberOfBooks: modelInstance.getNumberOfBooks(),
             navBarOpen: false,
-            //books: modelInstance.getFullShoppingCart(),
             //price: modelInstance.getTotalShoppingCartPrice(),
             toggled: false,
 
             booksFromDB: [],  // --> Books from Firebase DB
-            user: modelInstance.getCurrentUser()
+            user: ''
         };
-        //this.removeBookFromShoppingCartButton = this.removeBookFromShoppingCartButton.bind(this);
         this.handleNavbar = this.handleNavbar.bind(this);
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
@@ -86,7 +84,6 @@ class ShoppingCart extends Component {
     update() {
         this.setState({
             numberOfBooks: modelInstance.getNumberOfBooks(),
-            //books: modelInstance.getFullShoppingCart(),
             //price: modelInstance.getTotalShoppingCartPrice(),
         });
     }
@@ -99,11 +96,6 @@ class ShoppingCart extends Component {
     onNumberOfBooksChanged = e => {
         modelInstance.setNumberOfBooks(e.target.value);
     };
-
-    /*removeBookFromShoppingCartButton(bookId) {
-        modelInstance.removeBookFromShoppingCart(bookId);
-        console.log("The book has been removed from shopping cart");
-    }*/
 
     handleNavbar = () => {
         this.setState({navBarOpen: !this.state.navBarOpen});
@@ -132,13 +124,15 @@ class ShoppingCart extends Component {
 
     render() {
         let books = this.state.numberOfBooks;
-        let price = this.state.price;
+        //let price = this.state.price;
         let booksContainer;
+
+        let userDisplayName = this.state.user ? this.state.user.displayName : " ";
 
         booksContainer = this.state.booksFromDB.map((book) => {
             return (
                 <div key={book.id}>
-                    {book.user === this.state.user.displayName ?
+                    {book.user === userDisplayName ?
                         <div className="flex-between-dishes">
                             <div>{book.title}</div>
                             <div>{(book.bookSaleAbility === "FOR_SALE") ? Math.round(book.bookSaleInfo.retailPrice.amount) + ' SEK' : 'NOT FOR SALE'}</div>
@@ -191,26 +185,11 @@ class ShoppingCart extends Component {
             <div className="shopping-cart-dropdown">
                 <div className='app'>
                     <header>
-                        <div className="wrapper">
-                           {/* {this.state.user ?
-                                <button onClick={this.logout}>Logout</button>
-                                :
-                                <button value={this.state.user} onChange={this.onCurrentUserChanged}
-                                        onClick={this.login}>Log In</button>
-                            }*/}
-                        </div>
+                        <div className="wrapper"></div>
                     </header>
 
                     {this.state.user ?
                         ""
-/*
-                        <div>
-                            <div className='user-profile'>
-                                <img className="dish-image-shoppingCart"  alt="" src={this.state.user.photoURL}/>
-                                <p>User: {this.state.user.displayName}</p>
-                            </div>
-                        </div>
-*/
                         :
                         <div className='wrapper'>
                             <p>You must be logged in to see the cart and submit to it.</p>

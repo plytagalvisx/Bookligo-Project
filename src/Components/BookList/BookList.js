@@ -12,7 +12,7 @@ class BookList extends Component {
         this.state = {
             //books: modelInstance.getFullList(),
             navBarOpen: false,
-            user: modelInstance.getCurrentUser(),
+            user: '',
 
             bookListFromDB: [],
 
@@ -69,13 +69,8 @@ class BookList extends Component {
     // cause the component to re-render
     update() {
         this.setState({
-            //books: modelInstance.getFullList(),
         });
     }
-
-    /*removeBookFromListButton(bookId) {
-        modelInstance.removeBookFromList(bookId);
-    }*/
 
     removeItem(bookId) {
         const bookListRef = firebase.database().ref(`/bookList/${bookId}`);
@@ -90,16 +85,11 @@ class BookList extends Component {
 
     render() {
         let booksContainer;
+        let userDisplayName = this.state.user ? this.state.user.displayName : " ";
 
-       /* if(this.state.bookListFromDB.length === 0) {
-            booksContainer = <div id="booklist-empty">
-                <p> List is empty... </p>
-                <p> Add some books to read! </p>
-            </div>
-        } else {*/
             booksContainer = this.state.bookListFromDB.map(book => (
                 <div key={book.id}>
-                    {book.user === this.state.user.displayName ?
+                    {book.user === userDisplayName ?
                         <div className="flex-between-books">
                             <Link to={"/details/" + book.bookId}>
                                 <img className="dish-image-bookList" alt="" src={(book.bookImageLinks === undefined) ? 'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:' : `${book.bookImageThumbnail}`}/>

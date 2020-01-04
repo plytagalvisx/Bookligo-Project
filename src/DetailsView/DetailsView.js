@@ -7,7 +7,6 @@ class DetailsView extends Component {
     render() {
         return (
             <div className="selectedDish">
-                <HeaderNavbar/>
                 <Book model={this.props.model}/>
             </div>
         );

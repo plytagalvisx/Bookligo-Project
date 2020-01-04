@@ -6,7 +6,6 @@ class Logout extends Component {
     render() {
         return (
             <div className="SelectDish">
-                <HeaderNavbar/>
                 <Link to="/">
                     <h2>Go back Home</h2>
                 </Link>

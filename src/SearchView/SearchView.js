@@ -7,7 +7,6 @@ class SearchView extends Component {
   render() {
     return (
       <div className="SelectDish">
-          <HeaderNavbar/>
         {/* We pass the model as property to the BookList component */}
         <Books />
       </div>

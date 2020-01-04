@@ -7,7 +7,6 @@ class BookListView extends Component {
     render() {
         return (
             <div className="SelectBook">
-                <HeaderNavbar/>
                 <h2>My To-Read List</h2>
 
                 {/* We pass the model as property to the BookList component */}

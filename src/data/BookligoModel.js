@@ -9,7 +9,6 @@ class BookligoModel extends ObservableModel {
       //bookList: [],
       //shoppingCart: [],
       price: 0,
-      user: null,
       booksFromDB: [],
     };
   }
@@ -36,16 +35,6 @@ class BookligoModel extends ObservableModel {
     this.state.numberOfBooks = num;
     this.updateLocalStorage();
     this.notifyObservers("A number of books has changed");
-  }
-
-  setCurrentUser(user) {
-    this.state.user = user;
-    this.updateLocalStorage();
-    this.notifyObservers("A different user has logged in");
-  }
-
-  getCurrentUser() {
-    return this.state.user;
   }
 
   setBooksFromDB(books) {
@@ -103,11 +92,6 @@ class BookligoModel extends ObservableModel {
     let sum = prices.reduce((total, amount) => total + amount, 0);
     return sum*noOfBooks;
   }
-
-  //Returns all ingredients for all the dishes on the menu.
-  /*getAllIngredients() {
-    return this.state.bookList.map(book => book.extendedIngredients.map(name => name.name)).flat();
-  }*/
 
   //Returns all the books on the list.
   getFullList() {

@@ -9,7 +9,7 @@ import StarRatings from 'react-star-ratings';
 class Book extends Component {
     constructor(props) {
         super(props);
-        let hash = window.location.href.split("/")[4];
+        let hash = window.location.href.split('/').pop().split('?')[0];
 
         // We create the state to store the various statuses
         // e.g. API data loading or error
@@ -18,26 +18,23 @@ class Book extends Component {
             status: "LOADING",
             numberOfBooks: this.props.model.getNumberOfBooks(),
             bookDetails: '',
-            bookId: hash,      // Dish ID hämtas via hash/href
+            bookID: hash,       // Book ID hämtas via hash/href
 
             books: [],
-            user: this.props.model.getCurrentUser(),
+            user: '',
 
-            booksFromDB: this.props.model.getBooksFromDB(),
             review: '',
-            reviewsFromDB: [],
-
             rating: 0,
+            booksFromDbWithReviews: [],
         };
         this.addToBookListButton = this.addToBookListButton.bind(this);
         this.addToShoppingCart = this.addToShoppingCart.bind(this);
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.addBookReview = this.addBookReview.bind(this);
 
         this.changeRating = this.changeRating.bind(this);
-
-
+        this.goBack = this.goBack.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -47,7 +44,7 @@ class Book extends Component {
         this.props.model.addObserver(this);
         // when data is retrieved we update the state
         // this will cause the component to re-render
-        let bookId = this.state.bookId;
+        let bookId = this.state.bookID;
         modelInstance
             .getBook(bookId)
             .then(book => {
@@ -68,21 +65,23 @@ class Book extends Component {
             }
         });
 
-        let reviewsRef = await firebase.database().ref("reviews");
-        reviewsRef.once('value', (snap) => {
-            console.log("reviews: ", snap.val());
-            let reviews = snap.val();
+        const booksRef = await firebase.database().ref("books");
+        booksRef.once('value', (snap) => {
+            console.log("books: ", snap.val());
+            let books = snap.val();
             let newState = [];
-            for (let review in reviews) {
+            for (let book in books) {
                 newState.push({
-                    id: review,
-                    review: reviews[review].review,
-                    user: reviews[review].user,
-                    rating: reviews[review].rating,
+                    id: book,
+                    review: books[book].reviewDetails.review,
+                    user: books[book].user,
+                    rating: books[book].reviewDetails.rating,
+                    bookId: books[book].bookDetails.id,
+                    reviewId: books[book].reviewDetails.bookId,
                 });
             }
             this.setState({
-                reviewsFromDB: newState
+                booksFromDbWithReviews: newState
             });
         });
     }
@@ -102,12 +101,10 @@ class Book extends Component {
     }
 
     addToBookListButton() {
-        //this.props.model.addBookToList(this.state.bookDetails);
-
         let bookListRef = firebase.database().ref('bookList');
         const bookInList = {
             bookDetails: this.state.bookDetails,
-            user: this.state.user.displayName
+            user: this.state.user.displayName,
         };
         bookListRef.push(bookInList);
 
@@ -115,12 +112,11 @@ class Book extends Component {
     }
 
     addToShoppingCart(e) {
-        //this.props.model.addBookToShoppingCart(this.state.bookDetails);
         let booksRef = firebase.database().ref('books');
 
         let book = {
             bookDetails: this.state.bookDetails,
-            user: this.state.user.displayName
+            user: this.state.user.displayName,
         };
 
         if (book.bookDetails.saleInfo.saleability === "NOT_FOR_SALE") {
@@ -139,18 +135,18 @@ class Book extends Component {
         });
     }
 
-    handleSubmit(bookId) {
-        const reviewsRef = firebase.database().ref('reviews');
-        const review = {
-            review: this.state.review,
-            rating: this.state.rating,
-            user: this.state.user.displayName
-        };
-        reviewsRef.push(review);
-        this.setState({
-            review: '',
-            rating: 0
-        });
+    addBookReview() {
+        let booksWithReviewsRef = firebase.database().ref('books');
+
+        let bookWithReviews = {
+            bookDetails: this.state.bookDetails,
+            user: this.state.user.displayName,
+            reviewDetails: this.state.reviewDetails = {
+                review: this.state.review,
+                rating: this.state.rating,
+                bookId: this.state.bookID,
+            }};
+        booksWithReviewsRef.push(bookWithReviews);
     }
 
     changeRating(newRating, name) {
@@ -159,11 +155,32 @@ class Book extends Component {
         });
     }
 
+    goBack(){
+        this.props.history.goBack();
+    }
+
     render() {
         let loader = null;
         let books = this.state.numberOfBooks;
         let book = this.state.bookDetails;
         let bookDisplay = null;
+        let bookReviews;
+        let bookID = this.state.bookID;
+
+        bookReviews = this.state.booksFromDbWithReviews.map(book => (
+                        <div key={book.id}>
+                            { book.review && book.reviewId === bookID ?
+                                <div>
+                                    <p>Review: {book.review}</p>
+                                    <p>Posted by: <strong>{book.user}</strong></p>
+                                    <StarRatings
+                                        rating={book.rating}
+                                        starDimension="40px"
+                                        starSpacing="15px"
+                                    />
+                                </div> : "" }
+                        </div>
+            ));
 
         // depending on the state we either generate
         // useful message to the user or show the selected
@@ -252,7 +269,7 @@ class Book extends Component {
                             <div className="details-heading">Reviews: </div>
                             <div>
                                 {this.state.user ?
-                                <form onSubmit={this.handleSubmit}>
+                                <form onSubmit={this.addBookReview}>
                                     <input type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
                                     <button>Add review</button>
                                     <StarRatings
@@ -266,23 +283,10 @@ class Book extends Component {
                                     : "You have to login first to add and view reviews"}
                             </div>
                             <div>
-                                {this.state.reviewsFromDB.map((review) => {
-                                    return (
-                                        <div key={review.id}>
-                                            <p>Review: {review.review}</p>
-                                            <p>Posted by: <strong>{review.user}</strong></p>
-                                            <StarRatings
-                                                rating={review.rating}
-                                                starDimension="40px"
-                                                starSpacing="15px"
-                                            />
-                                        </div>
-                                    )
-                                })}
+                                {bookReviews}
                             </div>
-
                             <Link to="/search">
-                                <button id="backToSearchBtn" className="backBtn"> &lt;&lt; Back to search</button>
+                                <button id="backToSearchBtn" className="backBtn" onClick={this.goBack}> &lt;&lt; Back to search</button>
                             </Link>
                         </div>
                     </div>

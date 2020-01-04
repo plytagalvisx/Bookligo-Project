@@ -14,6 +14,8 @@ import Login from "./Login/Login";
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import ProfileView from "./ProfileView/ProfileView";
+import Link from "react-router-dom/Link";
+import HeaderNavbar from "./Components/HeaderNavbar/HeaderNavbar";
 
 
 class App extends Component {
@@ -27,55 +29,59 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
+               <header className="App-header">
+                <Link to="/">
                     <h1 className="App-title">{this.state.title}</h1>
-                </header>
+                </Link>
+            </header>
 
-                {/* We rendered different components based on the path */}
-                <Switch>
-                    <Route exact path="/" component={HomeView}/>
+            <HeaderNavbar/>
 
-                    <Route
-                        path="/search"
-                        render={() => <SearchView model={modelInstance}/>}
-                    />
+            {/* We rendered different components based on the path */}
+            <Switch>
+                <Route exact path="/" component={HomeView}/>
+                <Route
+                    path="/search"
+                    render={() => <SearchView model={modelInstance}/>}
+                />
 
-                    <Route
-                        path="/details"
-                        render={() => <DetailsView model={modelInstance}/>}
-                    />
+                <Route
+                    path="/details"
+                    render={() => <DetailsView model={modelInstance}/>}
+                />
 
-                    <Route
-                        path="/bookList"
-                        render={() => <BookListView model={modelInstance}/>}
-                    />
+                <Route
+                    path="/bookList"
+                    render={() => <BookListView model={modelInstance}/>}
+                />
 
-                    <Route
-                        path="/bookCategory"
-                        render={() => <BookCategoryView model={modelInstance}/>}
-                    />
+                <Route
+                    path="/bookCategory"
+                    render={() => <BookCategoryView model={modelInstance}/>}
+                />
 
-                    <Route
-                        path="/logout"
-                        render={() => <Logout model={modelInstance}/>}
-                    />
+                <Route
+                    path="/logout"
+                    render={() => <Logout model={modelInstance}/>}
+                />
 
-                    <Route
-                        path="/login"
-                        render={() => <Login model={modelInstance}/>}
-                    />
+                <Route
+                    path="/login"
+                    render={() => <Login model={modelInstance}/>}
+                />
 
-                    <Route
-                        path="/profile"
-                        render={() => <ProfileView model={modelInstance}/>}
-                    />
+                <Route
+                    path="/profile"
+                    render={() => <ProfileView model={modelInstance}/>}
+                />
 
-                    <Route
-                        exact path="/*"
-                        component={Error404View}
-                    />
-                </Switch>
-                <NotificationContainer />
+                <Route
+                    exact path="/*"
+                    component={Error404View}
+                />
+            </Switch>
+
+            <NotificationContainer />
 
             </div>
         );
