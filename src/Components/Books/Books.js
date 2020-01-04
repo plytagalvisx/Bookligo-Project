@@ -80,8 +80,6 @@ class Books extends Component {
             let publishedDateIsUndefined = (book.volumeInfo.hasOwnProperty('publishedDate') === false);
             let imageLinksIsUndefined = (book.volumeInfo.hasOwnProperty('imageLinks') === false);
             let averageRatingIsUndefined = (book.volumeInfo.hasOwnProperty('averageRating') === false);
-            let industryIdentifier0IsUndefined = (book.volumeInfo.industryIdentifiers[0].hasOwnProperty('identifier') === false);
-            let industryIdentifier1IsUndefined = (book.volumeInfo.industryIdentifiers[1].hasOwnProperty('identifier') === false);
 
             if (publishedDateIsUndefined) {
                 book.volumeInfo['publishedDate'] = '0000';
@@ -91,12 +89,7 @@ class Books extends Component {
                 }
             } else if (averageRatingIsUndefined) {
                 book.volumeInfo['averageRating'] = '0';
-            } else if (industryIdentifier0IsUndefined) {
-                book.volumeInfo['identifier'] = '0'
-            } else if (industryIdentifier1IsUndefined) {
-                book.volumeInfo['identifier'] = '0'
             }
-
             return book;
         });
 

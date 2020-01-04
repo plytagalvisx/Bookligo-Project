@@ -65,7 +65,7 @@ class Book extends Component {
             }
         });
 
-        const booksRef = await firebase.database().ref("books");
+        const booksRef = await firebase.database().ref("reviews");
         booksRef.once('value', (snap) => {
             console.log("books: ", snap.val());
             let books = snap.val();
@@ -76,7 +76,6 @@ class Book extends Component {
                     review: books[book].reviewDetails.review,
                     user: books[book].user,
                     rating: books[book].reviewDetails.rating,
-                    bookId: books[book].bookDetails.id,
                     reviewId: books[book].reviewDetails.bookId,
                 });
             }
@@ -136,7 +135,7 @@ class Book extends Component {
     }
 
     addBookReview() {
-        let booksWithReviewsRef = firebase.database().ref('books');
+        let booksWithReviewsRef = firebase.database().ref('reviews');
 
         let bookWithReviews = {
             bookDetails: this.state.bookDetails,
