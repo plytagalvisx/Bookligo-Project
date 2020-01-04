@@ -35,7 +35,6 @@ class Book extends Component {
         this.addBookReview = this.addBookReview.bind(this);
 
         this.changeRating = this.changeRating.bind(this);
-        this.goBack = this.goBack.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -177,10 +176,6 @@ class Book extends Component {
         });
     }
 
-    goBack(){
-        this.props.history.goBack();
-    }
-
     render() {
         let books = this.state.numberOfBooks;
         let book = this.state.bookDetails;
@@ -283,7 +278,6 @@ class Book extends Component {
                                     <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
                                         my book list
                                     </button>
-                                    {/*<p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? "0" : book.volumeInfo.averageRating}</p>*/}
                                     <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? totalRatingSum : book.volumeInfo.averageRating + totalRatingSum}</p>
                                     <StarRatings
                                         rating={book.volumeInfo.averageRating === undefined ? totalRatingSum : book.volumeInfo.averageRating + totalRatingSum}
@@ -317,7 +311,7 @@ class Book extends Component {
                                 {bookReviews}
                             </div>
                             <Link to="/search">
-                                <button id="backToSearchBtn" className="backBtn" onClick={this.goBack}> &lt;&lt; Back to search</button>
+                                <button id="backToSearchBtn" className="backBtn"> &lt;&lt; Back to search</button>
                             </Link>
                         </div>
                     </div>
