@@ -11,14 +11,11 @@ class BookList extends Component {
         // we put on state the properties we want to use and modify in the component
         this.state = {
             //books: modelInstance.getFullList(),
-            navBarOpen: false,
             user: '',
 
             bookListFromDB: [],
 
         };
-        //this.removeBookFromListButton = this.removeBookFromListButton.bind(this);
-        this.handleNavbar = this.handleNavbar.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -79,10 +76,6 @@ class BookList extends Component {
         this.componentDidMount();
     }
 
-    handleNavbar = () => {
-        this.setState({navBarOpen: !this.state.navBarOpen});
-    };
-
     render() {
         let booksContainer;
         let userDisplayName = this.state.user ? this.state.user.displayName : " ";
@@ -129,32 +122,9 @@ class BookList extends Component {
                 </div>
             ));
 
-        let collapsible = null;
-        let {navBarOpen} = this.state;
-
-        switch (navBarOpen) {
-            case true:
-                collapsible = (
-                    // Returns empty content for the sidebar navigation bar
-                    <div></div>
-                );
-                break;
-            case false:
-                collapsible = (
-                    <div id="sidebar-dishes">{booksContainer}</div>
-                );
-                break;
-            default:
-                collapsible = <b>Failed to collapse the book list bar, please try again</b>;
-                break;
-        }
-
         return (
             <div className="Sidebar">
-                <div id="sidebar-top"> 
-                    <button id="collapse-sidebar-btn" className="hamburger" onClick={this.handleNavbar}></button>
-                </div>
-                {collapsible}
+                <div id="sidebar-dishes">{booksContainer}</div>
             </div>
         );
     }
