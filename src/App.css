@@ -2,7 +2,13 @@
 
 .App-header {
     background-color: #FFD966;
-    padding: 3vh;
+    padding: 1%;
+}
+
+.App-header > a {
+    color: black;
+    text-decoration: none;
+    width: 0px;
 }
 
 .App-title {
