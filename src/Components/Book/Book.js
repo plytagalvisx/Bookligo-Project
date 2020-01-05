@@ -143,7 +143,7 @@ class Book extends Component {
         });
     }
 
-    addBookReview() {
+    addBookReview(e) {
         let booksWithReviewsRef = firebase.database().ref('reviews');
 
         let bookWithReviews = {
@@ -189,19 +189,22 @@ class Book extends Component {
         bookReviews = this.state.booksFromDbWithReviews.map(book => (
                         <div key={book.id}>
                             { book.review && book.reviewId === bookID ?
-                                <div>
-                                    <p>Review: {book.review}</p>
-                                    <p>Posted by: <strong>{book.user}</strong></p>
-                                    <StarRatings
-                                        rating={book.rating}
-                                        starDimension="40px"
-                                        starSpacing="15px"
-                                    />
-                                    {book.user === userDisplayName ?
-                                        <Link to={"/details/" + book.reviewId}>
-                                            <button onClick={() => this.removeItem(book.id)}>delete review</button>
-                                        </Link>
-                                        : ""}
+                                <div className="flex-ratings">
+                                    <div className="flex-rating-info">
+                                        <p>"{book.review}"</p>
+                                        <StarRatings
+                                                rating={book.rating}
+                                                starDimension="20px"
+                                                starSpacing="5px"
+                                        />
+                                        {book.user === userDisplayName ?
+                                            <Link to={"/details/" + book.reviewId}>
+                                                <button onClick={() => this.removeItem(book.id)}>&#x1f5d1;</button>
+                                            </Link>
+                                            : ""
+                                        }
+                                    </div>
+                                    <p> - <strong>{book.user}</strong></p>
                                 </div>
                                 : "" }
                         </div>
@@ -219,7 +222,6 @@ class Book extends Component {
                 bookDisplay = (
                     <div key={book.id} id="details-container">
                         <div id="details-ingredients">
-
                             <div className="book-information">
                                 <img className="dish-image" alt=""
                                      src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
@@ -278,41 +280,45 @@ class Book extends Component {
                                     <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
                                         my book list
                                     </button>
-                                    <p id="buttons-book-rating">Average Rating: {book.volumeInfo.averageRating === undefined ? totalRatingSum : book.volumeInfo.averageRating + totalRatingSum}</p>
-                                    <StarRatings
-                                        rating={book.volumeInfo.averageRating === undefined ? totalRatingSum : book.volumeInfo.averageRating + totalRatingSum}
-                                        starDimension="40px"
-                                        starSpacing="15px"
-                                    />
                                 </div>
+                                
+                            </div>
+                            <div className="star-ratings-wrapper">
+                                <StarRatings
+                                    rating={book.volumeInfo.averageRating === undefined ? totalRatingSum : book.volumeInfo.averageRating + totalRatingSum}
+                                    starDimension="30px"
+                                    starSpacing="15px"
+                                />
                             </div>
                         </div>
                         <div id="details-left-container">
                             <div className="details-heading">{book.volumeInfo.title}</div>
                             <div id="details-image-text" dangerouslySetInnerHTML={{ __html: book.volumeInfo.description }}/>
-
-                            <div className="details-heading">Reviews: </div>
-                            <div>
-                                {this.state.user ?
-                                <form onSubmit={this.addBookReview}>
-                                    <input type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
-                                    <button>Add review</button>
-                                    <StarRatings
-                                        rating={this.state.rating}
-                                        starRatedColor="blue"
-                                        changeRating={this.changeRating}
-                                        numberOfStars={5}
-                                        name='rating'
-                                    />
-                                </form>
-                                    : "You have to login first to add and view reviews"}
-                            </div>
-                            <div>
-                                {bookReviews}
-                            </div>
                             <Link to="/search">
                                 <button id="backToSearchBtn" className="backBtn"> &lt;&lt; Back to search</button>
                             </Link>
+                            <div className="Review">
+                                {this.state.user ?
+                                <form className="review-form-container" onSubmit={this.addBookReview}>
+                                    <textarea id="review-box" type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
+                                    <div className="review-options-wrapper"> 
+                                        <StarRatings
+                                            rating={this.state.rating}
+                                            starRatedColor="blue"
+                                            changeRating={this.changeRating}
+                                            numberOfStars={5}
+                                            starDimension="20px"
+                                            starSpacing="5px"
+                                            />
+                                        <button>Add review</button>
+                                    </div>
+                                </form>
+                                    : "You have to login first to add and view reviews"}
+
+                                <div>
+                                    {bookReviews}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
