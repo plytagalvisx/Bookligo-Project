@@ -22,7 +22,6 @@ li a, .dropbtn {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-
     transition: 0.3s;
 }
 
@@ -41,6 +40,7 @@ li.dropdown {
     background-color: #434343;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
 }
 
 .dropdown-content a {

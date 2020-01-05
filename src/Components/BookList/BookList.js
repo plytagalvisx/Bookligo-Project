@@ -115,7 +115,7 @@ class BookList extends Component {
                             <Link to="/bookList">
                                 <p id="removeDishBtn" className="removeDishBtn"
                                    onClick={() => this.removeItem(book.id)}>
-                                    <p className="removeBtn">&#x1f5d1;</p>
+                                    <span className="removeBtn">&#x1f5d1;</span>
                                 </p>
                             </Link>
                         </div> : ""}
