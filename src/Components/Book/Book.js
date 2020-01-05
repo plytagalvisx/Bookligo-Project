@@ -268,20 +268,27 @@ class Book extends Component {
 
                                 <div className="buttons">
                                     {this.state.user ?
-                                        <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addToShoppingCart}>
-                                            <div
-                                                className="amount">{(book.saleInfo.saleability === "FOR_SALE") ? 'Buy for ' + Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}
-                                            </div>
-                                        </button> :
+                                    <div>
+                                        {book.saleInfo.saleability === "FOR_SALE" ?
+                                           <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addToShoppingCart}>
+                                               <div className="amount">Buy for {Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK'}</div>
+                                           </button>
+                                                :
+                                        <button id="addToMenuBtn" className={`${"startBtn"}`} style={{backgroundColor: "#d23434", color: "white"}} onClick={this.addToShoppingCart}>
+                                            <div className="amount">NOT FOR SALE</div>
+                                        </button>}
+                                    </div>
+                                        :
+                                    <div>
                                         <button id="addToMenuBtn" className="startBtn">
                                             Login first
                                         </button>
+                                    </div>
                                     }
                                     <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
                                         my book list
                                     </button>
                                 </div>
-                                
                             </div>
                             <div className="star-ratings-wrapper">
                                 <StarRatings
@@ -298,6 +305,7 @@ class Book extends Component {
                                 <button id="backToSearchBtn" className="backBtn"> &lt;&lt; Back to search</button>
                             </Link>
                             <div className="Review">
+                                <h3>Reviews</h3>
                                 {this.state.user ?
                                 <form className="review-form-container" onSubmit={this.addBookReview}>
                                     <textarea id="review-box" type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
