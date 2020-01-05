@@ -1,0 +1,109 @@
+#books-container {
+    display:flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 80%;
+    height: 100%;
+    list-style: none;
+}
+
+@media (max-width: 450px) {
+    #books-container {
+        flex-wrap: wrap;
+    }
+}
+
+#overview-books-items {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 1%;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 450px) {
+    #overview-books-items {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+#booksPrice-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+@media (max-width: 450px) {
+    #booksPrice-container {
+        width: 200px;
+    }
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 50px;
+}
+
+#toPrintBtn {
+    width: 200px;
+    background: orange;
+    display: inline-block;
+    border: 1px solid black;
+    margin-bottom: 0.3em;
+    margin-right: 0.3em;
+    text-align:center;
+    box-shadow: 2px 2px black;
+}
+
+#toPrintBtn:hover{
+    color: black;
+    background-color: white;
+}
+
+.horiline {
+    width: 80%;
+    border-bottom: 3px solid darkgray;
+    margin: 2%;
+}
+
+#vertline {
+    border-left: 3px solid darkgray;
+    margin: 2%;
+    height: 80%;
+}
+
+@media (max-width: 450px) {
+    #books-items {
+        flex-direction: row;
+        justify-content: center;
+        max-width: 200px;
+    }
+
+    #vertline {
+        display: none;
+    }
+
+
+}
+
+#booklist-empty {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    margin-top: 100px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Inria Serif', serif;
+}

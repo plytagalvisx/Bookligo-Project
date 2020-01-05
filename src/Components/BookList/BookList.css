@@ -236,3 +236,36 @@ Source for hamburger style: https://superdevresources.com/css-hamburger-menu/
     color: white;
     font-family: 'Inria Serif', serif;
 }
+
+.books-items {
+    border: none;
+    box-shadow: 5px 10px 8px #888888;
+    transition: 0.3s;
+}
+
+.books-items:hover {
+    transform: scale(1.02);
+}
+
+.removeBtn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #f4511e;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.removeBtn:hover {background-color: #bf3e15}
+
+.removeBtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

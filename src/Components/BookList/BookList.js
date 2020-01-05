@@ -83,7 +83,7 @@ class BookList extends Component {
             booksContainer = this.state.bookListFromDB.map(book => (
                 <div key={book.id}>
                     {book.user === userDisplayName ?
-                        <div className="flex-between-books">
+                        <div className={`${"flex-between-books"}`}>
                             <Link to={"/details/" + book.bookId}>
                                 <img className="dish-image-bookList" alt="" src={(book.bookImageLinks === undefined) ? 'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:' : `${book.bookImageThumbnail}`}/>
                             </Link>
@@ -91,7 +91,7 @@ class BookList extends Component {
                                 <div className="book-title-wrapper">
                                     <p className="book-title-sign">Book Title:</p>
                                     <Link to={"/details/" + book.bookId}>
-                                        <p>{book.title}</p>
+                                        <p style={{color: "#ff8c00"}}>{book.title}</p>
                                     </Link>
                                 </div>
                                 <div>
@@ -115,10 +115,11 @@ class BookList extends Component {
                             <Link to="/bookList">
                                 <p id="removeDishBtn" className="removeDishBtn"
                                    onClick={() => this.removeItem(book.id)}>
-                                    <span className="removeBtn">&#x1f5d1;</span>
+                                    <button className="removeBtn">&#x1f5d1;</button>
                                 </p>
                             </Link>
-                        </div> : ""}
+                        </div>
+                        : ""}
                 </div>
             ));
 

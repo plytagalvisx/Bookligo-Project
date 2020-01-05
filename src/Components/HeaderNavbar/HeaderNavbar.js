@@ -49,7 +49,7 @@ class HeaderNavbar extends Component {
     render() {
         return (
             <div className="NavBar">
-                <ul>
+                <ul className="navigationBar">
                     <li>
                         <Link to="/">Home</Link>
                     </li>
