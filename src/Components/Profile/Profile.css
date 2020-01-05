@@ -1,0 +1,26 @@
+body {
+  background-image: url("https://live.staticflickr.com/3374/3508275007_b6fc9c3eba_b.jpg");
+}
+
+
+.profile {
+  text-align: center;
+}
+.name{
+  position: relative;
+  top: 35px;
+  font-style: italic;
+  color: white;
+}
+
+.Email {
+  position: relative;
+  top: 55px;
+  font-style: italic;
+  color: white;
+}
+
+.picture {
+  width: 100px;
+  height: 100px;
+}

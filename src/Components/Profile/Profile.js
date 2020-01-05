@@ -30,10 +30,10 @@ class Profile extends Component {
             <div>
                 <div>
                     {this.state.user ?
-                        <div>
-                            <div>Name: {this.state.user.displayName}</div>
-                            <div>Email: {this.state.user.email}</div>
-                            <img alt="" src={this.state.user.photoURL}/>
+                        <div className = "profile">
+                            <img className = "picture" alt="" src={this.state.user.photoURL}/>
+                            <div className = "name">Name: {this.state.user.displayName}</div>
+                            <div className = "Email">Email: {this.state.user.email}</div>
                         </div>
                         : ""
                     }
