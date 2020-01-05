@@ -9,7 +9,7 @@ class BookligoModel extends ObservableModel {
       //bookList: [],
       //shoppingCart: [],
       price: 0,
-      booksFromDB: [],
+      pricesFromDB: [],
     };
   }
 
@@ -37,14 +37,14 @@ class BookligoModel extends ObservableModel {
     this.notifyObservers("A number of books has changed");
   }
 
-  setBooksFromDB(books) {
-    this.state.booksFromDB = books;
+  setPricesFromDB(prices) {
+    this.state.pricesFromDB = prices;
     this.updateLocalStorage();
-    this.notifyObservers("New books from Firebase");
+    this.notifyObservers("New prices from Firebase");
   }
 
-  getBooksFromDB() {
-    return this.state.booksFromDB;
+  getPricesFromDB() {
+    return this.state.pricesFromDB;
   }
 
   //Returns all the books on the shopping cart.

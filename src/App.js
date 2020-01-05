@@ -16,6 +16,8 @@ import { NotificationContainer } from 'react-notifications';
 import ProfileView from "./ProfileView/ProfileView";
 import Link from "react-router-dom/Link";
 import HeaderNavbar from "./Components/HeaderNavbar/HeaderNavbar";
+import PurchaseView from "./PurchaseView/PurchaseView";
+import PrintoutView from "./PrintoutView/PrintoutView";
 
 
 class App extends Component {
@@ -73,6 +75,16 @@ class App extends Component {
                 <Route
                     path="/profile"
                     render={() => <ProfileView model={modelInstance}/>}
+                />
+
+                <Route
+                    path="/confirmPurchase"
+                    render={() => <PurchaseView model={modelInstance}/>}
+                />
+
+                <Route
+                    path="/printout"
+                    render={() => <PrintoutView model={modelInstance}/>}
                 />
 
                 <Route

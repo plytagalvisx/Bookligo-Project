@@ -8,7 +8,7 @@ class Profile extends Component {
         super(props);
         // we put on state the properties we want to use and modify in the component
         this.state = {
-            user: modelInstance.getCurrentUser()
+            user: '',
         };
     }
 

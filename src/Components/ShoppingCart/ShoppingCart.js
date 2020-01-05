@@ -16,7 +16,8 @@ class ShoppingCart extends Component {
             toggled: false,
 
             booksFromDB: [],  // --> Books from Firebase DB
-            user: ''
+            user: '',
+            pricesFromDB: [],
         };
         this.handleNavbar = this.handleNavbar.bind(this);
         this.login = this.login.bind(this);
@@ -52,11 +53,18 @@ class ShoppingCart extends Component {
                     bookImageThumbnail: books[book].bookDetails.volumeInfo.imageLinks.thumbnail,
                 });
             }
+            let prices = [];
+            for (let book in books) {
+                prices.push({
+                    price: books[book].bookDetails.saleInfo,
+                    bookId: books[book].bookDetails.id,
+                    user: books[book].user,
+                });
+            }
             this.setState({
-                booksFromDB: newState
-        });
-            modelInstance.setBooksFromDB(this.state.booksFromDB);
-
+                booksFromDB: newState,
+                pricesFromDB: prices
+            });
         });
     }
 
@@ -87,10 +95,6 @@ class ShoppingCart extends Component {
             //price: modelInstance.getTotalShoppingCartPrice(),
         });
     }
-
-    onCurrentUserChanged = e => {
-        modelInstance.setCurrentUser(e.target.value);
-    };
 
     // our handler for the input's on change event
     onNumberOfBooksChanged = e => {
@@ -128,6 +132,8 @@ class ShoppingCart extends Component {
         let booksContainer;
 
         let userDisplayName = this.state.user ? this.state.user.displayName : " ";
+        /*let totalPrice = this.state.pricesFromDB.reduce((total, amount) =>
+            (amount.user === userDisplayName ? Math.round(total + amount.price.retailPrice.amount) : 0), 0);*/
 
         booksContainer = this.state.booksFromDB.map((book) => {
             return (
@@ -169,7 +175,10 @@ class ShoppingCart extends Component {
                             </div>
                             {booksContainer}
                             <div id="sidebar-cost">
-                                {/*<div>Total: {Math.round(price)} SEK</div>*/}
+                                {/*<div>Total: {Math.round(totalPrice)} SEK</div>*/}
+                                <Link to="/confirmPurchase">
+                                    <button>Confirm purchase</button>
+                                </Link>
                             </div>
                         </div>
                         
