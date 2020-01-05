@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import "./Profile.css";
 import modelInstance from "../../data/BookligoModel";
 import { auth } from "../../firebaseConfig/firebaseConfig";
+import HomeView from "../../HomeView/HomeView.js";
 
 class Profile extends Component {
     constructor(props) {
@@ -25,21 +26,27 @@ class Profile extends Component {
 
     render() {
         console.log("User: ", this.state.user);
-
-        return (
-            <div>
-                <div>
-                    {this.state.user ?
-                        <div className = "profile">
-                            <img className = "picture" alt="" src={this.state.user.photoURL}/>
-                            <div className = "name">Name: {this.state.user.displayName}</div>
-                            <div className = "Email">Email: {this.state.user.email}</div>
-                        </div>
-                        : ""
-                    }
-                </div>
-            </div>
-        );
+        if(this.state.user){
+          return (
+              <div>
+                  <div>
+                      {this.state.user ?
+                          <div className = "profile">
+                              <img className = "picture" alt="" src={this.state.user.photoURL}/>
+                              <div className = "name">Name: {this.state.user.displayName}</div>
+                              <div className = "Email">Email: {this.state.user.email}</div>
+                              </div>
+                              : ""
+                            }
+                            </div>
+                            </div>
+                          );
+                }
+        else{
+          return(
+            <HomeView />
+          )
+        }
     }
 }
 
