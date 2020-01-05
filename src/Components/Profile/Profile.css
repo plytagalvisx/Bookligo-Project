@@ -1,9 +1,13 @@
-body {
-  background-image: url("https://live.staticflickr.com/3374/3508275007_b6fc9c3eba_b.jpg");
-}
+
 
 
 .profile {
+  display:grid;
+  grid-template-rows: repeat(14, auto);
+  height: 85vh;
+  width: 100%;
+  background-size: 100% 85vh;
+  background-image: url("https://live.staticflickr.com/3374/3508275007_b6fc9c3eba_b.jpg");
   text-align: center;
 }
 .name{
@@ -21,6 +25,8 @@ body {
 }
 
 .picture {
+  position: relative;
+  left: 870px;
   width: 100px;
   height: 100px;
 }
