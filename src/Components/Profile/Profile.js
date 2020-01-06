@@ -33,8 +33,8 @@ class Profile extends Component {
                       {this.state.user ?
                           <div className = "profile">
                               <img className = "picture" alt="" src={this.state.user.photoURL}/>
-                              <div className = "name">Name: {this.state.user.displayName}</div>
-                              <div className = "Email">Email: {this.state.user.email}</div>
+                              <h4 className = "name">Name: {this.state.user.displayName}</h4>
+                              <h4 className = "Email">Email: {this.state.user.email}</h4>
                               </div>
                               : ""
                             }
