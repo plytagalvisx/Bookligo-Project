@@ -112,7 +112,9 @@ class Purchase extends Component {
                         </div>
                         <div className="horiline"></div>
                         <Link to="/printout">
-                            <button>Print full recipe</button>
+                            <div className="middle">
+                                <button className="printBtn printBtn2">Print full recipe</button>
+                            </div>
                         </Link>
                     </div>
                     : "You must login to confirm purchases" }

@@ -187,36 +187,36 @@ class Book extends Component {
             (amount.reviewId === bookID ? total + amount.rating/2 : 0), 0);
 
         bookReviews = this.state.booksFromDbWithReviews.map(book => (
-                        <div key={book.id}>
-                            { book.review && book.reviewId === bookID ?
-                                <div className="flex-ratings">
-                                    <div className="flex-rating-info">
-                                        <p>"{book.review}"</p>
-                                        <StarRatings
-                                                rating={book.rating}
-                                                starDimension="20px"
-                                                starSpacing="5px"
-                                        />
-                                        {book.user === userDisplayName ?
-                                            <Link to={"/details/" + book.reviewId}>
-                                                <button onClick={() => this.removeItem(book.id)}>&#x1f5d1;</button>
-                                            </Link>
-                                            : ""
-                                        }
-                                    </div>
-                                    <p> - <strong>{book.user}</strong></p>
-                                </div>
-                                : "" }
+            <div key={book.id}>
+                { book.review && book.reviewId === bookID ?
+                    <div className="flex-ratings">
+                        <div className="flex-rating-info">
+                            <p>"{book.review}"</p>
+                            <StarRatings
+                                rating={book.rating}
+                                starDimension="20px"
+                                starSpacing="5px"
+                            />
+                            {book.user === userDisplayName ?
+                                <Link to={"/details/" + book.reviewId}>
+                                    <button onClick={() => this.removeItem(book.id)}>&#x1f5d1;</button>
+                                </Link>
+                                : ""
+                            }
                         </div>
-            ));
+                        <p> - <strong>{book.user}</strong></p>
+                    </div>
+                    : "" }
+            </div>
+        ));
 
         // depending on the state we either generate
         // useful message to the user or show the selected
         // dish.
         switch (this.state.status) {
             case "LOADING":
-                bookDisplay = 
-                <div className="outer-loader"><div className="spinner"/></div>;
+                bookDisplay =
+                    <div className="outer-loader"><div className="spinner"/></div>;
                 break;
             case "LOADED":
                 bookDisplay = (
@@ -268,22 +268,22 @@ class Book extends Component {
 
                                 <div className="buttons">
                                     {this.state.user ?
-                                    <div>
-                                        {book.saleInfo.saleability === "FOR_SALE" ?
-                                           <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addToShoppingCart}>
-                                               <div className="amount">Buy for {Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK'}</div>
-                                           </button>
+                                        <div>
+                                            {book.saleInfo.saleability === "FOR_SALE" ?
+                                                <button id="addToMenuBtn" className={`${"startBtn"} ${"shoppingCartBtn"}`} onClick={this.addToShoppingCart}>
+                                                    <div className="amount">Buy for {Math.round(book.saleInfo.retailPrice.amount * books) + ' SEK'}</div>
+                                                </button>
                                                 :
-                                        <button id="addToMenuBtn" className={`${"startBtn"}`} style={{backgroundColor: "#d23434", color: "white"}} onClick={this.addToShoppingCart}>
-                                            <div className="amount">NOT FOR SALE</div>
-                                        </button>}
-                                    </div>
+                                                <button id="addToMenuBtn" className={`${"startBtn"}`} style={{backgroundColor: "#d23434", color: "white"}} onClick={this.addToShoppingCart}>
+                                                    <div className="amount">NOT FOR SALE</div>
+                                                </button>}
+                                        </div>
                                         :
-                                    <div>
-                                        <button id="addToMenuBtn" className="startBtn">
-                                            Login first
-                                        </button>
-                                    </div>
+                                        <div>
+                                            <button id="addToMenuBtn" className="startBtn">
+                                                Login first
+                                            </button>
+                                        </div>
                                     }
                                     <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
                                         my book list
@@ -307,20 +307,20 @@ class Book extends Component {
                             <div className="Review">
                                 <h3>Reviews</h3>
                                 {this.state.user ?
-                                <form className="review-form-container" onSubmit={this.addBookReview}>
-                                    <textarea id="review-box" type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
-                                    <div className="review-options-wrapper"> 
-                                        <StarRatings
-                                            rating={this.state.rating}
-                                            starRatedColor="blue"
-                                            changeRating={this.changeRating}
-                                            numberOfStars={5}
-                                            starDimension="20px"
-                                            starSpacing="5px"
+                                    <form className="review-form-container" onSubmit={this.addBookReview}>
+                                        <textarea id="review-box" type="text" name="review" placeholder="Add your thoughts" onChange={this.handleChange} value={this.state.review} />
+                                        <div className="review-options-wrapper">
+                                            <StarRatings
+                                                rating={this.state.rating}
+                                                starRatedColor="blue"
+                                                changeRating={this.changeRating}
+                                                numberOfStars={5}
+                                                starDimension="20px"
+                                                starSpacing="5px"
                                             />
-                                        <button>Add review</button>
-                                    </div>
-                                </form>
+                                            <button>Add review</button>
+                                        </div>
+                                    </form>
                                     : "You have to login first to add and view reviews"}
 
                                 <div>
