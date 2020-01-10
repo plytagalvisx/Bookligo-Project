@@ -12,12 +12,12 @@ class ShoppingCart extends Component {
             status: "LOADING",
             numberOfBooks: modelInstance.getNumberOfBooks(),
             navBarOpen: false,
-            //price: modelInstance.getTotalShoppingCartPrice(),
             toggled: false,
 
             booksFromDB: [],  // --> Books from Firebase DB
             user: '',
             pricesFromDB: [],
+            price: 0,
         };
         this.handleNavbar = this.handleNavbar.bind(this);
         this.login = this.login.bind(this);
@@ -90,9 +90,13 @@ class ShoppingCart extends Component {
     // in our update function we modify the state which will
     // cause the component to re-render
     update() {
+        let userDisplayName = this.state.user ? this.state.user.displayName : " ";
+        let totalPrice = this.state.pricesFromDB.reduce((total, amount) =>
+            (amount.user === userDisplayName ? Math.round(total + amount.price.retailPrice.amount) : 0), 0);
+
         this.setState({
             numberOfBooks: modelInstance.getNumberOfBooks(),
-            //price: modelInstance.getTotalShoppingCartPrice(),
+            price: totalPrice * modelInstance.getNumberOfBooks(),
         });
     }
 
@@ -132,8 +136,10 @@ class ShoppingCart extends Component {
         let booksContainer;
 
         let userDisplayName = this.state.user ? this.state.user.displayName : " ";
-        /*let totalPrice = this.state.pricesFromDB.reduce((total, amount) =>
-            (amount.user === userDisplayName ? Math.round(total + amount.price.retailPrice.amount) : 0), 0);*/
+        let totalPrice = this.state.pricesFromDB.reduce((total, amount) =>
+            (amount.user === userDisplayName ? Math.round(total + amount.price.retailPrice.amount) : 0), 0);
+
+        let price = this.state.price;
 
         booksContainer = this.state.booksFromDB.map((book) => {
             return (
@@ -177,7 +183,7 @@ class ShoppingCart extends Component {
                             </div>
                             {booksContainer}
                             <div id="sidebar-cost">
-                                {/*<div>Total: {Math.round(totalPrice)} SEK</div>*/}
+                                <div>Total: {price === 0 ? totalPrice * books : Math.round(price)} SEK</div>
                                 <Link to="/confirmPurchase">
                                     <button>Confirm purchase</button>
                                 </Link>

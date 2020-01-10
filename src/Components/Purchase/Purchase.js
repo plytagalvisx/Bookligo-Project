@@ -14,6 +14,7 @@ class Purchase extends Component {
             numberOfBooks: modelInstance.getNumberOfBooks(),
 
             pricesFromDB: [],
+            price: 0,
         };
     }
 
@@ -71,18 +72,24 @@ class Purchase extends Component {
     // in our update function we modify the state which will
     // cause the component to re-render
     update() {
+        let userDisplayName = this.state.user ? this.state.user.displayName : "";
+        let totalPrice = this.state.pricesFromDB.reduce((total, amount) =>
+            (amount.user === userDisplayName ? Math.round(total + amount.price.retailPrice.amount) : 0), 0);
+
         this.setState({
             numberOfBooks: modelInstance.getNumberOfBooks(),
+            price: totalPrice * modelInstance.getNumberOfBooks(),
         });
     }
 
     render() {
-        console.log("User: ", this.state.user);
         let confirmedBooks;
         let userDisplayName = this.state.user ? this.state.user.displayName : " ";
         let books = this.state.numberOfBooks;
-        /*let totalPrice = this.state.pricesFromDB.reduce((total, amount) =>
-            (amount.user === userDisplayName ? Math.round(total + amount.price.retailPrice.amount) : 0), 0);*/
+        let totalPrice = this.state.pricesFromDB.reduce((total, amount) =>
+            (amount.user === userDisplayName ? Math.round(total + amount.price.retailPrice.amount) : 0), 0);
+
+        let price = this.state.price;
 
         confirmedBooks = this.state.booksFromDB.map(book => (
             <>
@@ -109,7 +116,7 @@ class Purchase extends Component {
                             <div id="vertline"></div>
                             <div id="booksPrice-container">
                                 <div>Total: </div>
-                                {/*<div>{totalPrice} SEK</div>*/}
+                                <div>{price === 0 ? totalPrice * books : Math.round(price)} SEK</div>
                             </div>
                         </div>
                         <div className="horiline"></div>
