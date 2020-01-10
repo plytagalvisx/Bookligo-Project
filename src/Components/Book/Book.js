@@ -67,7 +67,7 @@ class Book extends Component {
 
         const booksRef = await firebase.database().ref("reviews");
         booksRef.once('value', (snap) => {
-            console.log("books: ", snap.val());
+            //console.log("books: ", snap.val());
             let books = snap.val();
             let newState = [];
             for (let book in books) {
@@ -110,31 +110,76 @@ class Book extends Component {
 
     addToBookListButton() {
         let bookListRef = firebase.database().ref('bookList');
-        const bookInList = {
+
+        const bookToAddInList = {
             bookDetails: this.state.bookDetails,
             user: this.state.user.displayName,
         };
-        bookListRef.push(bookInList);
 
-        NotificationManager.success('Book has been added to book list!', 'Successful!', 2000);
+        firebase.database().ref('bookList').orderByChild("bookDetails/id").equalTo(this.state.bookID).once("value",snapshot => {
+            const booksInList = snapshot.val();
+            let bookAlreadyExistsInDB = snapshot.exists();
+
+            if(bookAlreadyExistsInDB) {
+                let boolean = null;
+                for (const bookInList in booksInList) {
+                    if (this.state.user.displayName === booksInList[bookInList].user) {
+                        boolean = true;
+                    }
+                }
+
+                if (!boolean) {
+                    NotificationManager.success('Book has been added to book list!', 'Successful!', 2000);
+                    bookListRef.push(bookToAddInList);
+                } else {
+                    NotificationManager.error("Book is already in book list!", 'Error!');
+                }
+            } else {
+                NotificationManager.success('Book has been added to book list!', 'Successful!', 2000);
+                bookListRef.push(bookToAddInList);
+            }
+        });
     }
 
-    addToShoppingCart(e) {
+    addToShoppingCart() {
+        console.log("book id: ", this.state.bookID);
         let booksRef = firebase.database().ref('books');
 
-        let book = {
+        let bookToAdd = {
             bookDetails: this.state.bookDetails,
             user: this.state.user.displayName,
         };
 
-        if (book.bookDetails.saleInfo.saleability === "NOT_FOR_SALE") {
-            NotificationManager.error("This book is not for sale.", 'Error!');
-        } else {
-            NotificationManager.success('Book has been added to shopping cart!', 'Successful!', 2000);
-            booksRef.push(book);
-        }
+        firebase.database().ref('books').orderByChild("bookDetails/id").equalTo(this.state.bookID).once("value",snapshot => {
+            let books = snapshot.val();
 
-        return 0;
+            if(snapshot.exists()) {
+                let bool;
+                for (let book in books) {
+                    if (this.state.user.displayName === books[book].user) {
+                        bool = true;
+                    }
+                }
+
+                if (!bool) {
+                    if (bookToAdd.bookDetails.saleInfo.saleability === "NOT_FOR_SALE") {
+                        NotificationManager.error("This book is not for sale.", 'Error!');
+                    } else {
+                        NotificationManager.success('Book has been added to shopping cart!', 'Successful!', 2000);
+                        booksRef.push(bookToAdd);
+                    }
+                } else {
+                    NotificationManager.error("Book is already in shopping cart!", 'Error!');
+                }
+            } else {
+                if (bookToAdd.bookDetails.saleInfo.saleability === "NOT_FOR_SALE") {
+                    NotificationManager.error("This book is not for sale.", 'Error!');
+                } else {
+                    NotificationManager.success('Book has been added to shopping cart!', 'Successful!', 2000);
+                    booksRef.push(bookToAdd);
+                }
+            }
+        });
     }
 
     handleChange(e) {
@@ -321,7 +366,7 @@ class Book extends Component {
                                             <button>Add review</button>
                                         </div>
                                     </form>
-                                    : "You have to login first to add and view reviews"}
+                                    : "You have to login first to add reviews"}
 
                                 <div>
                                     {bookReviews}
