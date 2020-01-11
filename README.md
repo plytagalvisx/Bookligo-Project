@@ -50,4 +50,4 @@ compiles and launches the project development server
 builds the project into a deployable artifact.
 
 ## Demo version of the Bookligo web app 
-[Link](https://bookligo-2b01b.web.app/) to running version of our web app.
+[Link](https://bookligo-2b01b.web.app/) or [Link](https://bookligo-2b01b.firebaseapp.com) to running version of our web app.
