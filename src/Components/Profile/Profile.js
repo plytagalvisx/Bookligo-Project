@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import "./Profile.css";
-import modelInstance from "../../data/BookligoModel";
 import { auth } from "../../firebaseConfig/firebaseConfig";
 import HomeView from "../../HomeView/HomeView.js";
 
@@ -25,8 +24,7 @@ class Profile extends Component {
     }
 
     render() {
-        console.log("User: ", this.state.user);
-        if(this.state.user){
+        if(this.state.user) {
           return (
               <div>
                   <div>
@@ -42,7 +40,7 @@ class Profile extends Component {
                             </div>
                           );
                 }
-        else{
+        else {
           return(
             <HomeView />
           )

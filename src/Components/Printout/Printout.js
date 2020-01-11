@@ -70,7 +70,9 @@ class Printout extends Component {
                     <div key={book.id} className="print-cluster">
                         <Link to={"/details/" + book.bookId}>
                             <img className="print-image" alt=""
-                                src={(book.bookImageLinks === undefined) ? 'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:' : `${book.bookImageThumbnail}`}/>
+                                src={(book.bookImageLinks === undefined) ?
+                                    'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:'
+                                    : `${book.bookImageThumbnail}`}/>
                         </Link>
                             <div className="dish-title">{book.title}</div>
                         <div>

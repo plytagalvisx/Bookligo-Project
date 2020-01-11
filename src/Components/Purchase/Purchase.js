@@ -97,7 +97,9 @@ class Purchase extends Component {
                     <div key={book.id}>
                         <li className="book">
                             <Link style={{all: "unset"}} to={"/details/" + book.bookId}>
-                                <img className="dish-image" alt="" src={(book.bookImageLinks === undefined) ? 'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:' : `${book.bookImageThumbnail}`}/>
+                                <img className="dish-image" alt="" src={(book.bookImageLinks === undefined) ?
+                                    'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:'
+                                    : `${book.bookImageThumbnail}`}/>
                                 <p className="dish-text">{book.title}</p>
                             </Link>
                             <div>{(book.bookSaleAbility === "FOR_SALE") ? Math.round(book.bookSaleInfo.retailPrice.amount * books) + ' SEK' : 'NOT FOR SALE'}</div>
@@ -113,13 +115,13 @@ class Purchase extends Component {
                     <div id="overviewmain" className="main">
                         <div id="books-container">
                             <ul id="overview-books-items">{confirmedBooks}</ul>
-                            <div id="vertline"></div>
+                            <div id="vertline"/>
                             <div id="booksPrice-container">
                                 <div>Total: </div>
                                 <div>{price === 0 ? totalPrice * books : Math.round(price)} SEK</div>
                             </div>
                         </div>
-                        <div className="horiline"></div>
+                        <div className="horiline"/>
                         <Link to="/printout">
                             <div className="middle">
                                 <button className="printBtn printBtn2">Print full recipe</button>

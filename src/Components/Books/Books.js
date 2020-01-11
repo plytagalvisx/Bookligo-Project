@@ -16,7 +16,7 @@ class Books extends Component {
             sortBooks: '',
             books: []
         };
-        
+
         this.delayedCallback = debounce(this.apiCall, 800);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSort = this.handleSort.bind(this);
@@ -55,12 +55,12 @@ class Books extends Component {
         event.persist();
         this.delayedCallback(event);
     }
-    
+
     apiCall = (event) => {
         localStorage.setItem('searchQuery',event.target.value);
         this.setState({query: event.target.value});
         this.setState({status: "LOADING"}, this.componentDidMount);
-    }
+    };
 
     pressSearchButton(e) {
         this.setState({status: "LOADING"}, this.componentDidMount);
@@ -73,7 +73,7 @@ class Books extends Component {
 
     // We give default values to the missing properties of the book object inside the book.items array.
     handleMissingProperties(books) {
-        let filledProperties = books.items.map((book) => {
+        return books.items.map((book) => {
             let publishedDateIsUndefined = (book.volumeInfo.hasOwnProperty('publishedDate') === false);
             let imageLinksIsUndefined = (book.volumeInfo.hasOwnProperty('imageLinks') === false);
             let averageRatingIsUndefined = (book.volumeInfo.hasOwnProperty('averageRating') === false);
@@ -96,26 +96,22 @@ class Books extends Component {
 
             return book;
         });
-
-        return filledProperties;
     }
 
     handleSortedBooks() {
-        let sortedBooks = this.state.books.sort((book1, book2) => {
-            let isMostPopularBooks = (this.state.sortBooks === "Most Popular");
+        return this.state.books.sort((book1, book2) => {
             let isNewestBooks = (this.state.sortBooks === "Publication date, new to old");
             let isOldestBooks = (this.state.sortBooks === "Publication date, old to new");
+            let isMostPopularBooks = (this.state.sortBooks === "Most Popular");
 
-            if (isMostPopularBooks) {
-                return parseFloat(book2.volumeInfo.averageRating) - parseFloat(book1.volumeInfo.averageRating)
-            } else if (isNewestBooks) {
+            if (isNewestBooks) {
                 return parseInt(book2.volumeInfo.publishedDate.substring(0, 4)) - parseInt(book1.volumeInfo.publishedDate.substring(0, 4))
             } else if (isOldestBooks) {
                 return parseInt(book1.volumeInfo.publishedDate.substring(0, 4)) - parseInt(book2.volumeInfo.publishedDate.substring(0, 4))
+            } else if (isMostPopularBooks) {
+                return parseFloat(book2.volumeInfo.averageRating) - parseFloat(book1.volumeInfo.averageRating)
             }
         });
-
-        return sortedBooks;
     }
 
     render() {
@@ -127,8 +123,8 @@ class Books extends Component {
 
         switch (this.state.status) {
             case "LOADING":
-                loader = 
-                <div className="outer-loader"><div className="spinner"/> <div className="overlay-loader"></div></div>;
+                loader =
+                <div className="outer-loader"><div className="spinner"/> <div className="overlay-loader"/></div>;
                 break;
             case "LOADED":
                 booksList = sortedBooks.map(book => (
@@ -139,12 +135,12 @@ class Books extends Component {
                                      src={(book.volumeInfo.imageLinks === undefined) ? "" : `${book.volumeInfo.imageLinks.thumbnail}`}/>
                                 <div className="dish-text">
                                     <p className="book-text-title">{book.volumeInfo.title}</p>
-                                    <p className="book-text-author">by 
-                                        {book.volumeInfo.authors === undefined ? " Unknown" : book.volumeInfo.authors.map(author => 
+                                    <p className="book-text-author">by
+                                        {book.volumeInfo.authors === undefined ? " Unknown" : book.volumeInfo.authors.map(author =>
                                                     {return (<span key={Math.floor((Math.random() * 10000000))}> {author}</span>);}
                                                 ).reduce((prev, curr) => [prev, ', ', curr])}
                                     </p>
-                                    <p className="book-text-info"> {book.volumeInfo.publishedDate}, {book.volumeInfo.language}, 
+                                    <p className="book-text-info"> {book.volumeInfo.publishedDate}, {book.volumeInfo.language},
                                             ISBN {(book.volumeInfo.industryIdentifiers === undefined || book.volumeInfo.industryIdentifiers[1] === undefined) ? " Unknown" : book.volumeInfo.industryIdentifiers[1].identifier }
                                     </p>
                                     <p className="book-text-sale">{book.saleInfo.saleability === "FOR_SALE" ? "SEK " + book.saleInfo.retailPrice.amount : book.saleInfo.saleability}</p>
@@ -153,18 +149,18 @@ class Books extends Component {
                             </div>
                         </div>
                     </Link>
-                ))
+                ));
                 break;
             default:
                 booksList =
                     <div id="updateTitle">
                         {queryExists ? 'Please enter something into the field above to start a search.' : ''}
-                    </div>
+                    </div>;
                 break;
         }
 
         return (
-                <div className="Dishes"> 
+                <div className="Dishes">
                     {loader}
                     <div className="searchbar">
                         <label className="space">

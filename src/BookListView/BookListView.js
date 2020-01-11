@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import BookList from "../Components/BookList/BookList";
 import "./BookListView.css";
-import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 
 class BookListView extends Component {
     render() {

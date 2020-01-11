@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ShoppingCart from "../Components/ShoppingCart/ShoppingCart";
-import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 
 class ShoppingCartView extends Component {
     render() {

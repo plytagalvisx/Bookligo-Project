@@ -27,7 +27,6 @@ class BookCategories extends Component {
     componentDidMount() {
         // when data is retrieved we update the state
         // this will cause the component to re-render
-
         let sortBooks = localStorage.getItem('sortBooksCategories') ? localStorage.getItem('sortBooksCategories') : "";
         let subject = localStorage.getItem('bookCategory') ? localStorage.getItem('bookCategory') : "";
         modelInstance
@@ -54,7 +53,7 @@ class BookCategories extends Component {
 
     // We give default values to the missing properties of the book object inside the book.items array.
     handleMissingProperties(books) {
-        let filledProperties = books.items.map((book) => {
+        return books.items.map((book) => {
             let publishedDateIsUndefined = (book.volumeInfo.hasOwnProperty('publishedDate') === false);
             let imageLinksIsUndefined = (book.volumeInfo.hasOwnProperty('imageLinks') === false);
             let averageRatingIsUndefined = (book.volumeInfo.hasOwnProperty('averageRating') === false);
@@ -71,12 +70,10 @@ class BookCategories extends Component {
 
             return book;
         });
-
-        return filledProperties;
     }
 
     handleSortedBooks() {
-        let sortedBooks = this.state.books.sort((book1, book2) => {
+        return this.state.books.sort((book1, book2) => {
             let isMostPopularBooks = (this.state.sortBooks === "Most Popular");
             let isNewestBooks = (this.state.sortBooks === "Publication date, new to old");
             let isOldestBooks = (this.state.sortBooks === "Publication date, old to new");
@@ -90,8 +87,6 @@ class BookCategories extends Component {
             }
             return 0;
         });
-
-        return sortedBooks;
     }
 
     handleCategory(event) {
@@ -111,7 +106,7 @@ class BookCategories extends Component {
 
         switch (this.state.status) {
             case "LOADING":
-                loader = <div className="outer-loader"><div className="spinner"/> <div className="overlay-loader"></div></div>;
+                loader = <div className="outer-loader"><div className="spinner"/> <div className="overlay-loader"/></div>;
                 break;
             case "LOADED":
                 booksList = sortedBooks.map(book => (
@@ -140,7 +135,7 @@ class BookCategories extends Component {
                 break;
             default:
                 booksList =
-                    <div id="updateTitle">Please choose book category.</div>
+                    <div id="updateTitle">Please choose book category.</div>;
                 break;
         }
 

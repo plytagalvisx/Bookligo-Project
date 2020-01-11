@@ -37,3 +37,14 @@ contains API methods that fetches the needed data for this application. For exam
 App.
 * [src/Components/Book/Book.js](/src/Components/Book/Book.js), [src/Components/Books/Books.js](/src/Components/Books/Books.js) etc. - contain the `.js` and `.css` file for each component.
 * [src/DetailsView/DetailsView.js](/src/DetailsView/DetailsView.js), [src/SearchView/SearchView.js](/src/SearchView/SearchView.js) etc. - contain the `.js` and `.css` file for each view containing certain components.
+
+## How to setup this Project
+
+### `npm install` 
+Installs all project dependencies
+
+### `npm start`
+compiles and launches the project development server
+
+### `npm run build` 
+builds the project into a deployable artifact.

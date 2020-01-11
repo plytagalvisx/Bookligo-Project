@@ -19,7 +19,6 @@ import HeaderNavbar from "./Components/HeaderNavbar/HeaderNavbar";
 import PurchaseView from "./PurchaseView/PurchaseView";
 import PrintoutView from "./PrintoutView/PrintoutView";
 
-
 class App extends Component {
     constructor(props) {
         super(props);

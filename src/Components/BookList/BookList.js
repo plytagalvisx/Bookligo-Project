@@ -7,14 +7,10 @@ import firebase, {auth} from "../../firebaseConfig/firebaseConfig";
 class BookList extends Component {
     constructor(props) {
         super(props);
-
         // we put on state the properties we want to use and modify in the component
         this.state = {
-            //books: modelInstance.getFullList(),
             user: '',
-
             bookListFromDB: [],
-
         };
     }
 
@@ -32,7 +28,6 @@ class BookList extends Component {
 
         let bookListRef = await firebase.database().ref("bookList");
         bookListRef.once('value', (snap) => {
-            console.log("book in the list: ", snap.val());
             let booksInList = snap.val();
             let newState = [];
             for (let bookInList in booksInList) {
@@ -85,7 +80,9 @@ class BookList extends Component {
                     {book.user === userDisplayName ?
                         <div className={`${"flex-between-books"}`}>
                             <Link to={"/details/" + book.bookId}>
-                                <img className="dish-image-bookList" alt="" src={(book.bookImageLinks === undefined) ? 'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:' : `${book.bookImageThumbnail}`}/>
+                                <img className="dish-image-bookList" alt="" src={(book.bookImageLinks === undefined) ?
+                                    'https://www.google.com/search?q=no+image+available&sxsrf=ACYBGNTaLXaj1-abpcsLdskwriK-FsQ53w:1575732609760&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjExNyz7aPmAhVxx4sKHfGFBKAQ_AUoAXoECAoQAw&biw=733&bih=756#imgrc=21TOqNe7IyngbM:'
+                                    : `${book.bookImageThumbnail}`}/>
                             </Link>
                             <div className="book-info-wrapper">
                                 <div className="book-title-wrapper">

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import {Link, Redirect} from "react-router-dom";
-import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
+import {Redirect} from "react-router-dom";
 
 class Logout extends Component {
     render() {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./HomeView.css";
-import HeaderNavbar from "../Components/HeaderNavbar/HeaderNavbar";
 
 class HomeView extends Component {
   render() {

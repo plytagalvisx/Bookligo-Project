@@ -28,13 +28,11 @@ class Book extends Component {
             booksFromDbWithReviews: [],
             ratingFromDB: [],
         };
-        this.addToBookListButton = this.addToBookListButton.bind(this);
+        this.changeRating = this.changeRating.bind(this);
         this.addToShoppingCart = this.addToShoppingCart.bind(this);
-
+        this.addToBookListButton = this.addToBookListButton.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.addBookReview = this.addBookReview.bind(this);
-
-        this.changeRating = this.changeRating.bind(this);
     }
 
     // this methods is called by React lifecycle when the
@@ -67,7 +65,6 @@ class Book extends Component {
 
         const booksRef = await firebase.database().ref("reviews");
         booksRef.once('value', (snap) => {
-            //console.log("books: ", snap.val());
             let books = snap.val();
             let newState = [];
             for (let book in books) {
@@ -116,7 +113,8 @@ class Book extends Component {
             user: this.state.user.displayName,
         };
 
-        firebase.database().ref('bookList').orderByChild("bookDetails/id").equalTo(this.state.bookID).once("value",snapshot => {
+        firebase.database().ref('bookList').orderByChild("bookDetails/id")
+            .equalTo(this.state.bookID).once("value",snapshot => {
             const booksInList = snapshot.val();
             let bookAlreadyExistsInDB = snapshot.exists();
 
@@ -150,7 +148,8 @@ class Book extends Component {
             user: this.state.user.displayName,
         };
 
-        firebase.database().ref('books').orderByChild("bookDetails/id").equalTo(this.state.bookID).once("value",snapshot => {
+        firebase.database().ref('books').orderByChild("bookDetails/id")
+            .equalTo(this.state.bookID).once("value",snapshot => {
             let books = snapshot.val();
 
             if(snapshot.exists()) {
@@ -207,7 +206,7 @@ class Book extends Component {
         });
     }
 
-    removeItem(bookId) {
+    removeReview(bookId) {
         const reviewsRef = firebase.database().ref(`/reviews/${bookId}`);
         reviewsRef.remove();
 
@@ -244,7 +243,7 @@ class Book extends Component {
                             />
                             {book.user === userDisplayName ?
                                 <Link to={"/details/" + book.reviewId}>
-                                    <button onClick={() => this.removeItem(book.id)}>&#x1f5d1;</button>
+                                    <button onClick={() => this.removeReview(book.id)}>&#x1f5d1;</button>
                                 </Link>
                                 : ""
                             }

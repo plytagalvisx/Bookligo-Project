@@ -132,7 +132,6 @@ class ShoppingCart extends Component {
 
     render() {
         let books = this.state.numberOfBooks;
-        //let price = this.state.price;
         let booksContainer;
 
         let userDisplayName = this.state.user ? this.state.user.displayName : " ";
@@ -166,7 +165,7 @@ class ShoppingCart extends Component {
             case true:
                 collapsible = (
                     // Returns empty content for the sidebar navigation bar
-                    <div></div>
+                    <div/>
                 );
                 break;
             case false:
@@ -202,7 +201,7 @@ class ShoppingCart extends Component {
             <div className="shopping-cart-dropdown">
                 <div className='app'>
                     <header>
-                        <div className="wrapper"></div>
+                        <div className="wrapper"/>
                     </header>
 
                     {this.state.user ?
