@@ -145,7 +145,7 @@ class ShoppingCart extends Component {
                 <div key={book.id}>
                     {book.user === userDisplayName ?
                         <div className="flex-between-dishes">
-                            <Link to={"/details/" + book.bookId}>
+                            <Link to={`/details/${book.bookId}`}>
                                 <div style={{color: "black"}}>{book.title}</div>
                             </Link>
                             <div>{(book.bookSaleAbility === "FOR_SALE") ? Math.round(book.bookSaleInfo.retailPrice.amount) + ' SEK' : 'NOT FOR SALE'}</div>

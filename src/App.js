@@ -47,7 +47,7 @@ class App extends Component {
                 />
 
                 <Route
-                    path="/details"
+                    path="/details/:bookID"
                     render={() => <DetailsView model={modelInstance}/>}
                 />
 

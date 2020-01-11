@@ -5,12 +5,12 @@ import "./Book.css";
 import firebase, {auth} from "../../firebaseConfig/firebaseConfig";
 import { NotificationManager } from 'react-notifications';
 import StarRatings from 'react-star-ratings';
+import { isConditionalExpression } from "typescript";
 
 class Book extends Component {
     constructor(props) {
         super(props);
         let hash = window.location.href.split('/').pop().split('?')[0];
-
         // We create the state to store the various statuses
         // e.g. API data loading or error
         // this.state har samma content som staten i redux store.
@@ -34,6 +34,64 @@ class Book extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.addBookReview = this.addBookReview.bind(this);
     }
+
+    async componentWillReceiveProps(nextProps) {
+        this.props.model.addObserver(this);
+        if (nextProps.bookID !== this.props.bookID){
+        // when data is retrieved we update the state
+        // this will cause the component to re-render
+        let bookId = nextProps.bookID;
+        modelInstance
+            .getBook(bookId)
+            .then(book => {
+                this.setState({
+                    status: "LOADED",
+                    bookDetails: book
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    status: "ERROR"
+                });
+            });
+
+        await auth.onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({user});
+            }
+        });
+
+            const booksRef = await firebase.database().ref("reviews");
+            booksRef.once('value', (snap) => {
+                let books = snap.val();
+                let newState = [];
+                for (let book in books) {
+                    newState.push({
+                        id: book,
+                        review: books[book].reviewDetails.review,
+                        user: books[book].user,
+                        rating: books[book].reviewDetails.rating,
+                        reviewId: books[book].reviewDetails.bookId,
+                    });
+                }
+    
+                let ratings = [];
+                for (let book in books) {
+                    ratings.push({
+                        rating: books[book].reviewDetails.rating,
+                        reviewId: books[book].reviewDetails.bookId,
+                    });
+                }
+                this.setState({
+                    booksFromDbWithReviews: newState,
+                    ratingFromDB: ratings
+                });
+            });
+       }
+       return null;
+     }
+     
+     
 
     // this methods is called by React lifecycle when the
     // component is actually shown to the user (mounted to DOM)
@@ -101,7 +159,7 @@ class Book extends Component {
     // cause the component to re-render
     update() {
         this.setState({
-            numberOfBooks: this.props.model.getNumberOfBooks(),
+            numberOfBooks: this.props.model.getNumberOfBooks()
         });
     }
 
