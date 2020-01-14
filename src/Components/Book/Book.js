@@ -5,7 +5,6 @@ import "./Book.css";
 import firebase, {auth} from "../../firebaseConfig/firebaseConfig";
 import { NotificationManager } from 'react-notifications';
 import StarRatings from 'react-star-ratings';
-import { isConditionalExpression } from "typescript";
 
 class Book extends Component {
     constructor(props) {
@@ -41,7 +40,7 @@ class Book extends Component {
         // when data is retrieved we update the state
         // this will cause the component to re-render
         let bookId = nextProps.bookID;
-        modelInstance
+          this.props.model
             .getBook(bookId)
             .then(book => {
                 this.setState({
@@ -90,8 +89,8 @@ class Book extends Component {
        }
        return null;
      }
-     
-     
+
+
 
     // this methods is called by React lifecycle when the
     // component is actually shown to the user (mounted to DOM)
@@ -198,7 +197,6 @@ class Book extends Component {
     }
 
     addToShoppingCart() {
-        console.log("book id: ", this.state.bookID);
         let booksRef = firebase.database().ref('books');
 
         let bookToAdd = {
@@ -379,6 +377,9 @@ class Book extends Component {
                                                 <button id="addToMenuBtn" className={`${"startBtn"}`} style={{backgroundColor: "#d23434", color: "white"}} onClick={this.addToShoppingCart}>
                                                     <div className="amount">NOT FOR SALE</div>
                                                 </button>}
+                                                <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
+                                                    my book list
+                                                </button>
                                         </div>
                                         :
                                         <div>
@@ -387,9 +388,6 @@ class Book extends Component {
                                             </button>
                                         </div>
                                     }
-                                    <button id="addToMenuBtn" className={`${"startBtn"} ${"bookListBtn"}`} onClick={this.addToBookListButton}>Add to
-                                        my book list
-                                    </button>
                                 </div>
                             </div>
                             <div className="star-ratings-wrapper">
