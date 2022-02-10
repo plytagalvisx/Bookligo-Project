@@ -6,7 +6,7 @@
     "@ishawnwang/withunmounted": "^1.0.1",
     "firebase": "^7.5.2",
     "lodash": "latest",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-notifications": "^1.4.3",
